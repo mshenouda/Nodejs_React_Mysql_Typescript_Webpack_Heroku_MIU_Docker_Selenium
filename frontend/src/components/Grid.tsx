@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "blue",
             fontFamily: "Roboto"
         },
-        container: {
+        sensorForm: {
             display: 'flex',
             flexGrow: 1,
             backgroundColor: '#333333',
@@ -63,7 +63,7 @@ const MainGrid: React.FC<{}> = () => {
     const classes = useStyles();
 
     return (
-        <Grid container className={classes.container} direction='column' alignItems='flex-start' spacing={2} >
+        <Grid container className={classes.sensorForm} direction='column' alignItems='flex-start' spacing={2}>
             <Grid item xs={12} container direction='row' spacing={2}>
                 <Grid item xs={9}>
                     <Paper className={classes.utility}>
@@ -74,14 +74,14 @@ const MainGrid: React.FC<{}> = () => {
                     <Paper className={classes.form}>
                         <SensorForm />
                     </Paper>
-                </Grid >
-            </Grid >
-            <Grid item xs={12} container direction='row' style={{ width: '100%' }}>
+                </Grid>
+            </Grid>
+            <Grid item xs={12} style={{ width: '100%' }}>
                 <Paper className={classes.logger}>
                     <Logger />
                 </Paper>
-            </Grid >
-        </Grid >
+            </Grid>
+        </Grid>
 
     );
 }
@@ -90,7 +90,7 @@ export default MainGrid;
 
 
 // <div className={classes.root}>
-//     <Grid container spacing={2}>
+//     <Grid sensorForm spacing={2}>
 //         {/*They all will have default widths */}
 //         <Grid item xs>
 //             <Paper className={classes.paper}>xs</Paper>
@@ -99,7 +99,7 @@ export default MainGrid;
 //             <Paper className={classes.paper}>xs</Paper>
 //         </Grid>
 //     </Grid>
-//     <Grid container spacing={2}>
+//     <Grid sensorForm spacing={2}>
 //         <Grid item xs>
 //             <Paper className={classes.paper}>xs</Paper>
 //         </Grid>

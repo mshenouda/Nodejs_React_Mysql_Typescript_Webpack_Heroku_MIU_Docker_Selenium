@@ -16,12 +16,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import DesktopWindowsSharpIcon from '@mui/icons-material/DesktopWindowsSharp';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import ContainerForm from './SensorForm';
 import { SensorProvider } from './../contexts/SensorFormContext';
-
-// import Disclaimer from './Disclaimer';
+import Disclaimer from './Disclaimer';
 import MainGrid from './Grid';
 
 const drawerWidth = 240;
@@ -80,6 +79,7 @@ export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [openInbox, setOpenInbox] = React.useState(false);
+    const [disclaimer, setDisclaimer] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -89,7 +89,10 @@ export default function PersistentDrawerLeft() {
         setOpen(false);
     };
 
-    const handleInbox = () => setOpenInbox(prev => !prev);
+    const handleDisclaimer = () => {
+        setDisclaimer(prev => !prev);
+    };
+    // const handleInbox = () => setOpenInbox(prev => !prev);
 
 
     return (
@@ -131,7 +134,7 @@ export default function PersistentDrawerLeft() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Not implemented', 'Not implemented'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -144,10 +147,11 @@ export default function PersistentDrawerLeft() {
                 </List>
                 <Divider />
                 <List>
-                    <ListItem key={"inbox"} disablePadding onClick={handleInbox}>
+                    <ListItem onClick={handleDisclaimer} key={"Disclaimer"} disablePadding >
                         <ListItemButton>
-                            <ListItemIcon><InboxIcon /></ListItemIcon>
-                            <ListItemText primary={'Inbox'} />
+                            <ListItemIcon><DesktopWindowsSharpIcon /></ListItemIcon>
+                            <ListItemText primary={'Disclaimer'} />
+                            {disclaimer && <Disclaimer />}
                         </ListItemButton>
                     </ListItem>
                     <ListItem key={"mail"} disablePadding>
@@ -160,9 +164,7 @@ export default function PersistentDrawerLeft() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                {/* {openInbox ? <Typography>Inbox</Typography> : <Typography>NoInbox</Typography>} */}
                 {/* <ContainerForm /> */}
-                {/* <Disclaimer /> */}
                 <SensorProvider>
                     <MainGrid />
                 </SensorProvider>
