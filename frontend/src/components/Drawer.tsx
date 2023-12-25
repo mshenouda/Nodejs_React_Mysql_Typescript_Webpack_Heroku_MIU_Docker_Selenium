@@ -22,6 +22,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { SensorProvider } from './../contexts/SensorFormContext';
 import Disclaimer from './Disclaimer';
 import MainGrid from './Grid';
+import TestBackend from './TestBackend';
 
 const drawerWidth = 240;
 
@@ -167,6 +168,7 @@ export default function PersistentDrawerLeft() {
                 <SensorProvider>
                     <MainGrid />
                 </SensorProvider>
+                {/* <TestBackend /> */}
             </Main>
         </Box>
     );
