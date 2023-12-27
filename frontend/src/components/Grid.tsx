@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
     ));
 
-const MainGrid: React.FC<{}> = () => {
+const Dashboard: React.FC<{}> = () => {
     //Styling overrides
     const classes = useStyles();
 
@@ -86,29 +86,5 @@ const MainGrid: React.FC<{}> = () => {
     );
 }
 
-export default MainGrid;
+export default Dashboard;
 
-
-// <div className={classes.root}>
-//     <Grid sensorForm spacing={2}>
-//         {/*They all will have default widths */}
-//         <Grid item xs>
-//             <Paper className={classes.paper}>xs</Paper>
-//         </Grid>
-//         <Grid item xs>
-//             <Paper className={classes.paper}>xs</Paper>
-//         </Grid>
-//     </Grid>
-//     <Grid sensorForm spacing={2}>
-//         <Grid item xs>
-//             <Paper className={classes.paper}>xs</Paper>
-//         </Grid>
-//         <Grid item xs>
-//             <Paper className={classes.paper}>xs</Paper>
-//         </Grid>
-//         {/*However, this component will have 9 units of space */}
-//         <Grid item xs={9}>
-//             <Paper className={classes.paper}>xs=9</Paper>
-//         </Grid>
-//     </Grid>
-// </div>

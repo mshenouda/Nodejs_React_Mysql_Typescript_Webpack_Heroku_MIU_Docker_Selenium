@@ -1,38 +1,46 @@
-import React, { useState, FC, useEffect } from "react";
+import { Button } from "@mui/material";
+import React, { useState, FC, useEffect, MouseEventHandler, MouseEvent, SyntheticEvent } from "react";
+import Input from "@mui/material";
 
-interface IData {
-    readonly id: number,
-    title: string,
-    description: string,
-    published: boolean
+
+
+// const TestBackend: React.FC<{}> = () => {
+
+
+// };
+
+interface types {
+    Button1: boolean,
+    Button2: boolean
 }
 
 const TestBackend: React.FC<{}> = () => {
+    const [program, setProgram] = useState<types>({ Button1: false, Button2: false });
+    const [text, setText] = useState<string>("");
 
-    const [datas, setData] = useState<IData[]>([]);
+    const handleClick = (e: MouseEvent<HTMLButtonElement>): void => {
 
-    useEffect(() => {
-        fetch("http://localhost:8080/api/tutorials")
-            // fetch("https://jsonplaceholder.typicode.com/posts")
-            .then(res => res.json())
-            .then(newData => setData((prev) => [...prev, ...newData]))
-            .catch(err => console.log(err));
-    }, []);
+        const name: any = e;
+        console.log(e.target);
 
+        if (name == "Button1") {
+            console.log(name);
+            setProgram((prev: types) => { return { ...program, Button1: !prev.Button1 } });
+        }
+        if (name == "Button2") {
+            console.log(name);
+            setProgram((prev: types) => { return { ...program, Button2: !prev.Button2 } });
+        }
+    };
 
     return (
-        <div>
-            {datas.map((data, index) => {
-                const { id, title, description, published } = data
-                return (<ul key={id}>
-                    <li>Id: {id}</li>
-                    <li>Title: {title}</li>
-                    <li>Description: {description}</li>
-                    <li>Published: {published ? "Published" : "Not Published"}</li>
-
-                </ul>);
-            })}
-        </div>);
+        <>
+            <h1>Button1: {program.Button1 ? "True" : "False"} </h1>
+            <h1>Button2: {program.Button2 ? "True" : "False"} </h1>
+            <Button aria-label="button1" onClick={handleClick}>Button 1</Button>
+            <Button aria-label="button2" onClick={handleClick}>Button 2</Button>
+        </>
+    );
 };
 
 

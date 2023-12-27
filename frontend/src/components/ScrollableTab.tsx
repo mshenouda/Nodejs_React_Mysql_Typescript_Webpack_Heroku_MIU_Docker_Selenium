@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import HandleTutorials from './Tutorials';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -27,7 +28,7 @@ function TabPanel(props: TabPanelProps) {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                    <div>{children}</div>
                 </Box>
             )}
         </div>
@@ -64,7 +65,7 @@ export default function ScrollableTabs() {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="Item One" {...a11yProps(0)} />
+                    <Tab label="CRUD" {...a11yProps(0)} />
                     <Tab label="Item Two" {...a11yProps(1)} />
                     <Tab label="Item Three" {...a11yProps(2)} />
                 </Tabs>
@@ -75,13 +76,12 @@ export default function ScrollableTabs() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    Item One
+                    <HandleTutorials />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    Item Two
+
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    Item Three
                 </TabPanel>
             </SwipeableViews>
         </Box>

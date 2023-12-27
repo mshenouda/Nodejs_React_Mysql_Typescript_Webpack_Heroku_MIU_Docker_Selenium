@@ -6,10 +6,8 @@ import TestBackend from './components/TestBackend';
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
       <PersistentDrawerLeft />
       {/* <TestBackend /> */}
-      {/* </header> */}
     </div>
   );
 }

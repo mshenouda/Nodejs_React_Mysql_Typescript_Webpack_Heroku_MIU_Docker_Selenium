@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -19,9 +19,10 @@ import ListItemText from '@mui/material/ListItemText';
 import DesktopWindowsSharpIcon from '@mui/icons-material/DesktopWindowsSharp';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { SensorProvider } from './../contexts/SensorFormContext';
 import Disclaimer from './Disclaimer';
-import MainGrid from './Grid';
+import Dashboard from './Grid';
 import TestBackend from './TestBackend';
 
 const drawerWidth = 240;
@@ -75,24 +76,30 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
+type Program = {
+    dashboard: boolean,
+    disclaimer: boolean
+}
+
+enum Programs {
+    DASHBOARD = 0,
+    DISCLAIMER
+}
 
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [openInbox, setOpenInbox] = React.useState(false);
-    const [disclaimer, setDisclaimer] = React.useState(false);
+    const [program, setProgram] = useState<Program>({ dashboard: true, disclaimer: false });
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
-    const handleDisclaimer = () => {
-        setDisclaimer(prev => !prev);
-    };
+    const handleDrawerOpen = () => setOpen(true);
+    const handleDrawerClose = () => setOpen(false);
+    function handleProgram(val: Programs) {
+        if (val === Programs.DASHBOARD)
+            setProgram((prev: Program) => { return { 'dashboard': true, 'disclaimer': false } })
+        else if (val === Programs.DISCLAIMER)
+            setProgram((prev: Program) => { return { 'dashboard': false, 'disclaimer': true } })
+    }
     // const handleInbox = () => setOpenInbox(prev => !prev);
 
 
@@ -135,7 +142,22 @@ export default function PersistentDrawerLeft() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Not implemented', 'Not implemented'].map((text, index) => (
+                    <ListItem key={"Dashboard"} disablePadding>
+                        <ListItemButton onClick={() => handleProgram(Programs.DASHBOARD)}>
+                            <ListItemIcon><DashboardIcon /></ListItemIcon>
+                            <ListItemText primary={'Dashboard'} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem key={"Disclaimer"} disablePadding >
+                        <ListItemButton onClick={() => handleProgram(Programs.DISCLAIMER)}>
+                            <ListItemIcon><DesktopWindowsSharpIcon /></ListItemIcon>
+                            <ListItemText primary={'Disclaimer'} />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+                    {['Implemented', 'Not implemented'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -146,29 +168,13 @@ export default function PersistentDrawerLeft() {
                         </ListItem>
                     ))}
                 </List>
-                <Divider />
-                <List>
-                    <ListItem onClick={handleDisclaimer} key={"Disclaimer"} disablePadding >
-                        <ListItemButton>
-                            <ListItemIcon><DesktopWindowsSharpIcon /></ListItemIcon>
-                            <ListItemText primary={'Disclaimer'} />
-                            {disclaimer && <Disclaimer />}
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem key={"mail"} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon><MailIcon /></ListItemIcon>
-                            <ListItemText primary={'Mail'} />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
                 <SensorProvider>
-                    <MainGrid />
+                    {program.dashboard && <Dashboard />}
                 </SensorProvider>
-                {/* <TestBackend /> */}
+                {program.disclaimer && <Disclaimer />}
             </Main>
         </Box>
     );

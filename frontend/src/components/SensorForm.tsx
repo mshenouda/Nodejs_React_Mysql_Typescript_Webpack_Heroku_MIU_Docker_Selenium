@@ -1,7 +1,8 @@
 //React libraries
 import React from 'react';
 import { useState, useEffect, FormEvent, ChangeEvent, useContext } from 'react';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, createStyles } from '@mui/styles';
+import { Theme } from '@mui/material/styles';
 //Material ui
 import { TextField, Stack, Button } from '@mui/material';
 import { SensorFormContext } from "./../contexts/SensorFormContext";
@@ -10,7 +11,7 @@ import { SensorFormContext } from "./../contexts/SensorFormContext";
 
 
 //STYLING
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     sensorForm: {
         borderBlockColor: 'black',
         border: 4,
@@ -72,7 +73,7 @@ const useStyles = makeStyles({
             borderWidth: 2,
         },
     }
-});
+}));
 
 const SensorForm: React.FC<{}> = () => {
     //STYLING Overrides
