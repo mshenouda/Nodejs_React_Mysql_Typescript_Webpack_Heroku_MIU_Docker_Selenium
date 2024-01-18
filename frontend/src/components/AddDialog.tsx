@@ -1,54 +1,3 @@
-
-
-
-
-//     return (
-//         <React.Fragment>
-//             <h2>Register Form</h2>
-//             <form onSubmit={handleSubmit}>
-//                 <TextField
-//                     type="text"
-//                     color='secondary'
-//                     label="Title"
-//                     required
-//                     onChange={handleTitle}
-//                     value={title}
-//                     fullWidth />
-//                 <TextField
-//                     type="text"
-//                     variant='outlined'
-//                     color='secondary'
-//                     label="Description"
-//                     onChange={handleDescription}
-//                     value={description}
-//                     fullWidth
-//                     required />
-//                 <TextField
-//                     type="text"
-//                     variant='outlined'
-//                     color='secondary'
-//                     label="published"
-//                     onChange={handlePublished}
-//                     value={published}
-//                     fullWidth
-//                     required
-//                     sx={{ mb: 4 }}
-//                 />
-//                 <Switch
-//                     checked={published}
-//                     onChange={handlePublished}
-//                     inputProps={{ 'aria-label': 'controlled' }}
-//                 />
-//                 <Button color="secondary" type="submit">Submit</Button>
-//             </form>
-
-//         </React.Fragment>
-//     )
-// };
-
-// export default AddItem;
-
-
 import React, { useState, FC, ChangeEvent, EventHandler, FormEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
@@ -68,26 +17,21 @@ import { TextField, Button, Container, Stack, Checkbox, Switch } from '@mui/mate
 
 export interface SimpleDialogProps {
     open: boolean;
-    selectedValue: string;
-    onClose: (value: string) => void;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
-    const { onClose, selectedValue, open } = props;
+    const { open } = props;
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
 
-    const handleClose = () => onClose(selectedValue);
-    const handleListItemClick = (value: string) => onClose(value);
-
+    const handleClose = () => {};
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
-    //const handleSubmit = (e: ChangeEvent) => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        // e.preventDefault();
-        console.log(title, description, published);
+
+        //console.log(title, description, published);
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -103,8 +47,8 @@ function SimpleDialog(props: SimpleDialogProps) {
     };
 
     return (
-        <Dialog onClose={handleClose} open={open}>
-            <DialogTitle sx={{ padding: 2 }}>Add Form</DialogTitle>
+        <Dialog open={open}>
+            <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Add Form</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <TextField sx={{ padding: 2 }}
                     type="text"
@@ -123,40 +67,32 @@ function SimpleDialog(props: SimpleDialogProps) {
                     value={description}
                     fullWidth
                     required />
-                <label style={{ padding: 2 }}>Published: </label>
+                <label style={{ fontWeight: 400, padding: 2 }}>Published: </label>
                 <Switch sx={{ padding: 2 }}
                     checked={published}
                     onChange={handlePublished}
                     inputProps={{ 'aria-label': 'controlled' }}
                 /><br />
-                <Button color="primary" sx={{ height: 20 }} fullWidth type="submit">Submit</Button>
+                <Button color="primary" sx={{ fontWeight: 400, height: 50 }} fullWidth type="submit">Submit</Button>
             </form>
         </Dialog>
     );
 }
 
-export default function SimpleDialogDemo() {
+export default function AddDialog() {
     const [open, setOpen] = React.useState(false);
-    const [selectedValue, setSelectedValue] = React.useState('');
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = (value: string) => {
-        setOpen(false);
-        setSelectedValue(value);
-    };
+    const handleClickOpen = () => setOpen(true);
+    //const handleClose = () => setOpen(false);
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
-                <AddCircleIcon /> New item
+                <AddCircleIcon /> Add item
             </Button>
             <SimpleDialog
-                selectedValue={selectedValue}
                 open={open}
-                onClose={handleClose}
+                //onClose={handleClose}
             />
         </div>
     );

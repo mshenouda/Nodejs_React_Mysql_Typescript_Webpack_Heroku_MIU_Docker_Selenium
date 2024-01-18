@@ -17,71 +17,11 @@ import {
 } from "@mui/material";
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AddDialog from './AddItem';
-import EditDialog from './EditItem';
-import Add from '@mui/icons-material/Add';
+import AddDialog from './AddDialog';
+import EditDialog from './EditDialog';
 
-// import { PlayArrowIcon, StopIcon, ReplayIcon } from '@mui/icons-material';
-
-//Styling of Table Cell
-// const StyledTableCell = withStyles((theme: Theme) => ({
-//     head: {
-//         fontSize: 18,
-//         fontWeight: "bold",
-//     },
-//     body: {
-//         fontSize: 16,
-//         fontWeight: 'bold',
-//         textAlign: 'left',
-//         padding: '2px 2px 2px 2px',
-//     },
-// }))(TableCell);
-
-// //Styling Table Row
-// const StyledTableRow = withStyles((theme: Theme) => ({
-//     root: {
-//         '&:nth-of-type(odd)': {
-//             backgroundColor: theme.palette.action.hover,
-//         },
-//         height: 20,
-//     },
-// }))(TableRow);
-
-// const useStyles = makeStyles((theme: Theme) => createStyles({
-//     paper: {
-//         height: 400,
-//         width: '100%',
-//         overflow: 'auto',
-//         margin: '0px 0px 0px 0px',
-//     },
-//     result: {
-//         width: '300px',
-//         color: 'black',
-//     },
-
-// }));
-
-// const Styled = withStyles({
-//     root: {
-//         color: 'white',
-//         fontSize: 20,
-//         height: 50,
-//         margin: '0px 10px 10px 0'
-//     },
-//     iconSizeLarge: {
-//         color: 'white',
-//     },
-//     colorInherit: {
-//         color: 'white',
-//         backgroundColor: 'green',
-//     },
-//     focusVisible: {
-//         backgroundColor: 'inherit',
-//     },
-// })(Button);
-
-const Root = styled('div')(
-  ({ theme }) => `
+const Root = styled('div')
+(({ theme }) => `
   table {
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.875rem;
@@ -204,6 +144,7 @@ const HandleTutorials = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [openEditDialog, setOpenEditDialog] = React.useState<boolean>(false);
 
   //const classes = useStyles();
 
@@ -215,6 +156,9 @@ const HandleTutorials = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const handleEditDialog = ()=>setOpenEditDialog(prev => !prev);
+
+  useEffect(() => showAll(), []);
 
   const showAll = (): void => {
     {
@@ -234,18 +178,17 @@ const HandleTutorials = () => {
       .then(res => res.json())
       .then(res => console.log(res))
       .catch(err => console.log(err))
-    setTimeout(() => showAll, 250);
+    setTimeout(() => showAll(), 250);
   }
 
-  useEffect(() => showAll(), []);
+  
 
   return (
     <>
       <ListItem key={"AddIcon"} disablePadding>
         <AddDialog />
       </ListItem>
-      {openDialog && <AddDialog />}
-      <Root sx={{ width: 500, maxWidth: '200%' }}>
+      <Root sx={{ width: 1000, maxWidth: '100%' }}>
         <table aria-label="custom pagination table">
           <thead>
             <tr>
@@ -262,15 +205,16 @@ const HandleTutorials = () => {
               : datas
             ).map((row) => (
               <tr key={row.id}>
-                <td style={{ width: 10, height: 20 }} align="justify">{row.id}</td>
-                <td style={{ width: 50, height: 20 }} align="justify">{row.title} </td>
+                <td style={{ width: 10, height: 10 }} align="justify">{row.id}</td>
+                <td style={{ width: 50, height: 10 }} align="justify">{row.title} </td>
                 <td style={{ width: 120, wordWrap: "break-word" }} align="justify">{row.description} </td>
                 <td style={{ width: 20 }} align="justify">{row.published ? "Published" : "Not Published"} </td>
                 <td style={{ width: 20 }}>
                   <Stack spacing={1} sx={{ padding: 5 }} direction="row">
-                    <ListItemButton onClick={() => <EditDialog />} >
+                    <ListItemButton onClick={() => handleEditDialog()} >
                       <ListItemIcon><EditNoteIcon /></ListItemIcon>
                     </ListItemButton>
+                    {openEditDialog && <EditDialog openModal={openEditDialog} id={row.id} />}
                     <ListItemButton onClick={() => handleDelete(row.id)}>
                       <ListItemIcon><DeleteForeverIcon /></ListItemIcon>
                     </ListItemButton>
@@ -314,3 +258,63 @@ const HandleTutorials = () => {
 };
 export default HandleTutorials;
 
+
+
+// import Add from '@mui/icons-material/Add';
+
+//Styling of Table Cell
+// const StyledTableCell = withStyles((theme: Theme) => ({
+//     head: {
+//         fontSize: 18,
+//         fontWeight: "bold",
+//     },
+//     body: {
+//         fontSize: 16,
+//         fontWeight: 'bold',
+//         textAlign: 'left',
+//         padding: '2px 2px 2px 2px',
+//     },
+// }))(TableCell);
+
+// //Styling Table Row
+// const StyledTableRow = withStyles((theme: Theme) => ({
+//     root: {
+//         '&:nth-of-type(odd)': {
+//             backgroundColor: theme.palette.action.hover,
+//         },
+//         height: 20,
+//     },
+// }))(TableRow);
+
+// const useStyles = makeStyles((theme: Theme) => createStyles({
+//     paper: {
+//         height: 400,
+//         width: '100%',
+//         overflow: 'auto',
+//         margin: '0px 0px 0px 0px',
+//     },
+//     result: {
+//         width: '300px',
+//         color: 'black',
+//     },
+
+// }));
+
+// const Styled = withStyles({
+//     root: {
+//         color: 'white',
+//         fontSize: 20,
+//         height: 50,
+//         margin: '0px 10px 10px 0'
+//     },
+//     iconSizeLarge: {
+//         color: 'white',
+//     },
+//     colorInherit: {
+//         color: 'white',
+//         backgroundColor: 'green',
+//     },
+//     focusVisible: {
+//         backgroundColor: 'inherit',
+//     },
+// })(Button);

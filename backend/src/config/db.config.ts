@@ -1,6 +1,6 @@
 export default {
   HOST: "localhost",
   USER: "root",
-  PASSWORD: "crestlove",
+  PASSWORD: "Crestlove_13",
   DB: "reactapp"
 };

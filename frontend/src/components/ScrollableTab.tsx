@@ -6,7 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import HandleTutorials from './Tutorials';
+import HandleTutorials from './HandleTutorials';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -55,7 +55,7 @@ export default function ScrollableTabs() {
     };
 
     return (
-        <Box sx={{ bgcolor: 'background.paper', width: 500 }}>
+        <Box sx={{ bgcolor: 'background.paper', width: 1000 }}>
             <AppBar position="static">
                 <Tabs
                     value={value}

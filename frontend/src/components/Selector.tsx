@@ -63,7 +63,6 @@ const Selector: React.FC<Props> = ({ label, records }) => {
     //Styling overrides
     const classes = useStyles();
     //Hooks
-    // let { company, setCompany, box, setBox, selectorDisabled, selector, setSelector } = useContext(UtilitiesContext);
     const [selected, setSelected] = useState<string>("");
     //Handlers
     const handleChange = (e: SelectChangeEvent): void => setSelected(e.target.value);
@@ -73,9 +72,9 @@ const Selector: React.FC<Props> = ({ label, records }) => {
         <FormControl /*disabled={!selectorDisabled}*/ fullWidth className={classes.formControl} variant="outlined">
             <InputLabel className={classes.inputLabel} id="label">{label}</InputLabel>
             <Select className={classes.selected} value={selected} variant='outlined' MenuProps={MenuProps} onChange={handleChange}>
-                {records.map((record: any) => (record['name'] && <MenuItem key={label + record['name']} value={upperCase(record["name"])}> <img src={record["src"]} alt={record["name"]} width="30px" height="30px" /> &nbsp;&nbsp;&nbsp; {upperCase(record["name"])} </MenuItem>))}
-                {/* {records.map((record: any) => (<img src={record["src"]} alt={record["name"]} width="30px" height="30px" />))} */}
-                {/* {records.map((record: any) => console.log(record))} */}
+                {records.map((record: any) => (record['name'] && <MenuItem key={label + record['name']} value={upperCase(record["name"])}>
+                    <img src={record["src"]} alt={record["name"]} width="30px" height="30px" />
+                    &nbsp;&nbsp;&nbsp; {upperCase(record["name"])} </MenuItem>))}
             </Select>
 
         </FormControl >
