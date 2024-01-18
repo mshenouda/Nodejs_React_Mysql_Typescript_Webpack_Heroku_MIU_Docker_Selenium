@@ -11,10 +11,6 @@ import TitlebarImageList from './TitleBarImage';
 
 //Styling
 const useStyles = makeStyles((theme: Theme) => createStyles({
-   
-}));
-
-const styles = {
     root: {
         width: '100%',
         maxWidth: '150ch',
@@ -23,12 +19,15 @@ const styles = {
     inline: {
         display: 'inline',
     },
-};
+}));
 
 interface Props {
+
 };
 
 const Disclaimer: React.FC<Props> = ({ }) => {
+    //Styling overrides
+    const classes = useStyles();
     return (
         <div>
             <Typography variant="h3">Disclaimer:</Typography>
@@ -41,7 +40,7 @@ const Disclaimer: React.FC<Props> = ({ }) => {
             <h2>Integratedsuite is a platform, where one can design hardware solutions in Python, build components in React, and save or retrieve backend data using Django.</h2>
             <Divider />
             <Typography variant="h3">Why buying IntegratedSuite ?</Typography>
-            <List sx={styles.root}>
+            <List className={classes.root}>
                 <ListItem alignItems="flex-start">
                     <ListItemText primary="Utilizing huge online support for web development. " />
                 </ListItem>

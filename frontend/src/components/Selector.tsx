@@ -24,27 +24,29 @@ const MenuProps = {
     },
 };
 
-const styles = {
-    formControl: {
-        // margin: theme.spacing(2),
-        minWidth: 100,
-        maxWidth: 300,
-        margin: '10px',
-        borderColor: 'primary',
-        padding: '10px',
-    },
-    inputLabel: {
-        height: 25,
-        fontSize: 25,
-        color: 'inherit',
-        margin: '-0px 0px 0px 10px',
-    },
-    selected: {
-        padding: '0px 0px 0px 0px',
-        backgroundColor: 'primary',
-        fontSize: 20,
-    }
-};
+//Styling
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        formControl: {
+            // margin: theme.spacing(2),
+            minWidth: 100,
+            maxWidth: 300,
+            margin: '10px',
+            borderColor: 'primary',
+            padding: '10px',
+        },
+        inputLabel: {
+            height: 25,
+            fontSize: 25,
+            color: 'inherit',
+            margin: '-0px 0px 0px 10px',
+        },
+        selected: {
+            padding: '0px 0px 0px 0px',
+            backgroundColor: 'primary',
+            fontSize: 20,
+        }
+    }));
 
 type MyRecord = {
     name: string,
@@ -58,14 +60,18 @@ type Props = {
 
 const Selector: React.FC<Props> = ({ label, records }) => {
     //debugger;
+    //Styling overrides
+    const classes = useStyles();
+    //Hooks
     const [selected, setSelected] = useState<string>("");
+    //Handlers
     const handleChange = (e: SelectChangeEvent): void => setSelected(e.target.value);
     const upperCase = (s: string) => s.toUpperCase();
 
     return (
-        <FormControl /*disabled={!selectorDisabled}*/ fullWidth sx={styles.formControl} variant="outlined">
-            <InputLabel sx={styles.inputLabel} id="label">{label}</InputLabel>
-            <Select sx={styles.selected} value={selected} variant='outlined' MenuProps={MenuProps} onChange={handleChange}>
+        <FormControl /*disabled={!selectorDisabled}*/ fullWidth className={classes.formControl} variant="outlined">
+            <InputLabel className={classes.inputLabel} id="label">{label}</InputLabel>
+            <Select className={classes.selected} value={selected} variant='outlined' MenuProps={MenuProps} onChange={handleChange}>
                 {records.map((record: any) => (record['name'] && <MenuItem key={label + record['name']} value={upperCase(record["name"])}>
                     <img src={record["src"]} alt={record["name"]} width="30px" height="30px" />
                     &nbsp;&nbsp;&nbsp; {upperCase(record["name"])} </MenuItem>))}

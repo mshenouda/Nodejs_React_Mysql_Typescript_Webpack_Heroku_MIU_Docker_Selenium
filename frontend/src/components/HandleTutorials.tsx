@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles, createStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { styled } from '@mui/system';
@@ -136,11 +136,10 @@ interface IData {
   readonly id: number,
   title: string,
   description: string,
-  published: boolean,
-
+  published: boolean
 }
 
-const HandleTutorials: React.FC<{}> = () => {
+const HandleTutorials = () => {
   const [datas, setData] = useState<IData[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -157,7 +156,7 @@ const HandleTutorials: React.FC<{}> = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const handleEditDialog = () => setOpenEditDialog(prev => !prev);
+  const handleEditDialog = ()=>setOpenEditDialog(prev => !prev);
 
   useEffect(() => showAll(), []);
 
@@ -166,24 +165,20 @@ const HandleTutorials: React.FC<{}> = () => {
       fetch("http://localhost:8080/api/tutorials", {
         method: 'GET'
       })
-      .then(res => res.json())
-      .then(newData => {setData((prev) => [...prev, ...newData]);})
-      .catch(err => console.log(err));
+        .then(res => res.json())
+        .then(newData => setData((prev) => [...prev, ...newData]))
+        .catch(err => console.log(err));
     }
   }
 
   function handleDelete(id: number) {
-    
     fetch('http://localhost:8080/api/tutorials/' + id, {
       method: 'DELETE',
     })
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-    
-    setTimeout(() => {
-      setData(prev => prev.filter((el) =>el.id != id));
-    },  500);
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    setTimeout(() => showAll(), 250);
   }
 
   
@@ -208,10 +203,10 @@ const HandleTutorials: React.FC<{}> = () => {
             {(rowsPerPage > 0
               ? datas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : datas
-            ).map((row) => ( 
+            ).map((row) => (
               <tr key={row.id}>
-                <td style={{ width: 10, height: 2 }} align="justify">{row.id}</td>
-                <td style={{ width: 50, height: 2 }} align="justify">{row.title} </td>
+                <td style={{ width: 10, height: 10 }} align="justify">{row.id}</td>
+                <td style={{ width: 50, height: 10 }} align="justify">{row.title} </td>
                 <td style={{ width: 120, wordWrap: "break-word" }} align="justify">{row.description} </td>
                 <td style={{ width: 20 }} align="justify">{row.published ? "Published" : "Not Published"} </td>
                 <td style={{ width: 20 }}>
@@ -229,7 +224,7 @@ const HandleTutorials: React.FC<{}> = () => {
             ))}
 
             {emptyRows > 0 && (
-              <tr style={{ height: 10 * emptyRows }}>
+              <tr style={{ height: 34 * emptyRows }}>
                 <td colSpan={3} aria-hidden />
               </tr>
             )}
@@ -260,7 +255,66 @@ const HandleTutorials: React.FC<{}> = () => {
       </Root>
     </>
   );
-}
-
+};
 export default HandleTutorials;
 
+
+
+// import Add from '@mui/icons-material/Add';
+
+//Styling of Table Cell
+// const StyledTableCell = withStyles((theme: Theme) => ({
+//     head: {
+//         fontSize: 18,
+//         fontWeight: "bold",
+//     },
+//     body: {
+//         fontSize: 16,
+//         fontWeight: 'bold',
+//         textAlign: 'left',
+//         padding: '2px 2px 2px 2px',
+//     },
+// }))(TableCell);
+
+// //Styling Table Row
+// const StyledTableRow = withStyles((theme: Theme) => ({
+//     root: {
+//         '&:nth-of-type(odd)': {
+//             backgroundColor: theme.palette.action.hover,
+//         },
+//         height: 20,
+//     },
+// }))(TableRow);
+
+// const useStyles = makeStyles((theme: Theme) => createStyles({
+//     paper: {
+//         height: 400,
+//         width: '100%',
+//         overflow: 'auto',
+//         margin: '0px 0px 0px 0px',
+//     },
+//     result: {
+//         width: '300px',
+//         color: 'black',
+//     },
+
+// }));
+
+// const Styled = withStyles({
+//     root: {
+//         color: 'white',
+//         fontSize: 20,
+//         height: 50,
+//         margin: '0px 10px 10px 0'
+//     },
+//     iconSizeLarge: {
+//         color: 'white',
+//     },
+//     colorInherit: {
+//         color: 'white',
+//         backgroundColor: 'green',
+//     },
+//     focusVisible: {
+//         backgroundColor: 'inherit',
+//     },
+// })(Button);

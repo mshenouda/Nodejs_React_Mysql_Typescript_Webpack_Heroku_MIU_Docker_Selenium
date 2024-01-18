@@ -11,14 +11,14 @@ import { SensorFormContext } from "./../contexts/SensorFormContext";
 
 
 //STYLING
-const styles = {
+const useStyles = makeStyles((theme: Theme) => createStyles({
     sensorForm: {
         borderBlockColor: 'black',
-        border: 10,
+        border: 4,
         borderColor: 'black',
     },
     submit: {
-        color: 'black',
+        color: 'white',
         backgroundColor: 'green',
         borderRadius: 6,
         fontSize: 20,
@@ -73,10 +73,12 @@ const styles = {
             borderWidth: 2,
         },
     }
-};
-
+}));
 
 const SensorForm: React.FC<{}> = () => {
+    //STYLING Overrides
+    const classes = useStyles();
+    //Context hooks
     const [errorBox, setErrorBox] = useState<boolean>(false);
     const [errorSensor, setErrorSensor] = useState<boolean>(false);
     const [box, setBox] = useState<string>("");
@@ -118,10 +120,10 @@ const SensorForm: React.FC<{}> = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={classes.sensorForm} onSubmit={handleSubmit}>
             <TextField type="text"
                 variant='outlined'
-                sx={styles.textField}
+                className={classes.textField}
                 label="Box Serial"
                 onChange={handleBox}
                 helperText='Box serials: M[0-9]{5}'
@@ -130,8 +132,9 @@ const SensorForm: React.FC<{}> = () => {
                 required /> <br />
             <TextField
                 type="text"
-                sx={styles.textField}
                 variant='outlined'
+                className={classes.textField}
+                color='secondary'
                 label="Sensor Serial"
                 helperText='Sensor serials: S[0-9]{5}'
                 onChange={handleSensor}
@@ -139,7 +142,7 @@ const SensorForm: React.FC<{}> = () => {
                 fullWidth
                 required
             /> <br />
-            <Button variant="outlined" sx = {styles.submit} fullWidth type="submit" disabled={sensorFormOnOff} onClick={handleClick}>Submit</Button>
+            <Button variant="outlined" className={classes.submit} fullWidth type="submit" disabled={sensorFormOnOff} onClick={handleClick}>Submit</Button>
         </form >
     );
 }

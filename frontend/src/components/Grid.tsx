@@ -7,73 +7,77 @@ import SensorForm from './SensorForm';
 import Logger from './Logger';
 import Selectors from './Selectors';
 
-const styles = {
-    root: {
-        flexGrow: 1
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1
         },
-    paper: {
-        padding: 20,
-        textAlign: "center",
-        color: "blue",
-        fontFamily: "Roboto"
-    },
-    sensorForm: {
-        display: 'flex',
-        flexGrow: 1,
-        backgroundColor: '#333333',
-    },
-    utility: {
-        height: '900px',
-        padding: '10px 15px',
-        textAlign: 'justify',
-        color: 'inherit',
-        whiteSpace: 'nowrap',
-        marginBottom: '15px',
-        backgroundColor: '#FDF8F5',
-    },
-    form: {
-        height: '900px',
-        width: '100%',
-        padding: '10px 15px',
-        textAlign: 'justify',
-        color: '#FDF8F5',
-        whiteSpace: 'nowrap',
-        marginBottom: '15px',
-        backgroundColor: '#FDF8F5',
-    },
-    logger: {
-        height: '500px',
-        padding: '10px 15px',
-        textAlign: 'justify',
-        flexGrow: 1,
-        color: '#FDF8F5',
-        whiteSpace: 'nowrap',
-        marginBottom: '15px',
-        backgroundColor: '#FDF8F5',
-    },
-    divider: {
-        margin: '15px',
-    },
-};
-
+        paper: {
+            padding: 20,
+            textAlign: "center",
+            color: "blue",
+            fontFamily: "Roboto"
+        },
+        sensorForm: {
+            display: 'flex',
+            flexGrow: 1,
+            backgroundColor: '#333333',
+        },
+        utility: {
+            height: '900px',
+            padding: '10px 15px',
+            textAlign: 'justify',
+            color: 'inherit',
+            whiteSpace: 'nowrap',
+            marginBottom: '15px',
+            backgroundColor: '#FDF8F5',
+        },
+        form: {
+            height: '900px',
+            width: '100%',
+            padding: '10px 15px',
+            textAlign: 'justify',
+            color: '#FDF8F5',
+            whiteSpace: 'nowrap',
+            marginBottom: '15px',
+            backgroundColor: '#FDF8F5',
+        },
+        logger: {
+            height: '500px',
+            padding: '10px 15px',
+            textAlign: 'justify',
+            flexGrow: 1,
+            color: '#FDF8F5',
+            whiteSpace: 'nowrap',
+            marginBottom: '15px',
+            backgroundColor: '#FDF8F5',
+        },
+        divider: {
+            margin: '15px',
+        },
+    }
+    ));
 
 const Dashboard: React.FC<{}> = () => {
+    //Styling overrides
+    const classes = useStyles();
+
     return (
-        <Grid container sx={styles.sensorForm} direction='column' alignItems='flex-start' spacing={2}>
+        <Grid container className={classes.sensorForm} direction='column' alignItems='flex-start' spacing={2}>
             <Grid item xs={12} container direction='row' spacing={2}>
                 <Grid item xs={9}>
-                    <Paper sx={styles.utility}>
+                    <Paper className={classes.utility}>
                         <Selectors />
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper sx={styles.form}>
+                    <Paper className={classes.form}>
                         <SensorForm />
                     </Paper>
                 </Grid>
             </Grid>
             <Grid item xs={12} style={{ width: '100%' }}>
-                <Paper sx={styles.logger}>
+                <Paper className={classes.logger}>
                     <Logger />
                 </Paper>
             </Grid>

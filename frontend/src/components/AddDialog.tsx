@@ -4,12 +4,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import PersonIcon from '@mui/icons-material/Person';
-import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
@@ -31,6 +30,8 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+
+        //console.log(title, description, published);
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -47,9 +48,6 @@ function SimpleDialog(props: SimpleDialogProps) {
 
     return (
         <Dialog open={open}>
-            <ListItemButton >
-                <ListItemIcon sx={{color: "red"}}><CloseIcon /></ListItemIcon>
-            </ListItemButton>  
             <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Add Form</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <TextField sx={{ padding: 2 }}
