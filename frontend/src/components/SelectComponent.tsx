@@ -19,9 +19,6 @@ const vehicles: Vehicle[] = [
         model: 'Fiesta',
         year: 2003,
     },
-    // I hope that you did let the two dots on purpose
-    // .
-    // .
     {
         id: 7,
         make: 'Audi',

@@ -38,26 +38,22 @@ import sensor2 from './../static/images/sensor2.png';
 //     }
 // });
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        button: {
-            height: '40px',
-            width: '100px',
-            marginTop: '40px',
-            marginBottom: '40px',
-            marginLeft: '20px',
-            marginRight: '20px',
-        }
-    }));
+const styles = {
+    button: {
+        height: '40px',
+        width: '100px',
+        marginTop: '40px',
+        marginBottom: '40px',
+        marginLeft: '20px',
+        marginRight: '20px',
+    } 
+};    
 
 type Props = {
     disabled: boolean,
 }
 
-// const Selectors: React.FC<Props> = (props: Props) => {
-const Selectors: React.FC<{}> = ({ }) => {
-
-    const classes = useStyles();
+const Selectors: React.FC<{}> = ({ }) => { 
 
     type MyRecord = {
         name: string,
@@ -155,7 +151,7 @@ const Selectors: React.FC<{}> = ({ }) => {
                             <Selector label="Sensor" records={MySensors} />
                         </Grid>
                         <Grid item xs={3}>
-                            <Button startIcon={<PlayArrowIcon />} className={classes.button} disabled={!sensorFormOnOff} size='large' variant='contained' color='primary' onClick={handleClick}>Submit</Button>
+                            <Button startIcon={<PlayArrowIcon />} sx={styles.button} disabled={!sensorFormOnOff} size='large' variant='contained' color='primary' onClick={handleClick}>Submit</Button>
                         </Grid>
                     </Grid>
                     <ScrollableTabs />
