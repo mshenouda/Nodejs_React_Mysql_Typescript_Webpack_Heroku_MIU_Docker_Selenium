@@ -18,15 +18,22 @@ import { TextField, Button, Container, Stack, Checkbox, Switch } from '@mui/mate
 
 export interface SimpleDialogProps {
     open: boolean;
+    onClose: ()=>void;
 }
 
+const styles = {
+    xIcon: {
+        color: "red",
+    }
+};
+
 function SimpleDialog(props: SimpleDialogProps) {
-    const { open } = props;
+    const { open, onClose } = props;
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
 
-    const handleClose = () => {};
+
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
@@ -47,14 +54,14 @@ function SimpleDialog(props: SimpleDialogProps) {
 
     return (
         <Dialog open={open}>
-            <ListItemButton >
-                <ListItemIcon sx={{color: "red"}}><CloseIcon /></ListItemIcon>
+            <ListItemButton onClick={onClose} >
+                <ListItemIcon sx={styles.xIcon}><CloseIcon /></ListItemIcon>
             </ListItemButton>  
             <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Add Form</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <TextField sx={{ padding: 2 }}
                     type="text"
-                    color='secondary'
+                    color='primary'
                     placeholder="Title"
                     required
                     onChange={handleTitle}
@@ -63,7 +70,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                 <TextField sx={{ padding: 2 }}
                     type="text"
                     variant='outlined'
-                    color='secondary'
+                    color='primary'
                     placeholder="Description"
                     onChange={handleDescription}
                     value={description}
@@ -85,7 +92,7 @@ export default function AddDialog() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => setOpen(true);
-    //const handleClose = () => setOpen(false);
+    const handleClose = () => setOpen(false);
 
     return (
         <div>
@@ -94,7 +101,7 @@ export default function AddDialog() {
             </Button>
             <SimpleDialog
                 open={open}
-                //onClose={handleClose}
+                onClose={handleClose}
             />
         </div>
     );

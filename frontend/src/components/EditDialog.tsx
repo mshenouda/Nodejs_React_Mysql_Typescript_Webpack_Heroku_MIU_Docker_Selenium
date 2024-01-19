@@ -33,6 +33,23 @@ export interface EditDialogProps {
     id: number;
 }
 
+const styles = {
+    xIcon: {
+        color: "red",
+        textAlign: "right",
+    },
+    textField: {
+        padding: 2
+    },
+    switch: {
+        padding: 2
+    },
+    button: {
+        fontWeight: 400,
+        height: 50
+    }
+};
+
 export default function EditDialog(props: EditDialogProps) {
     const {openModal, id} = props;
     const [open, setOpen] = React.useState(openModal);
@@ -62,45 +79,44 @@ export default function EditDialog(props: EditDialogProps) {
 
   return (
     <div>
-    
-    <Modal
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-    >
-    <Box sx={style}>
-        <ListItemButton onClick={() => setOpen(false)} >
-            <ListItemIcon sx={{color: "red"}}><CloseIcon /></ListItemIcon>
-        </ListItemButton>    
-        <form onSubmit={handleSubmit}>
-            <TextField sx={{ padding: 2 }}
-                type="text"
-                color='secondary'
-                placeholder="Title"
-                required
-                onChange={handleTitle}
-                value={title}
-                fullWidth />
-            <TextField sx={{ padding: 2 }}
-                type="text"
-                variant='outlined'
-                color='secondary'
-                placeholder="Description"
-                onChange={handleDescription}
-                value={description}
-                fullWidth
-                required />
-            <label style={{ fontWeight: 400, padding: 2 }}>Published: </label>
-            <Switch sx={{ padding: 2 }}
-                checked={published}
-                onChange={handlePublished}
-                inputProps={{ 'aria-label': 'controlled' }}
-                /><br />
-            <Button color="primary" sx={{ fontWeight: 400, height: 50 }} fullWidth type="submit">Submit</Button>
-        </form>
-    </Box>
-    </Modal>
+        <Modal
+            open={openModal && open}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+        <Box sx={style}>
+            <ListItemButton onClick={handleClose} >
+                <ListItemIcon sx={styles.xIcon}><CloseIcon /></ListItemIcon>
+            </ListItemButton>    
+            <form onSubmit={handleSubmit}>
+                <TextField sx={styles.textField}
+                    type="text"
+                    color='primary'
+                    autoFocus
+                    placeholder="Title"
+                    required
+                    onChange={handleTitle}
+                    value={title}
+                    fullWidth />
+                <TextField sx={styles.textField}
+                    type="text"
+                    variant='outlined'
+                    color='primary'
+                    placeholder="Description"
+                    onChange={handleDescription}
+                    value={description}
+                    fullWidth
+                    required />
+                <label style={{ fontWeight: 400, padding: 2 }}>Published: </label>
+                <Switch sx={styles.switch}
+                    checked={published}
+                    onChange={handlePublished}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    /><br />
+                <Button color="primary" sx={styles.button} fullWidth type="submit">Submit</Button>
+            </form>
+        </Box>
+        </Modal>
     </div>
   );
 }

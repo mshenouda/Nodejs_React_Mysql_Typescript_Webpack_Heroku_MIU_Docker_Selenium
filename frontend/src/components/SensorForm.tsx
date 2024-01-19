@@ -1,7 +1,7 @@
 //React libraries
 import React from 'react';
 import { useState, useEffect, FormEvent, ChangeEvent, useContext } from 'react';
-import { makeStyles, createStyles } from '@mui/styles';
+import {styled } from '@mui/system';
 import { Theme } from '@mui/material/styles';
 //Material ui
 import { TextField, Stack, Button } from '@mui/material';
@@ -11,46 +11,31 @@ import { SensorFormContext } from "./../contexts/SensorFormContext";
 
 
 //STYLING
-const styles = {
-    sensorForm: {
-        borderBlockColor: 'black',
-        border: 10,
-        borderColor: 'black',
-    },
-    submit: {
-        color: 'black',
-        backgroundColor: 'green',
-        borderRadius: 6,
-        fontSize: 20,
-        height: 50,
-        margin: '0px 10px 0px 10px'
-    },
-    valid: {
-        borderColor: 'green',
-        borderWidth: 2,
-    },
-    textField: {
+const CssTextField = styled(TextField)(
+    {
         margin: '10px 20px 20px 0px',
+        //inputLabel
         '& .MuiInputLabel-root': {
-            fontSize: 14,
+            fontSize: 20,
             fontWeight: 300,
             '&.Mui-focused': {
                 fontSize: 20,
                 margin: '0px 0px 0px 0px'
             },
             '&.Mui-error': {
-                color: 'primary',
-                fontFamily: 'sans-serif',
+                color: 'red',
+                fontWeight: 'bold',
             },
         },
+        //outlinedInput
         '& .MuiOutlinedInput-root': {
             "& fieldset": {
-                borderColor: 'default',
-                borderWidth: 1,
+                borderColor: 'primary',
+                borderWidth: 2,
             },
             '&:hover fieldset': {
-                borderColor: 'default',
-                borderWidth: 2,
+                borderColor: 'primary',
+                borderWidth: 3,
             },
             "&.Mui-focused fieldset": {
                 borderColor: 'primary',
@@ -60,6 +45,7 @@ const styles = {
                 borderColor: 'red',
             },
         },
+        //helperText
         '& .MuiFormHelperText-root': {
             color: 'primary',
             fontSize: 12,
@@ -68,11 +54,39 @@ const styles = {
                 fontSize: 12,
             }
         },
+        //inputValid
         '& input:valid fieldset': {
             borderColor: 'green',
-            borderWidth: 2,
-        },
+            borderWidth: 4,
+        }
+    });
+
+const CssOutlineButton = styled(Button)({
+    backgroundColor: 'primary',
+    color: 'primary',
+    borderRadius: 6,
+    fontSize: 20,
+    height: 50,
+    margin: '0px 10px 10px 0px',
+    '&:hover': {
+      backgroundColor: 'primary',
+      color: 'white',
+    },
+    '&.MuiButton-outlinedSuccess': {
+        color: 'black',
     }
+});
+  
+const styles = {
+    sensorForm: {
+        borderBlockColor: 'black',
+        border: 10,
+        borderColor: 'black',
+    },
+    valid: {
+        borderColor: 'green',
+        borderWidth: 2,
+    },
 };
 
 
@@ -119,27 +133,27 @@ const SensorForm: React.FC<{}> = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <TextField type="text"
+            <CssTextField type="text"
                 variant='outlined'
-                sx={styles.textField}
                 label="Box Serial"
                 onChange={handleBox}
                 helperText='Box serials: M[0-9]{5}'
+                error={errorBox}
                 value={box}
                 fullWidth
                 required /> <br />
-            <TextField
+            <CssTextField
                 type="text"
-                sx={styles.textField}
                 variant='outlined'
                 label="Sensor Serial"
                 helperText='Sensor serials: S[0-9]{5}'
                 onChange={handleSensor}
+                error={errorSensor}
                 value={sensor}
                 fullWidth
                 required
             /> <br />
-            <Button variant="outlined" sx = {styles.submit} fullWidth type="submit" disabled={sensorFormOnOff} onClick={handleClick}>Submit</Button>
+            <CssOutlineButton variant="outlined" fullWidth type='submit' disabled={sensorFormOnOff} onClick={handleClick} >Submit</CssOutlineButton>
         </form >
     );
 }
