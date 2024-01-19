@@ -73,7 +73,7 @@ const CssOutlineButton = styled(Button)({
       color: 'white',
     },
     '&.MuiButton-outlinedSuccess': {
-        color: 'black',
+        color: 'success',
     }
 });
   

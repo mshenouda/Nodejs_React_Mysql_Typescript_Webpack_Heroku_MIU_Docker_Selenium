@@ -1,5 +1,5 @@
 //React
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,12 +12,21 @@ import { Theme } from '@mui/material/styles';
 // import { URL } from './constants.js';
 
 const columns = [
-    { id: 'id', label: 'id', minWidth: 20, align: 'left', },
-    { id: 'timestamp', label: 'timestamp', minWidth: 50, align: 'left', },
-    { id: 'level', label: 'level', minWidth: 50, align: 'left', },
-    { id: 'func', label: 'func', minWidth: 200, align: 'left', },
-    { id: 'message', label: 'message', minWidth: 300, align: 'left', },
+    { id: 'id', label: 'id', minWidth: 20, align: "left" },
+    { id: 'timestamp', label: 'timestamp', minWidth: 50, align: 'left' },
+    { id: 'level', label: 'level', minWidth: 50, align: 'left'},
+    { id: 'func', label: 'func', minWidth: 200, align: 'left' },
+    { id: 'message', label: 'message', minWidth: 300, align: 'left' },
 ];
+
+interface ILogger {
+    id: number,
+    timestamp: string,
+    level: string,
+    func: string,
+    message: string,
+}
+
 
 const styles = {
     root: {
@@ -32,6 +41,11 @@ const styles = {
         padding: '10px',
     },
     body: {
+        fontSize: 20,
+        fontWeight: "600",
+        color: "black"
+    },
+    severity: {
         "& [data-value='Info']": {
             color: 'white',
             textTransform: "uppercase",
@@ -58,7 +72,7 @@ const styles = {
     }
 };
 
-export default function Logger() {
+const Logger: React.FC<{}> = () => {
 
     //Hooks
     interface INumber {
@@ -66,7 +80,7 @@ export default function Logger() {
     }
     const [page, setPage] = useState<number>(0);
     const [logsPerPage, setlogsPerPage] = useState<INumber>({ value: 10 });
-    const [logs, setLogs] = useState([]);
+    const [logs, setLogs] = useState<ILogger[]>([]);
     const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
     // const handleChangePage = (event, newPage) => setPage(newPage);
     // const handleChangelogsPerPage = (event) => {
@@ -75,13 +89,19 @@ export default function Logger() {
     // };
 
     //Fetch API
-    // const getData = () => fetch(`${URL}/api/logger/`).then(res => res.json()).then(data => setLogs(data));
-    // useEffect(() => {
-    //     if (refreshInterval.value && refreshInterval.value > 0) {
-    //         const interval = setInterval(getData, refreshInterval.value);
-    //         return () => clearInterval(interval);
-    //     }
-    // }, [refreshInterval]);
+    const getData = () => {
+        fetch("http://localhost:8080/api/loggers")
+        .then(res => res.json())
+        .then(data => setLogs(data))
+        .catch(err => console.log(err));
+    };
+    
+    useEffect(() => {
+        if (refreshInterval.value && refreshInterval.value > 0) {
+            const interval = setInterval(getData, refreshInterval.value);
+            return () => clearInterval(interval);
+        }
+    }, [refreshInterval]);
 
     return (
         <Paper sx={styles.root}>
@@ -90,25 +110,30 @@ export default function Logger() {
                     <TableHead sx={styles.header}>
                         <TableRow>
                             {columns.map(column => (
-                                <TableCell variant="head" sx={styles.header} key={column.id} /*align={column.align}*/ style={{ minWidth: column.minWidth }}>{column.label.toUpperCase()}</TableCell>
+                                <TableCell variant="head"
+                                sx={styles.header} key={column.id} /*align={column.align}*/
+                                style={{ minWidth: column.minWidth }}>
+                                {column.label.toUpperCase()}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* {logs.map(log => (
-                            <TableRow key={log.id}>
+                        {logs.map(log => (
+                            <TableRow sx={styles.body} key={log.id}>
                                 <TableCell>{log.id}</TableCell>
                                 <TableCell>{log.timestamp}</TableCell>
-                                <TableCell variant="body" sx={styles.body}>{log.level}</TableCell>
+                                <TableCell variant="body" sx={styles.severity}>{log.level}</TableCell>
                                 <TableCell>{log.func}</TableCell>
                                 <TableCell>{log.message}</TableCell>
                             </TableRow>
-                        ))} */}
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
         </Paper>
     );
-}
+};
+
+export default Logger;
 
 
