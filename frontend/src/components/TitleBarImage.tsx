@@ -18,25 +18,22 @@ import selenium from './../static/images/selenium.png';
 import s3 from './../static/images/s3.png';
 import aws from './../static/images/aws.png';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContentContent: 'space-around',
-            overflow: 'hidden',
-            // backgroundColor: theme.palette.primary
-        },
-        imageList: {
-            width: 600,
-            height: 450,
-        },
-        icon: {
-            color: 'rgba(255, 255, 255, 0.54)',
-        },
-    }
-    ));
-
+const styles = {
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContentContent: 'space-around',
+        overflow: 'hidden',
+        // backgroundColor: theme.palette.primary
+    },
+    imageList: {
+        width: 600,
+        height: 450,
+    },
+    icon: {
+        color: 'rgba(255, 255, 255, 0.54)',
+    },
+};
 
 
 const itemData = [
@@ -98,11 +95,10 @@ const itemData = [
 ];
 
 const TitleBarImage: React.FC<{}> = () => {
-    const classes = useStyles();
-
     return (
-        <div className={classes.root}>
-            <ImageList rowHeight={180} className={classes.imageList}>
+        //missing style for div
+        <div >
+            <ImageList rowHeight={180} sx={styles.imageList}>
                 <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
                 </ImageListItem>
                 {itemData.map((item) => (
@@ -112,7 +108,7 @@ const TitleBarImage: React.FC<{}> = () => {
                             title={item.title}
                             subtitle={<span>{item.purpose}</span>}
                             actionIcon={
-                                <IconButton aria-label={`info about ${item.title}`} className={classes.icon}>
+                                <IconButton aria-label={`info about ${item.title}`} sx={styles.icon}>
                                     <InfoIcon />
                                 </IconButton>
                             }
