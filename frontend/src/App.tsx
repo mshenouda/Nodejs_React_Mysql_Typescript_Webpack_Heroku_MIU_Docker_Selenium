@@ -1,11 +1,34 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './App.css';
+
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider
+} from 'react-router-dom';
+
+import RootLayout from './layouts/RootLayout';
 import PersistentDrawerLeft from './components/Utility/Drawer';
 import TestBackend from './components/Utility/TestBackend';
-//import Register from './components/Credentials/Register';
-//import Login from './components/Credentials/Login';
-//import Logout from './components/Credentials/Logout';
+import Register from './components/Credentials/Register';
+import Login from './components/Credentials/Login';
+import Logout from './components/Credentials/Logout';
 import ForgetPassword from './components/Credentials/Forget';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<RootLayout />}>
+      <Route index element={<Login />}/>
+      <Route path='register' element={<Register />}/>
+      <Route path='forget' element={<ForgetPassword />}/>
+      <Route path='logout' element={<Logout />}/>
+      <Route path='main' element={<PersistentDrawerLeft />}/>
+    </Route>
+  )
+); 
+
+
 
 function App() {
   return (
@@ -14,7 +37,9 @@ function App() {
       {/* <TestBackend /> */}
       {/* <Login /> */}
       {/* <Logout /> */}
-      <ForgetPassword />
+      {/* <ForgetPassword /> */}
+
+      <RouterProvider router={router} />
     </div>
   );
 }

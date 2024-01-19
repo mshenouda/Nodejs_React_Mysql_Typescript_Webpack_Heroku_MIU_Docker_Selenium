@@ -7,16 +7,16 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import { Theme } from '@mui/material/styles';
-import react from './../static/images/react.png';
-import nodejs from './../static/images/nodejs.png';
-import webpack from './../static/images/webpack.png';
-import mysql from './../static/images/mysql.png';
-import express from './../static/images/express.png';
-import heroku from './../static/images/heroku.png';
-import materialui from './../static/images/materialui.png';
-import selenium from './../static/images/selenium.png';
-import s3 from './../static/images/s3.png';
-import aws from './../static/images/aws.png';
+import react from './../../static/images/react.png';
+import nodejs from './../../static/images/nodejs.png';
+import webpack from './../../static/images/webpack.png';
+import mysql from './../../static/images/mysql.png';
+import express from './../../static/images/express.png';
+import heroku from './../../static/images/heroku.png';
+import materialui from './../../static/images/materialui.png';
+import selenium from './../../static/images/selenium.png';
+import s3 from './../../static/images/s3.png';
+import aws from './../../static/images/aws.png';
 
 const styles = {
     root: {

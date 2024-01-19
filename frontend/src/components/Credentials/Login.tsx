@@ -1,6 +1,6 @@
 
 import React, {useState, useContext, FC, ChangeEvent, FormEvent} from 'react';
-import { Link } from "react-router-dom";
+import {NavLink} from 'react-router-dom'; 
 import {
   Avatar, Button, CssBaseline, TextField, FormControlLabel,
   Checkbox, Grid, Box, Typography, Container}
@@ -77,10 +77,10 @@ const Login: FC<{}> = () => {
           <Button type="submit" fullWidth variant="contained" color="primary" sx={styles.submit}>Login</Button>
           <Grid container direction="row" alignItems="flex-start" spacing={2}>
             <Grid item xs={8}>
-              {/* <Link to='/register' href='/register' variant="body2">Don't have an account? Register</Link> */}
+              <NavLink to='/register'>Don't have an account? Register</NavLink>
             </Grid>
             <Grid item xs={4}>
-              {/* <Link to='/forgetpassword' href='/forgetpassword' variant="body2">Forget Password</Link> */}
+              <NavLink to='/forget'>Forget Password</NavLink>
             </Grid>
           </Grid>
         </form>

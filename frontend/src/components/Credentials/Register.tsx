@@ -1,7 +1,6 @@
 //React libraries
 import React, {useState, useContext,  FormEvent, ChangeEvent, FC} from 'react';
-//import { useHistory } from "react-router-dom";
-//import { Link } from "react-router-dom";
+import {NavLink} from 'react-router-dom'; 
 
 import {
   Avatar, Button, CssBaseline, TextField, FormControlLabel,
@@ -79,10 +78,10 @@ const Register: FC<{}> = () => {
           <Button type="submit" fullWidth variant="contained" color="primary" sx={styles.submit}>Register</Button>
           <Grid container direction="row" alignItems="flex-start" spacing={2}>
             <Grid item xs={8}>
-              {/* <Link to='/' href='/' variant="body2">Already have an account? Login</Link> */}
+              <NavLink to='/'>Already have an account? Login</NavLink>
             </Grid>
             <Grid item xs={4}> 
-              {/* <Link to='/forgetpassword' href='/forgetpassword' variant="body2">Forget Password</Link> */}
+              <NavLink to='/forget'>Forget Password</NavLink>
             </Grid>
           </Grid>
         </form>

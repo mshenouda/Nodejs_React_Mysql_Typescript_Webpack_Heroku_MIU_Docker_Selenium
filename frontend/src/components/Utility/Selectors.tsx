@@ -1,8 +1,5 @@
 //React
 import React, { useState, useContext, useEffect } from "react";
-import { createStyles, makeStyles } from '@mui/styles';
-import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
-//Context provider
 import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";
@@ -10,12 +7,12 @@ import ScrollableTabs from "./ScrollableTab";
 import Selector from "./Selector";
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow.js';
-import canon from './../static/images/canon.png';
-import hitachi from './../static/images/hitachi.png';
-import bluebox from './../static/images/bluebox.png';
-import yellowbox from './../static/images/yellowbox.png';
-import sensor1 from './../static/images/sensor1.png';
-import sensor2 from './../static/images/sensor2.png';
+import canon from './../../static/images/canon.png';
+import hitachi from './../../static/images/hitachi.png';
+import bluebox from './../../static/images/bluebox.png';
+import yellowbox from './../../static/images/yellowbox.png';
+import sensor1 from './../../static/images/sensor1.png';
+import sensor2 from './../../static/images/sensor2.png';
 
 //Custom libraries
 // import { URL } from './constants.js';
@@ -53,7 +50,7 @@ type Props = {
     disabled: boolean,
 }
 
-const Selectors: React.FC<{}> = ({ }) => { 
+const Selectors: React.FC<{}> = () => { 
 
     type MyRecord = {
         name: string,

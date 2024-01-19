@@ -1,7 +1,6 @@
 //React libraries
 import React, {useState, useContext, FormEvent, ChangeEvent, FC} from 'react';
-// import { useHistory } from "react-router-dom";
-//Material ui libraries
+import {NavLink} from 'react-router-dom'; 
 import {
   Avatar, Button, CssBaseline, TextField, FormControlLabel, 
   Checkbox, Grid, Box, Typography, Container}
@@ -53,7 +52,9 @@ const Logout: FC<{}> = () => {
         </Avatar>
         <Typography component="h1" variant="h5">Logout</Typography>
         <Typography component="p" variant="h6">Thank you for spending some time with us</Typography>
-        {/* <Box mt={8}><Link href="/" onClick={handleLogout} variant="body2">Login again</Link></Box>   */}
+        <Box mt={8}>
+          <NavLink to="/">Login again</NavLink>
+        </Box>  
       </div>
       <Box mt={8}><Copyright /></Box>
     </Container>
