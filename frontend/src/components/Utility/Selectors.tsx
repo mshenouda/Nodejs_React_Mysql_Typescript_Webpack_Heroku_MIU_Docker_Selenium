@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 //Context provider
-import { SensorFormContext } from "../contexts/SensorFormContext";
+import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";
 import ScrollableTabs from "./ScrollableTab";

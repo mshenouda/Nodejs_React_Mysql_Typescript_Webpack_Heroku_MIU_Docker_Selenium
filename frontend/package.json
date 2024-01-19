@@ -15,6 +15,7 @@
     "@types/node": "^16.18.68",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-jss": "^10.10.0",
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-swipeable-views": "^0.13.5"
+    "@types/react-swipeable-views": "^0.13.5",
+    "react-router-dom": "^6.21.3"
   }
 }

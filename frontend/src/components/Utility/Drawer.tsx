@@ -20,7 +20,7 @@ import DesktopWindowsSharpIcon from '@mui/icons-material/DesktopWindowsSharp';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { SensorProvider } from './../contexts/SensorFormContext';
+import { SensorProvider } from '../../contexts/SensorFormContext';
 import Disclaimer from './Disclaimer';
 import Dashboard from './Grid';
 import TestBackend from './TestBackend';
