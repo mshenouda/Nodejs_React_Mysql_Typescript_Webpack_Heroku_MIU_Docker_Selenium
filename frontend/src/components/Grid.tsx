@@ -33,7 +33,7 @@ const styles = {
     },
     form: {
         height: '900px',
-        width: '100%',
+        width: '95%',
         padding: '10px 15px',
         textAlign: 'justify',
         color: '#FDF8F5',
@@ -43,7 +43,8 @@ const styles = {
     },
     logger: {
         height: '500px',
-        padding: '10px 15px',
+        width: '99%',
+        padding: '10px 10px 10px 10px',
         textAlign: 'justify',
         flexGrow: 1,
         color: '#FDF8F5',
