@@ -10,8 +10,12 @@ class UserRoutes {
     }
 
     intializeRoutes() {
-        // Create a new User
-        this.router.post("/", this.controller.create);
+
+        //Create a new current User
+        this.router.post("/register", this.controller.create);
+
+        // Authenicate current User
+        this.router.post("/", this.controller.login);
 
         // Retrieve all Users
         this.router.get("/", this.controller.findAll);
