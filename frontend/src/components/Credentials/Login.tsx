@@ -43,7 +43,7 @@ const Login: FC<{}> = () => {
     console.log(fields);
     fetch("http://localhost:8080/api/login", {
       method: "POST",
-      credentials: 'include',
+      //credentials: 'include',
       //headers: {"X-CSRFToken": Cookies.get('csrftoken'),},
       headers: {
         //"X-CSRFToken": Cookies.get('csrftoken'),

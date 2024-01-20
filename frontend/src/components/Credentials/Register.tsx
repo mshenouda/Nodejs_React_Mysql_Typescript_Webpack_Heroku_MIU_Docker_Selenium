@@ -44,7 +44,7 @@ const Register: FC<{}> = () => {
       credentials: 'include',
       headers: {
         //"X-CSRFToken": Cookies.get('csrftoken'),
-        "Access-Control-Allow-Origin":"*",
+        //"Access-Control-Allow-Origin":"*",
         "Content-type": 'application/json; charset=UTF-8',
       },
       // body: JSON.stringify({"username": username, "password":password, "email": email})  
