@@ -1,12 +1,13 @@
 //React libraries
 import React, {useState, useContext,  FormEvent, ChangeEvent, FC} from 'react';
-import {NavLink} from 'react-router-dom'; 
+import {NavLink, useNavigate} from 'react-router-dom'; 
 
 import {
   Avatar, Button, CssBaseline, TextField, FormControlLabel,
   Checkbox, Grid, Box, Typography,
   Container, Snackbar} from '@mui/material';
 
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
 import ForgetPassword from './Forget';
 //import Cookies from 'js-cookie'; 
@@ -28,31 +29,33 @@ const styles = {
 
 const Register: FC<{}> = () => {
 
-  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  //let history = useHistory();
-  const [message, setMessage] = useState({open: false, vertical: 'top', horizontal: 'center'});
-  const { vertical, horizontal, open } = message;
+  const navigate = useNavigate();
+  const [message, setMessage] = useState<string>("");
 
-  const handleClose = () => setMessage({ ...message, open: false });
-  const handleUsername = (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value);
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    //history.push("/");
-    fetch("http://localhost:8080/api/register", {
+    fetch("http://localhost:8080/api/users/register", {
       method: "POST",
-      credentials: 'include',
+      //credentials: 'include',
       headers: {
         //"X-CSRFToken": Cookies.get('csrftoken'),
         //"Access-Control-Allow-Origin":"*",
-        "Content-type": 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8'
       },
-      // body: JSON.stringify({"username": username, "password":password, "email": email})  
+      body: JSON.stringify({"password":password, "email": email}),  
     })
-    .then(res => console.log(res))
+    .then(res => {
+       if(res.status == 201 || res.status == 200) {
+        setMessage("Successfully created user");
+        setTimeout(() => {
+          navigate('/');  
+        }, 1000);
+      }}) 
     .catch(err => console.log(err));
   } 
 
@@ -62,30 +65,27 @@ const Register: FC<{}> = () => {
       <CssBaseline />
       <div>
         <Avatar sx={styles.avatar}>
-          {/* <LockOutlinedIcon /> */}
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">Register</Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              {/* <TextField name="username" variant="outlined" required fullWidth label="Username" onChange={handleChange} value={fields[name]} autoFocus/> */}
-              <TextField name="username" variant="outlined" required fullWidth label="Username" onChange={handleChange} autoFocus/>
+              <TextField name="email" variant="outlined" required fullWidth label="Email Address" onChange={handleEmail} value={email} autoFocus/>
             </Grid>
             <Grid item xs={12}>
-              <TextField name="email" variant="outlined" required fullWidth label="Email Address" onChange={handleChange} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField name="password" variant="outlined" required fullWidth label="Password" type="password" onChange={handleChange} />
+              <TextField name="password" variant="outlined" required fullWidth label="Password" type="password" onChange={handlePassword} value={password}/>
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" sx={styles.submit}>Register</Button>
           <Grid container direction="row" alignItems="flex-start" spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={6}>
               <NavLink to='/'>Already have an account? Login</NavLink>
             </Grid>
-            <Grid item xs={4}> 
+            <Grid item xs={6}> 
               <NavLink to='/forget'>Forget Password</NavLink>
             </Grid>
+            <h1>{message}</h1>
           </Grid>
         </form>
       </div>

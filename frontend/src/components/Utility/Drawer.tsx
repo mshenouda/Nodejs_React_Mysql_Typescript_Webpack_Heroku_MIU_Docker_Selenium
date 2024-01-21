@@ -25,6 +25,10 @@ import Disclaimer from './Disclaimer';
 import Dashboard from './Grid';
 import TestBackend from './TestBackend';
 
+import LogoutIcon from '@mui/icons-material/Logout';
+
+import {useNavigate} from 'react-router-dom'; 
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -87,6 +91,8 @@ enum Programs {
 }
 
 export default function PersistentDrawerLeft() {
+
+    const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [openInbox, setOpenInbox] = React.useState(false);
@@ -100,8 +106,6 @@ export default function PersistentDrawerLeft() {
         else if (val === Programs.DISCLAIMER)
             setProgram((prev: Program) => { return { 'dashboard': false, 'disclaimer': true } })
     }
-    // const handleInbox = () => setOpenInbox(prev => !prev);
-
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -168,6 +172,11 @@ export default function PersistentDrawerLeft() {
                         </ListItem>
                     ))}
                 </List>
+                <Divider />
+                <ListItemButton onClick={() => navigate('/logout')}>
+                    <ListItemIcon><LogoutIcon /></ListItemIcon>
+                    <ListItemText primary={'Sign out'} />
+                </ListItemButton>
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />

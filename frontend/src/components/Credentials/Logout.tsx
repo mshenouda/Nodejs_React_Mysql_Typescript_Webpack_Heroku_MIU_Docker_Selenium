@@ -1,6 +1,6 @@
 //React libraries
 import React, {useState, useContext, FormEvent, ChangeEvent, FC} from 'react';
-import {NavLink} from 'react-router-dom'; 
+import {NavLink, useNavigate} from 'react-router-dom'; 
 import {
   Avatar, Button, CssBaseline, TextField, FormControlLabel, 
   Checkbox, Grid, Box, Typography, Container}
@@ -17,7 +17,6 @@ const styles = {
     alignItems: 'center',
   },
   avatar: {
-    //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -26,30 +25,13 @@ const styles = {
   },
 };
 
-
 const Logout: FC<{}> = () => {
   
-  //const history = useHistory();
-  const handleLogout =(e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    console.log('Logging out now');
-    fetch("http://localhost:8080/api/logout/", {
-      method: "POST",
-      //history.push("/");
-      // headers: {"X-CSRFToken": Cookies.get('csrftoken')},
-    })
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-
-  }
-
+  const navigate = useNavigate();
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div>
-        <Avatar sx={styles.avatar}>
-          {/* <LockOutlinedIcon /> */}
-        </Avatar>
         <Typography component="h1" variant="h5">Logout</Typography>
         <Typography component="p" variant="h6">Thank you for spending some time with us</Typography>
         <Box mt={8}>
