@@ -4,7 +4,7 @@ import userRepository from "../repositories/user.repository";
 
 export default class UserController {
   async create(req: Request, res: Response) {
-    if (!req.body.username) {
+    if (!req.body.email) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -23,11 +23,30 @@ export default class UserController {
     }
   }
 
-  async findAll(req: Request, res: Response) {
-    const username = typeof req.query.username === "string" ? req.query.username : "";
+  async login(req: Request, res: Response) {
+    if (!req.body.email) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
 
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+   
     try {
-      const users = await userRepository.retrieveAll({ username: username });
+      const savedUser = await userRepository.retrieveByEmail({email: email, password: password});
+      res.status(201).send(savedUser);
+    } catch (err) {
+      res.status(500).send({
+        message: "Some error occurred while retrieving users."
+      });
+    }
+  }
+
+  async findAll(req: Request, res: Response) {
+    try {
+      const users = await userRepository.retrieveAll();
 
       res.status(200).send(users);
     } catch (err) {
@@ -51,29 +70,6 @@ export default class UserController {
     } catch (err) {
       res.status(500).send({
         message: `Error retrieving User with id=${id}.`
-      });
-    }
-  }
-
-  async update(req: Request, res: Response) {
-    let user: User = req.body;
-    user.id = parseInt(req.params.id);
-
-    try {
-      const num = await userRepository.update(user);
-
-      if (num == 1) {
-        res.send({
-          message: "User was updated successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`
-        });
-      }
-    } catch (err) {
-      res.status(500).send({
-        message: `Error updating User with id=${user.id}.`
       });
     }
   }

@@ -28,18 +28,21 @@ const styles = {
 
 const Register: FC<{}> = () => {
 
-  const [fields, setFields] = useState({});
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   //let history = useHistory();
-  //const {username, email, password} = fields;
   const [message, setMessage] = useState({open: false, vertical: 'top', horizontal: 'center'});
   const { vertical, horizontal, open } = message;
 
   const handleClose = () => setMessage({ ...message, open: false });
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {setFields({...fields, [e.target.name]: e.target.value})} 
+  const handleUsername = (e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value);
+  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     //history.push("/");
-    fetch("http://localhost:8080/api/login", {
+    fetch("http://localhost:8080/api/register", {
       method: "POST",
       credentials: 'include',
       headers: {

@@ -5,9 +5,9 @@ import IUser from "../models/user.model";
 
 interface UserRepository {
   save(user: IUser): Promise<IUser>;
-  retrieveAll(searchParams: {username: string, email: boolean}): Promise<IUser[]>;
+  retrieveByEmail(searchParams: {email: string}): Promise<IUser[]>;
+  retrieveAll(): Promise<IUser[]>;
   retrieveById(userId: number): Promise<IUser | undefined>;
-  update(user: IUser): Promise<number>;
   delete(userId: number): Promise<number>;
   deleteAll(): Promise<number>;
 }
@@ -16,8 +16,8 @@ class UserRepository implements UserRepository {
   save(user: IUser): Promise<IUser> {
     return new Promise((resolve, reject) => {
       connection.query<OkPacket>(
-        "INSERT INTO users (username, password, email) VALUES(?,?,?)",
-        [user.username, user.password, user.email ? user.email : false],
+        "INSERT INTO users (email, password) VALUES(?,?)",
+        [user.email, user.password ? user.password : false],
         (err, res) => {
           if (err) reject(err);
           else
@@ -29,19 +29,29 @@ class UserRepository implements UserRepository {
     });
   }
 
-  retrieveAll(searchParams: {username?: string, email?: boolean}): Promise<IUser[]> {
+  retrieveByEmail(searchParams: {email: string, password: string}): Promise<IUser[]> {
     let query: string = "SELECT * FROM users";
     let condition: string = "";
 
     if (searchParams?.email)
-      condition += "email = TRUE"
+      condition += `LOWER(email) LIKE '%${searchParams.email}%' AND `
 
-    if (searchParams?.username)
-      condition += `LOWER(username) LIKE '%${searchParams.username}%'`
-
+    if (searchParams?.password)
+      condition += `password LIKE '%${searchParams.password}%'`
+  
     if (condition.length)
       query += " WHERE " + condition;
 
+    return new Promise((resolve, reject) => {
+      connection.query<IUser[]>(query, (err, res) => {
+        if (err) reject(err);
+        else resolve(res);
+      });
+    });
+  }
+
+  retrieveAll(): Promise<IUser[]> {
+    let query: string = "SELECT * FROM users";
     return new Promise((resolve, reject) => {
       connection.query<IUser[]>(query, (err, res) => {
         if (err) reject(err);
@@ -58,19 +68,6 @@ class UserRepository implements UserRepository {
         (err, res) => {
           if (err) reject(err);
           else resolve(res?.[0]);
-        }
-      );
-    });
-  }
-
-  update(user: IUser): Promise<number> {
-    return new Promise((resolve, reject) => {
-      connection.query<OkPacket>(
-        "UPDATE users SET username = ?, password = ?, email = ? WHERE id = ?",
-        [user.username, user.password, user.email, user.id],
-        (err, res) => {
-          if (err) reject(err);
-          else resolve(res.affectedRows);
         }
       );
     });

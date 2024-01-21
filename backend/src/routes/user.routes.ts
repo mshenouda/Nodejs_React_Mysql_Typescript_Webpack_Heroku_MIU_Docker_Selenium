@@ -23,9 +23,6 @@ class UserRoutes {
         // Retrieve a single User with id
         this.router.get("/:id", this.controller.findOne);
 
-        // Update a User with id
-        this.router.put("/:id", this.controller.update);
-
         // Delete a User with id
         this.router.delete("/:id", this.controller.delete);
 
