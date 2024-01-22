@@ -1,9 +1,11 @@
 //React libraries
 import React, {useState, useContext,  FormEvent, ChangeEvent, FC} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
+import CssTextField from './../Common/CssTextField';
+import CssOutlinedButton from './../Common/CssOutlinedButton';
 
 import {
-  Avatar, Button, CssBaseline, TextField, FormControlLabel,
+  Avatar, CssBaseline, FormControlLabel,
   Checkbox, Grid, Box, Typography,
   Container, Snackbar} from '@mui/material';
 
@@ -14,14 +16,21 @@ import ForgetPassword from './Forget';
 
 const styles = {
   paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    border: '2px #000',
+    boxShadow: 24,
+    p: 4,
   },
   avatar: {
   },
-  form: {
-    width: '100%', // Fix IE 11 issue.
+  grid: {
+    textAlign: 'left',
+    fontSize: 15,
   },
   submit: {
   },
@@ -49,6 +58,7 @@ const Register: FC<{}> = () => {
       },
       body: JSON.stringify({"password":password, "email": email}),  
     })
+    .then(res => res.json())
     .then(res => {
        if(res.status == 201 || res.status == 200) {
         setMessage("Successfully created user");
@@ -61,7 +71,7 @@ const Register: FC<{}> = () => {
 
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container sx={styles.paper} component="main" maxWidth="xs">
       <CssBaseline />
       <div>
         <Avatar sx={styles.avatar}>
@@ -71,18 +81,18 @@ const Register: FC<{}> = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField name="email" variant="outlined" required fullWidth label="Email Address" onChange={handleEmail} value={email} autoFocus/>
+              <CssTextField name="email" variant="outlined" required fullWidth label="Email Address" onChange={handleEmail} value={email} autoFocus/>
             </Grid>
             <Grid item xs={12}>
-              <TextField name="password" variant="outlined" required fullWidth label="Password" type="password" onChange={handlePassword} value={password}/>
+              <CssTextField name="password" variant="outlined" required fullWidth label="Password" type="password" onChange={handlePassword} value={password}/>
             </Grid>
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary" sx={styles.submit}>Register</Button>
-          <Grid container direction="row" alignItems="flex-start" spacing={2}>
-            <Grid item xs={6}>
+          <CssOutlinedButton type="submit" fullWidth variant="contained" color="primary" sx={styles.submit}>Register</CssOutlinedButton>
+          <Grid sx={styles.grid} container direction="row" alignItems="flex-start" spacing={2}>
+            <Grid item xs={8}>
               <NavLink to='/'>Already have an account? Login</NavLink>
             </Grid>
-            <Grid item xs={6}> 
+            <Grid item xs={4}> 
               <NavLink to='/forget'>Forget Password</NavLink>
             </Grid>
             <h1>{message}</h1>

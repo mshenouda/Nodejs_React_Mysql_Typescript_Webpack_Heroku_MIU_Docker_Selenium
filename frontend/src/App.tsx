@@ -15,6 +15,7 @@ import Register from './components/Credentials/Register';
 import Login from './components/Credentials/Login';
 import Logout from './components/Credentials/Logout';
 import ForgetPassword from './components/Credentials/Forget';
+import TestBackEnd from './components/Utility/TestBackend';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

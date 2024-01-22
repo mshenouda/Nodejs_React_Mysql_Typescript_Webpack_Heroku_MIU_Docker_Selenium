@@ -9,7 +9,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-// import { URL } from './constants.js';
 
 const columns = [
     { id: 'id', label: 'id', minWidth: 20, align: "left" },
@@ -82,6 +81,22 @@ const Logger: React.FC<{}> = () => {
     const [logsPerPage, setlogsPerPage] = useState<INumber>({ value: 10 });
     const [logs, setLogs] = useState<ILogger[]>([]);
     const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
+
+    function formatTimeStamp(ts: string): string {
+        const formatted = new Date(ts).toLocaleString(
+            "en-US", {
+                month: "short",
+                day: "2-digit",
+                year: "numeric",
+                hour: "2-digit", 
+                minute: "2-digit", 
+                second: "2-digit",
+                dayPeriod: "long",
+        });
+        //const formatted = new Date(ts).toLocaleString("en-US");
+        return formatted;
+    }
+
     // const handleChangePage = (event, newPage) => setPage(newPage);
     // const handleChangelogsPerPage = (event) => {
     //     setlogsPerPage(+event.target.value);
@@ -121,7 +136,7 @@ const Logger: React.FC<{}> = () => {
                         {logs.map(log => (
                             <TableRow sx={styles.body} key={log.id}>
                                 <TableCell>{log.id}</TableCell>
-                                <TableCell>{log.timestamp}</TableCell>
+                                <TableCell>{formatTimeStamp(log.timestamp)}</TableCell>
                                 <TableCell variant="body" sx={styles.severity}>{log.level}</TableCell>
                                 <TableCell>{log.func}</TableCell>
                                 <TableCell>{log.message}</TableCell>
