@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {NavLink, Outlet} from 'react-router-dom'; 
 import PersistentDrawerLeft from '../components/Utility/Drawer';
 
 
-const RootLayout: React.FC<{}> = () => {
+const RootLayout: FC<{}> = () => {
     return(
         <div>
             <header>    

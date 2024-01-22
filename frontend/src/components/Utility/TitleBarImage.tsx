@@ -6,7 +6,6 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import { Theme } from '@mui/material/styles';
 import react from './../../static/images/react.png';
 import nodejs from './../../static/images/nodejs.png';
 import webpack from './../../static/images/webpack.png';
@@ -24,7 +23,6 @@ const styles = {
         flexWrap: 'wrap',
         justifyContentContent: 'space-around',
         overflow: 'hidden',
-        // backgroundColor: theme.palette.primary
     },
     imageList: {
         width: 600,
