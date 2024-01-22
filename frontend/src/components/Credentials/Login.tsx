@@ -50,6 +50,7 @@ const Login: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    console.log(email, password);
     fetch("http://localhost:8080/api/users", {
       method: "POST",
       //credentials: 'include',
@@ -61,7 +62,6 @@ const Login: FC<{}> = () => {
       },
       body: JSON.stringify({"password":password, "email": email}),  
     })
-    .then(res => res.json())
     .then(res => {
        if(res.status === 201 || res.status === 200) {
         setMessage("Successfully login");

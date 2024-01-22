@@ -58,7 +58,6 @@ const Register: FC<{}> = () => {
       },
       body: JSON.stringify({"password":password, "email": email}),  
     })
-    .then(res => res.json())
     .then(res => {
        if(res.status == 201 || res.status == 200) {
         setMessage("Successfully created user");
