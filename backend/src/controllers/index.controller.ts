@@ -1,35 +1,28 @@
 import { Request, Response } from "express";
 import indexRepository from "../repositories/index.repository";
+import {dbname } from '../constants';
 
 export default class IndexController {
     async create(req: Request, res: Response) {
-        let tableName: string = "";
         try {
-            tableName = req.body.tableName;
-            console.log("table Name", tableName);
-            await indexRepository.create(tableName);
-            res.status(201).send(`Successfully created table ${tableName}`);
+            await indexRepository.create(dbname);
+            res.status(201).send(`Successfully created database ${dbname}`);
         } catch (err) {
             res.status(500).send({
-                message: `Some error occurred while creating table ${tableName}`,
-                error: err
+                message: `Some error occurred while creating database ${dbname}`,
+                error: err,
             });
         }
     }
 
-    helloWorld(req: Request, res: Response): Response {
-        return res.json({ message: "Hello World" });
-    }
-
     async describe(req: Request, res: Response) {
-        let table: string = "";
         try {
-            await indexRepository.describe("tutorials");
+            await indexRepository.describe(dbname);
             res.status(201).send("successfully retrieved");
         } catch (err) {
             res.status(500).send({
-                message: `Some error occurred while creating table.`,
-                myErr: err,
+                message: `Some error occurred while creating database.`,
+                error: err,
             });
         }
     }

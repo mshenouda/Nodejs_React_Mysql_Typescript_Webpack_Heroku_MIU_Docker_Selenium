@@ -1,6 +1,5 @@
 import { OkPacket } from "mysql2";
-import connection from "../db";
-
+import {connection} from "../db/index";
 import IUser from "../models/user.model";
 
 interface UserRepository {

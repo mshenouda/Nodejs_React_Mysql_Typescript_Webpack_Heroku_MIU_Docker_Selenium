@@ -1,6 +1,5 @@
 import { OkPacket } from "mysql2";
-import connection from "../db";
-
+import {connection} from "../db/index";
 import ILogger from "../models/logger.model";
 
 interface LoggerRepository {

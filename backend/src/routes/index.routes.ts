@@ -10,9 +10,7 @@ class IndexRoutes {
     }
 
     intializeRoutes() {
-        //this.router.get("/", this.controller.create);
-        this.router.get("/", this.controller.helloWorld);
-        // this.router.get("/", this.controller.describe);
+        this.router.get("/", this.controller.create);
     }
 }
 

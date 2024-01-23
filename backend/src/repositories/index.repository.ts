@@ -1,35 +1,34 @@
 import { OkPacket } from "mysql2";
-import connection from "../db";
-import { ITutorialTable } from "../models/tutorial.model";
+import {connection} from "../db/index";
 
 interface IndexRepository {
-    create(tableName: string): Promise<string>;
-    describe(tableName: string): Promise<any[] | undefined>;
+    create(dbname: string): Promise<any>;
+    describe(dbname: string): Promise<any>;
 }
 
 class IndexRepository implements IndexRepository {
-    create(tableName: string): Promise<any> {
-        // Query to create table 
-        const query: string = `CREATE TABLE IF NOT EXISTS ${tableName} (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(10) NOT NULL, description VARCHAR(12) NOT NULL, published BOOLEAN NULL)`
+
+    create(dbname: string): Promise<any> {
+        // Query to create database 
+        const query: string = `CREATE DATABASE IF NOT EXISTS ${dbname};`;
         return new Promise((resolve, reject) => {
-            connection.query<OkPacket>(query, [], (err, res) => {
+            connection.query<OkPacket>(query, (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(this.describe(tableName));
-                    // this.describe(table)
-                    //     .then(res => console.log(res))
-                    //     .catch(reject);
-                    // //resolve(res);
+                    resolve(res);
+                    // this.describe(dbname)
+                    // .then(res => resolve(res))
+                    // .catch(err => reject(err));
                 }
             })
         })
     }
 
-    describe(tableName: string): Promise<any[] | any> {
+    describe(dbname: string): Promise<any> {
         return new Promise((reject, resolve) => {
-            const query: string = "DESCRIBE tutorials";
-            connection.query<OkPacket>(query, [], (err, res) => {
+            const query: string = `USE ${dbname}`;
+            connection.query<OkPacket>(query, (err, res) => {
                 if (err) {
                     reject(err);
                 }
