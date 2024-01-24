@@ -1,6 +1,7 @@
 import { OkPacket } from "mysql2";
 import {connection} from "../db/index";
 import IUser from "../models/user.model";
+import {usersTbl} from "../constants";
 
 interface UserRepository {
   save(user: IUser): Promise<IUser>;
@@ -15,7 +16,7 @@ class UserRepository implements UserRepository {
   save(user: IUser): Promise<IUser> {
     return new Promise((resolve, reject) => {
       connection.query<OkPacket>(
-        "INSERT INTO users (email, password) VALUES(?,?)",
+        `INSERT INTO ${usersTbl} (email, password) VALUES(?,?)`,
         [user.email, user.password ? user.password : false],
         (err, res) => {
           if (err) reject(err);
@@ -29,7 +30,7 @@ class UserRepository implements UserRepository {
   }
 
   retrieveByEmail(searchParams: {email: string, password: string}): Promise<IUser[]> {
-    let query: string = "SELECT * FROM users";
+    let query: string = `SELECT * FROM ${usersTbl}`;
     let condition: string = "";
 
     if (searchParams?.email)
@@ -50,7 +51,7 @@ class UserRepository implements UserRepository {
   }
 
   retrieveAll(): Promise<IUser[]> {
-    let query: string = "SELECT * FROM users";
+    let query: string = `SELECT * FROM ${usersTbl}`;
     return new Promise((resolve, reject) => {
       connection.query<IUser[]>(query, (err, res) => {
         if (err) reject(err);
@@ -62,7 +63,7 @@ class UserRepository implements UserRepository {
   retrieveById(userId: number): Promise<IUser> {
     return new Promise((resolve, reject) => {
       connection.query<IUser[]>(
-        "SELECT * FROM users WHERE id = ?",
+        `SELECT * FROM ${usersTbl} WHERE id = ?`,
         [userId],
         (err, res) => {
           if (err) reject(err);

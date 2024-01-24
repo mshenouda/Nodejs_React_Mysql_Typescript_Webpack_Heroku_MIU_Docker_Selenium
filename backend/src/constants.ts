@@ -1,6 +1,11 @@
-const dbname:string = "tmpapp";
-const tutorialName: string = "tutorials";
+const dbname:string = "reactapp";
+const tutorialsTbl: string = "tutorials";
+const usersTbl: string = "users";
+const loggersTbl: string = "loggers";
+
 export {
     dbname,
-    tutorialName
+    tutorialsTbl,
+    usersTbl,
+    loggersTbl
 }

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import ITutorial from "../models/tutorial.model";
 import tutorialRepository from "../repositories/tutorial.repository";
-import indexRepository from "../repositories/index.repository";
 
 export default class TutorialController {
   async create(req: Request, res: Response) {
@@ -14,7 +13,6 @@ export default class TutorialController {
 
     try {
       const tutorial: ITutorial = req.body;
-      console.log(tutorial);
       const savedTutorial = await tutorialRepository.save(tutorial);
 
       res.status(201).send(savedTutorial);
@@ -29,7 +27,6 @@ export default class TutorialController {
     const title = typeof req.query.title === "string" ? req.query.title : "";
 
     try {
-      const answer = tutorialRepository.create();
       const tutorials = await tutorialRepository.retrieveAll({ title: title });
       res.status(200).send(tutorials);
     } catch (err) {

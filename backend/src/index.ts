@@ -3,7 +3,6 @@ import cors, { CorsOptions } from "cors";
 import Routes from './routes';
 
 var http = require("http");
-
 export default class Server {
   constructor(app: Application) {
     this.config(app);
@@ -12,7 +11,7 @@ export default class Server {
 
   private config(app: Application): void {
     const corsOptions: CorsOptions = {
-      origin: "http://localhost:3000"
+      origin: `http://localhost:${process.env.REACT_PORT}`
     };
 
     app.use(cors(corsOptions));
