@@ -3,8 +3,8 @@ import Server from "./src/index";
 import dotenv from "dotenv";
 import path from "path";
 
-
-dotenv.config({path: './.env'});
+const envFilePath = path.join(__dirname,'..','..','.env');
+dotenv.config({path:envFilePath});
 const app: Application = express();
 const server: Server = new Server(app);
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;

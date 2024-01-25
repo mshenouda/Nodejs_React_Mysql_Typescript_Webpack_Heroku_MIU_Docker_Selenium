@@ -7,7 +7,9 @@ COPY package.json .
 RUN npm install --force
 
 COPY . .
-d
-EXPOSE 4000
+
+VOLUME [ "/app/node_modules" ]
+
+EXPOSE 8080
 
 CMD [ "npm", "start" ]
