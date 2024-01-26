@@ -13,9 +13,17 @@ const connection = mysql.createConnection({
   host: process.env.MYSQL_HOST,
 });
 
+// const connection = mysql.createConnection({
+//   user: 'mina',
+//   password: 'Crestlove_13',
+//   //host: 'mysql_server',
+//   host: 'mysql_server',
+// });
+
+
 const sqlFilePath = path.join(__dirname,'..','..','..','sql/mysql.sql');
 const sqlQueries: string[] = readFileSync(sqlFilePath,{encoding:'utf8', flag: 'r'})
-.toString().replace(/(\r\n|\n|\r|\\)/gm," ") // remove newlines
+.toString().replace(/(\r\n|\n|\r)/gm," ") // remove newlines
 .replace(/\s+/g, ' ') // excess white space
 .split(";") // split into all statements
 .map(Function.prototype.call, String.prototype.trim)

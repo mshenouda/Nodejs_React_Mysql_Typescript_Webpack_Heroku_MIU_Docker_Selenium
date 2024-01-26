@@ -1,14 +1,6 @@
 version: "3.8"
 
 services: 
-  mysql_server:
-    image: mysql:8.0
-    environment: 
-      - MYSQL_USER=mina
-      - MYSQL_DB=testapp
-      - MYSQL_PASSWORD=Crestlove_13
-      - MYSQL_ROOT_PASSWORD=myRoot
-
   api:
     build: 
       context: ./backend
@@ -20,3 +12,13 @@ services:
       - '/api/node_modules'
     depends_on: 
       - mysql_server
+
+  mysql_server:
+    image: mysql:8.0
+    environment: 
+      - MYSQL_USER=mina
+      - MYSQL_DB=testapp
+      - MYSQL_PASSWORD=Crestlove_13
+      - MYSQL_ROOT_PASSWORD=myRoot
+
+ 
