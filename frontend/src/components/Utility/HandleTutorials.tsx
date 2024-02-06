@@ -142,6 +142,7 @@ const HandleTutorials: React.FC<{}> = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
@@ -152,7 +153,13 @@ const HandleTutorials: React.FC<{}> = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  useEffect(() => showAll(), []);
+  
+  useEffect(() => {
+      if (refreshInterval.value && refreshInterval.value > 0) {
+          const interval = setInterval(showAll, refreshInterval.value);
+          return () => clearInterval(interval);
+      }
+  }, [refreshInterval]);
 
   const showAll = (): void => {
     {
