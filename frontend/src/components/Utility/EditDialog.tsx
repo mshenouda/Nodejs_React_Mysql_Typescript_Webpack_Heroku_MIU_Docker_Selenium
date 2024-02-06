@@ -40,7 +40,6 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -51,9 +50,9 @@ function SimpleDialog(props: SimpleDialogProps) {
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
         fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/`+id, requestOptions)
-            .then(res => res.json())
-            .then(()=>onClose()) 
-            .catch(err => console.log(err));
+        .then(res => res.json())
+        .then(()=>onClose()) 
+        .catch(err => console.log(err));
     };
 
     return (

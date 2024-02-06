@@ -46,7 +46,6 @@ const Login: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    //console.log(email, password);
     fetch(`http://localhost:${process.env.SERVER_PORT}/api/users`, {
       method: "POST",
       headers: {
