@@ -71,18 +71,17 @@ const styles = {
     }
 };
 
+//Hooks
+interface INumber {
+    value: number;
+}
 const Logger: React.FC<{}> = () => {
 
-    //Hooks
-    interface INumber {
-        value: number;
-    }
     const [page, setPage] = useState<number>(0);
     const [logsPerPage, setlogsPerPage] = useState<INumber>({ value: 10 });
     const [logs, setLogs] = useState<ILogger[]>([]);
     const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
     
-
     function formatTimeStamp(ts: string): string {
         const formatted = new Date(ts).toLocaleString(
             "en-US", {
@@ -94,7 +93,6 @@ const Logger: React.FC<{}> = () => {
                 second: "2-digit",
                 dayPeriod: "long",
         });
-        //const formatted = new Date(ts).toLocaleString("en-US");
         return formatted;
     }
 

@@ -1,134 +1,86 @@
 import React, { useState, useEffect, FC } from 'react';
-import { withStyles, makeStyles, createStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
-import { styled } from '@mui/system';
+import { useTheme } from '@mui/material/styles';
 import {
-  TablePagination,
-  tablePaginationClasses as classes,
-} from '@mui/base/TablePagination';
-import {
-  Button, Table, TableBody,
-  TableCell, TableHead, TableRow, Paper,
-  TableContainer, Grid, ListItemIcon,
-  ListItemButton, ListItemText, ListItem, Stack
+  Box, Table, TableHead, TableBody,
+  TableCell, TableContainer,
+  TableFooter, TablePagination, TableRow,
+  Paper, Stack,  ListItemIcon, ListItemButton,
+  ListItemText, ListItem
 } from "@mui/material";
-import EditNoteIcon from '@mui/icons-material/EditNote';
+import IconButton from '@mui/material/IconButton';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 
-const Root = styled('div')
-(({ theme }) => `
-  table {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.875rem;
-    border-collapse: collapse;
-    width: 100%;
-  }
+interface TablePaginationActionsProps {
+  count: number;
+  page: number;
+  rowsPerPage: number;
+  onPageChange: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    newPage: number,
+  ) => void;
+}
 
-  td,
-  th {
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
-    text-align: left;
-    padding: 6px;
-  }
+function TablePaginationActions(props: TablePaginationActionsProps) {
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
 
-  th {
-    background-color: ${theme.palette.mode === 'dark' ? blue[900] : blue[50]};
-  }
-  `,
-);
+  const handleFirstPageButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    onPageChange(event, 0);
+  };
 
+  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, page - 1);
+  };
 
-const CustomTablePagination = styled(TablePagination)(
-  ({ theme }) => `
-  & .${classes.spacer} {
-    display: none;
-  }
+  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, page + 1);
+  };
 
-  & .${classes.toolbar}  {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  };
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-
-  & .${classes.selectLabel} {
-    margin: 0;
-  }
-
-  & .${classes.select}{
-    padding: 2px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
-    border-radius: 50px;
-    background-color: transparent;
-
-    &:hover {
-      background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
-    }
-
-    &:focus {
-      outline: 1px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
-    }
-  }
-
-  & .${classes.displayedRows} {
-      margin: 0;
-  
-    #@media (min-width: 768px) {
-      margin-left: auto;
-    }
-  }
-
-  & .${classes.actions} {
-    padding: 2px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
-    border-radius: 50px;
-    text-align: center;
-  }
-
-  & .${classes.actions} > button {
-    margin: 0 8px;
-    border: transparent;
-    border-radius: 2px;
-    background-color: transparent;
-
-    &:hover {
-      background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
-    }
-
-    &:focus {
-      outline: 1px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
-    }
-  }
-  `,
-);
-
-
-const blue = {
-  50: '#F0F7FF',
-  200: '#A5D8FF',
-  400: '#3399FF',
-  900: '#003A75',
-};
-
-const grey = {
-  50: '#F3F6F9',
-  100: '#E5EAF2',
-  200: '#DAE2ED',
-  300: '#C7D0DD',
-  400: '#B0B8C4',
-  500: '#9DA8B7',
-  600: '#6B7A90',
-  700: '#434D5B',
-  800: '#303740',
-  900: '#1C2025',
-};
+  return (
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
+        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+      </IconButton>
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+      </IconButton>
+    </Box>
+  );
+}
 
 interface IData {
   readonly id: number,
@@ -139,25 +91,14 @@ interface IData {
 }
 
 const HandleTutorials: React.FC<{}> = () => {
-  const [datas, setData] = useState<IData[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [datas, setData] = useState<IData[]>([]);
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
-  const [openEditDialog, setOpenEditDialog] = React.useState<boolean>(false);
 
-  //const classes = useStyles();
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
-
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => setPage(newPage);
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-  const handleEditDialog = () => setOpenEditDialog(prev => !prev);
-
-  useEffect(() => showAll(), []);
+  useEffect (
+    ()=> showAll(),
+    []);
 
   const showAll = (): void => {
     {
@@ -169,7 +110,7 @@ const HandleTutorials: React.FC<{}> = () => {
       .catch(err => console.log(err));
     }
   }
-
+  
   function handleDelete(id: number) {
     fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/` + id, {
       method: 'DELETE',
@@ -183,81 +124,100 @@ const HandleTutorials: React.FC<{}> = () => {
     },  500);
   }
 
-  
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <>
       <ListItem key={"AddIcon"} disablePadding>
         <AddDialog />
       </ListItem>
-      <Root sx={{ width: 1000, maxWidth: '100%' }}>
-        <table aria-label="custom pagination table">
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
           <thead>
             <tr>
-              <th align="justify">ID</th>
-              <th align="justify">Title</th>
-              <th align="justify">Description</th>
-              <th align="justify">Published</th>
-              <th align="justify">Actions</th>
+              <th align="left">ID</th>
+              <th align="left">Title</th>
+              <th align="left">Description</th>
+              <th align="left">Published</th>
+              <th align="left">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <TableBody>
             {(rowsPerPage > 0
               ? datas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : datas
-            ).map((row) => ( 
-              <tr key={row.id}>
-                <td style={{ width: 10, height: 2 }} align="justify">{row.id}</td>
-                <td style={{ width: 50, height: 2 }} align="justify">{row.title} </td>
-                <td style={{ width: 120, wordWrap: "break-word" }} align="justify">{row.description} </td>
-                <td style={{ width: 20 }} align="justify">{row.published ? "Published" : "Not Published"} </td>
-                <td style={{ width: 20 }}>
-                  <Stack spacing={1} sx={{ padding: 5 }} direction="row">
-                    <ListItemButton onClick={() => handleEditDialog()} >
-                      <ListItemIcon><EditNoteIcon /></ListItemIcon>
-                    </ListItemButton>
-                    {openEditDialog && <EditDialog openModal={openEditDialog} id={row.id} />}
+            ).map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="left">
+                  {row.title}
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="left">
+                  {row.description}
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="left">
+                  {row.published}
+                </TableCell>
+                <TableCell>
+                  <Stack spacing={1} sx={{ padding: 1 }} direction="row">
+                    <ListItem key={"EditIcon"} disablePadding>
+                      <EditDialog id={row.id}/>
+                    </ListItem>
                     <ListItemButton onClick={() => handleDelete(row.id)}>
                       <ListItemIcon><DeleteForeverIcon /></ListItemIcon>
                     </ListItemButton>
                   </Stack>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-
             {emptyRows > 0 && (
-              <tr style={{ height: 10 * emptyRows }}>
-                <td colSpan={3} aria-hidden />
-              </tr>
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
             )}
-          </tbody>
-          <tfoot>
-            <tr>
-              <CustomTablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, { label: 'All', value: -1 }]}
                 colSpan={3}
                 count={datas.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                slotProps={{
-                  select: {
+                SelectProps={{
+                  inputProps: {
                     'aria-label': 'rows per page',
                   },
-                  actions: {
-                    showFirstButton: true,
-                    showLastButton: true,
-                  },
+                  native: true,
                 }}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
               />
-            </tr>
-          </tfoot>
-        </table>
-      </Root>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </>
   );
 }
 
 export default HandleTutorials;
-
