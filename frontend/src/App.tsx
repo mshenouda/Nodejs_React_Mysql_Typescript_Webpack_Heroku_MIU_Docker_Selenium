@@ -5,7 +5,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider
+  RouterProvider,
+  Navigate
 } from 'react-router-dom';
 
 import RootLayout from './layouts/RootLayout';
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
       <Route path='forget' element={<ForgetPassword />}/>
       <Route path='logout' element={<Logout />}/>
       <Route path='main' element={<PersistentDrawerLeft />}/>
+      <Route path="*" element={<Navigate to="/" />}
+    />
     </Route>
   )
 ); 

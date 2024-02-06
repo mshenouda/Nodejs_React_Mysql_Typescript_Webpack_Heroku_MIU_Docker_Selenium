@@ -2,66 +2,40 @@ import React, { useState, FC, ChangeEvent, EventHandler, FormEvent } from 'react
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
-import { TextField, Button, Container, Stack, Checkbox, Switch, Modal, Box } from '@mui/material';
-import dotenv from "dotenv";
-import path from "path";
+import { TextField, Button, Container, Stack, Checkbox, Switch } from '@mui/material';
+import {useNavigate, redirect} from 'react-router-dom'; 
 
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-export interface EditDialogProps {
-    openModal: boolean;
+export interface SimpleDialogProps {
+    open: boolean;
     id: number;
+    onClose: ()=>void;
 }
 
 const styles = {
     xIcon: {
         color: "red",
-        textAlign: "right",
-    },
-    textField: {
-        padding: 2
-    },
-    switch: {
-        padding: 2
-    },
-    button: {
-        fontWeight: 400,
-        height: 50
     }
 };
 
-export default function EditDialog(props: EditDialogProps) {
-    const {openModal, id} = props;
-    const [open, setOpen] = React.useState(openModal);
-   
+function SimpleDialog(props: SimpleDialogProps) {
+    const { open, id, onClose } = props;
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
 
-    const handleClose = () => setOpen(false);
+    const navigate = useNavigate();
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
@@ -76,40 +50,28 @@ export default function EditDialog(props: EditDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/` + id, requestOptions)
+        fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/`+id, requestOptions)
             .then(res => res.json())
-            .then(res => {
-                if(res.status === 201 || res.status === 200) {
-                    setTimeout(() => {
-                      navigate('/');  
-                    }, 1000);
-            }})
+            .then(()=>onClose()) 
             .catch(err => console.log(err));
     };
 
-
-  return (
-    <div>
-        <Modal
-            open={openModal && open}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-        <Box sx={style}>
-            <ListItemButton onClick={handleClose} >
+    return (
+        <Dialog open={open}>
+            <ListItemButton onClick={onClose} >
                 <ListItemIcon sx={styles.xIcon}><CloseIcon /></ListItemIcon>
-            </ListItemButton>    
+            </ListItemButton>  
+            <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Edit Form</DialogTitle>
             <form onSubmit={handleSubmit}>
-                <TextField sx={styles.textField}
+                <TextField sx={{ padding: 2 }}
                     type="text"
                     color='primary'
-                    autoFocus
                     placeholder="Title"
                     required
                     onChange={handleTitle}
                     value={title}
                     fullWidth />
-                <TextField sx={styles.textField}
+                <TextField sx={{ padding: 2 }}
                     type="text"
                     variant='outlined'
                     color='primary'
@@ -119,16 +81,34 @@ export default function EditDialog(props: EditDialogProps) {
                     fullWidth
                     required />
                 <label style={{ fontWeight: 400, padding: 2 }}>Published: </label>
-                <Switch sx={styles.switch}
+                <Switch sx={{ padding: 2 }}
                     checked={published}
                     onChange={handlePublished}
                     inputProps={{ 'aria-label': 'controlled' }}
-                    /><br />
-                <Button color="primary" sx={styles.button} fullWidth type="submit">Submit</Button>
+                /><br />
+                <Button color="primary" sx={{ fontWeight: 400, height: 50 }} fullWidth type="submit">Submit</Button>
             </form>
-        </Box>
-        </Modal>
-    </div>
-  );
+        </Dialog>
+    );
 }
+
+export default function EditDialog({id}) {
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+        <div>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                <EditNoteIcon /> Edit item
+            </Button>
+            <SimpleDialog
+                open={open}
+                id={id}
+                onClose={handleClose}
+            />
+        </div>
+    );
+}
+
 
