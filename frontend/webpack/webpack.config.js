@@ -4,6 +4,9 @@ const webpack = require("webpack")
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const dotenv = require('dotenv').config( {
+    path: path.join(__dirname, '../../.env')
+});
 
 module.exports = {
 
@@ -13,7 +16,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        path: path.resolve(__dirname, '../build'),
+        //path: path.resolve(__dirname,'..','build/'),
         filename: 'bundle.js',
     },
     module: {
@@ -47,9 +50,11 @@ module.exports = {
         new NodePolyfillPlugin({
             includeAliases: ['http','https','url','Buffer','process']
         }),
+        new webpack.DefinePlugin({
+            "process.env": dotenv.parsed
+        }),
     ],
     devServer: {
-        port: 3000,
-    },
+        port: process.env.REACT_PORT,
+    },   
 }
-

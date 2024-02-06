@@ -14,7 +14,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { TextField, Button, Container, Stack, Checkbox, Switch } from '@mui/material';
-
+import {useNavigate} from 'react-router-dom'; 
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -33,11 +33,12 @@ function SimpleDialog(props: SimpleDialogProps) {
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
 
-
+    const navigate = useNavigate();
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -45,18 +46,30 @@ function SimpleDialog(props: SimpleDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch("http://localhost:8080/api/tutorials", requestOptions)
+        fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials`, {
+            method: "POST",
+            headers: {
+              "Access-Control-Allow-Origin":"*",
+              'Accept': 'application/json',
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({ 'title': title, "description": description, "published": published })  
+        })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                if (res.status === 201 || res.status === 200) {
+                    setTimeout(() => {
+                      navigate('/main');  
+                    }, 1000);
+            }})
             .catch(err => console.log(err));
-
     };
 
     return (
         <Dialog open={open}>
-            <ListItemButton onClick={onClose} >
+            {/* <ListItemButton onClick={onClose} >
                 <ListItemIcon sx={styles.xIcon}><CloseIcon /></ListItemIcon>
-            </ListItemButton>  
+            </ListItemButton>   */}
             <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Add Form</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <TextField sx={{ padding: 2 }}

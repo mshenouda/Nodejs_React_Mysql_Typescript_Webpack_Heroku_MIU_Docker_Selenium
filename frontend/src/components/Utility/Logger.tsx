@@ -81,6 +81,7 @@ const Logger: React.FC<{}> = () => {
     const [logsPerPage, setlogsPerPage] = useState<INumber>({ value: 10 });
     const [logs, setLogs] = useState<ILogger[]>([]);
     const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
+    
 
     function formatTimeStamp(ts: string): string {
         const formatted = new Date(ts).toLocaleString(
@@ -105,7 +106,7 @@ const Logger: React.FC<{}> = () => {
 
     //Fetch API
     const getData = () => {
-        fetch("http://localhost:8080/api/loggers")
+        fetch(`http://localhost:${process.env.SERVER_PORT}/api/loggers`)
         .then(res => res.json())
         .then(data => setLogs(data))
         .catch(err => console.log(err));

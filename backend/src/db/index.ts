@@ -8,18 +8,11 @@ const envFilePath = path.join(__dirname,'..','..','..','..','.env');
 dotenv.config({path:envFilePath});
 
 const connection = mysql.createConnection({
-  user: process.env.MYSQL_USER,
+  user: process.env.MYSQL_ROOT,
+  port: 3306,
   password: process.env.MYSQL_PASSWORD,
-  host: process.env.MYSQL_HOST,
+  host: process.env.MYSQL_HOST
 });
-
-// const connection = mysql.createConnection({
-//   user: 'mina',
-//   password: 'Crestlove_13',
-//   //host: 'mysql_server',
-//   host: 'mysql_server',
-// });
-
 
 const sqlFilePath = path.join(__dirname,'..','..','..','sql/mysql.sql');
 const sqlQueries: string[] = readFileSync(sqlFilePath,{encoding:'utf8', flag: 'r'})

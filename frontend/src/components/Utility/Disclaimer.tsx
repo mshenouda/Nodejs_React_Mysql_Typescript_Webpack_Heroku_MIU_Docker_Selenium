@@ -18,7 +18,6 @@ const styles = {
     root: {
         width: '100%',
         maxWidth: '150ch',
-        // backgroundColor: theme.palette.grey
     },
     inline: {
         display: 'inline',

@@ -15,6 +15,9 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { TextField, Button, Container, Stack, Checkbox, Switch, Modal, Box } from '@mui/material';
+import dotenv from "dotenv";
+import path from "path";
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -63,16 +66,24 @@ export default function EditDialog(props: EditDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const requestOptions = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin":"*",
+                'Accept': 'application/json',
+                'Content-Type': 'application/json; charset=UTF-8'
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch("http://localhost:8080/api/tutorials/" + id, requestOptions)
+        fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/` + id, requestOptions)
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                if(res.status === 201 || res.status === 200) {
+                    setTimeout(() => {
+                      navigate('/');  
+                    }, 1000);
+            }})
             .catch(err => console.log(err));
     };
 
