@@ -1,51 +1,35 @@
-import mysql from "mysql2";
+import mysql from 'mysql2';
 import {dbname, tutorialsTbl, usersTbl, loggersTbl } from '../constants';
+import { readFileSync } from 'fs';
+import dotenv from "dotenv";
+import path from "path";
 
-// const connection = mysql.createConnection({
-//   user: process.env.MYSQL_USER,
-//   host: process.env.MYSQL_HOST,
-//   password: process.env.MYSQL_PASSWORD
-// });
+const envFilePath = path.join(__dirname,'..','..','..','..','.env');
+dotenv.config({path:envFilePath});
 
 const connection = mysql.createConnection({
-  user: 'root',
-  host: 'localhost',
-  password: 'Crestlove_13'
+  user: process.env.MYSQL_ROOT,
+  port: 3306,
+  password: process.env.MYSQL_PASSWORD,
+  host: process.env.MYSQL_HOST
 });
 
-connection.connect((err)=> {
+const sqlFilePath = path.join(__dirname,'..','..','..','sql/mysql.sql');
+const sqlQueries: string[] = readFileSync(sqlFilePath,{encoding:'utf8', flag: 'r'})
+.toString().replace(/(\r\n|\n|\r)/gm," ") // remove newlines
+.replace(/\s+/g, ' ') // excess white space
+.split(";") // split into all statements
+.map(Function.prototype.call, String.prototype.trim)
+.filter(function(el) {return el.length != 0}); // remove any empty one
 
+connection.connect((err)=> {
   if (err) throw err;
-  connection.query(`CREATE DATABASE IF NOT EXISTS ${dbname};`, (err, res) =>{
-    if(err) throw err;
-  });
-  connection.query(`USE ${dbname};`, (err, res) =>{
-    if(err) throw err;
-  });
-  let query: string = `CREATE TABLE IF NOT EXISTS ${tutorialsTbl}\
-  (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\ 
-    title NVARCHAR(25) NOT NULL,\ 
-    description NVARCHAR(25) NOT NULL,\ 
-    published BOOLEAN NOT NULL);`;
-  connection.query(query, (err, res) =>{
-    if(err) throw err;
-  });
-  query = `CREATE TABLE IF NOT EXISTS ${usersTbl}\
-  (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\ 
-    password NVARCHAR(50) NOT NULL,\ 
-    email NVARCHAR(50) NOT NULL);`;
-  connection.query(query, (err, res) =>{
-    if(err) throw err;
-  });
-  query = `CREATE TABLE IF NOT EXISTS ${loggersTbl}\
-  (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\ 
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
-    level NVARCHAR(12) NOT NULL,\
-    func NVARCHAR(20) NOT NULL,\ 
-    message NVARCHAR(100) NOT NULL);`;
-  connection.query(query, (err, res) =>{
-    if(err) throw err;
-  });
+  for(const query of sqlQueries){
+    connection.query(query, (err, res)=> {
+      if (err) throw err;
+    });
+  }
+  console.log(`Successfully created ${dbname}`);
 });
 
 

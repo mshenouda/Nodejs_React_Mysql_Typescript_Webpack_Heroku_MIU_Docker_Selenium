@@ -7,7 +7,7 @@ import {
   from '@mui/material';
 
 import Copyright from './Copyright';
-//import Cookies from 'js-cookie'; 
+
 
 //Styling
 const styles = {

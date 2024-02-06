@@ -12,7 +12,6 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
 import ForgetPassword from './Forget';
-//import Cookies from 'js-cookie'; 
 
 const styles = {
   paper: {
@@ -47,12 +46,10 @@ const Register: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/users/register", {
+    fetch(`http://localhost:${process.env.SERVER_PORT}/api/users/register`, {
       method: "POST",
-      //credentials: 'include',
       headers: {
-        //"X-CSRFToken": Cookies.get('csrftoken'),
-        //"Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Origin":"*",
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8'
       },

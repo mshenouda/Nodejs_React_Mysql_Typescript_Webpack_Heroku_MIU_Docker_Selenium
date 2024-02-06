@@ -1,8 +1,14 @@
 import express, { Application } from "express";
 import cors, { CorsOptions } from "cors";
 import Routes from './routes';
+import dotenv from "dotenv";
+import path from "path";
 
 var http = require("http");
+
+const envFilePath = path.join(__dirname,'..','..','..','.env');
+dotenv.config({path:envFilePath});
+
 export default class Server {
   constructor(app: Application) {
     this.config(app);

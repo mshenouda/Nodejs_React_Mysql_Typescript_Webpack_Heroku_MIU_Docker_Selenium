@@ -12,8 +12,6 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
 import ForgetPassword from './Forget';
-//import Cookies from 'js-cookie'; 
-
 
 //Styling
 const styles = {
@@ -29,7 +27,6 @@ const styles = {
     p: 4,
   },
   avatar: {
-    //margin: theme.spacing(1),
   },
   grid: {
     textAlign: 'left',
@@ -45,18 +42,15 @@ const Login: FC<{}> = () => {
   const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
   const [message, setMessage] = useState<string>("");
-
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log(email, password);
-    fetch("http://localhost:8080/api/users", {
+    //console.log(email, password);
+    fetch(`http://localhost:${process.env.SERVER_PORT}/api/users`, {
       method: "POST",
-      //credentials: 'include',
       headers: {
-        //"X-CSRFToken": Cookies.get('csrftoken'),
-        //"Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Origin":"*",
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8'
       },

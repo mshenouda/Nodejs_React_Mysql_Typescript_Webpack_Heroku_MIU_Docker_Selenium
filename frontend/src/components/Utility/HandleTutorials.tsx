@@ -6,9 +6,6 @@ import {
   TablePagination,
   tablePaginationClasses as classes,
 } from '@mui/base/TablePagination';
-
-
-//Material ui
 import {
   Button, Table, TableBody,
   TableCell, TableHead, TableRow, Paper,
@@ -41,6 +38,7 @@ const Root = styled('div')
   }
   `,
 );
+
 
 const CustomTablePagination = styled(TablePagination)(
   ({ theme }) => `
@@ -80,9 +78,9 @@ const CustomTablePagination = styled(TablePagination)(
   }
 
   & .${classes.displayedRows} {
-    margin: 0;
-
-    @media (min-width: 768px) {
+      margin: 0;
+  
+    #@media (min-width: 768px) {
       margin-left: auto;
     }
   }
@@ -163,7 +161,7 @@ const HandleTutorials: React.FC<{}> = () => {
 
   const showAll = (): void => {
     {
-      fetch("http://localhost:8080/api/tutorials", {
+      fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials`, {
         method: 'GET'
       })
       .then(res => res.json())
@@ -173,8 +171,7 @@ const HandleTutorials: React.FC<{}> = () => {
   }
 
   function handleDelete(id: number) {
-    
-    fetch('http://localhost:8080/api/tutorials/' + id, {
+    fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/` + id, {
       method: 'DELETE',
     })
     .then(res => res.json())
