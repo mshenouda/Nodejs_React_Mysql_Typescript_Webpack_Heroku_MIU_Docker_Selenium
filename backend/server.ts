@@ -1,11 +1,11 @@
-import express, { Application } from "express";
+import * as express from "express";
+import * as dotenv from "dotenv";
+import * as path from "path";
 import Server from "./src/index";
-import dotenv from "dotenv";
-import path from "path";
 
 const envFilePath = path.join(__dirname,'..','..','.env');
 dotenv.config({path:envFilePath});
-const app: Application = express();
+const app= express();
 const server: Server = new Server(app);
 const SERVER_PORT: number = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT, 10) : 8080;
 

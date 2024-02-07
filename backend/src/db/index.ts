@@ -1,10 +1,10 @@
-import mysql from 'mysql2';
+import * as mysql from 'mysql2';
 import {dbname, tutorialsTbl, usersTbl, loggersTbl } from '../constants';
 import { readFileSync } from 'fs';
-import dotenv from "dotenv";
-import path from "path";
+import * as dotenv from "dotenv";
+import * as path from "path";
 
-const envFilePath = path.join(__dirname,'..','..','..','..','.env');
+const envFilePath = path.join(__dirname,'./../../../../.env');
 dotenv.config({path:envFilePath});
 
 const connection = mysql.createConnection({
@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
   host: process.env.MYSQL_HOST
 });
 
-const sqlFilePath = path.join(__dirname,'..','..','..','sql/mysql.sql');
+const sqlFilePath = path.join(__dirname,'./../../..','sql/mysql.sql');
 const sqlQueries: string[] = readFileSync(sqlFilePath,{encoding:'utf8', flag: 'r'})
 .toString().replace(/(\r\n|\n|\r)/gm," ") // remove newlines
 .replace(/\s+/g, ' ') // excess white space
