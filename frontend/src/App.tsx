@@ -37,12 +37,6 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div className="App">
-      {/* <PersistentDrawerLeft /> */}
-      {/* <TestBackend /> */}
-      {/* <Login /> */}
-      {/* <Logout /> */}
-      {/* <ForgetPassword /> */}
-
       <RouterProvider router={router} />
     </div>
   );

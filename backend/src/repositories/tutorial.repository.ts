@@ -1,7 +1,6 @@
 import { OkPacket } from "mysql2";
 import {connection} from "../db/index";
 import ITutorial from "../models/tutorial.model";
-import {tutorialsTbl} from "../constants";
 
 interface TutorialRepository {
   save(tutorial: ITutorial): Promise<ITutorial>;
@@ -17,7 +16,7 @@ class TutorialRepository implements TutorialRepository {
   save(tutorial: ITutorial): Promise<ITutorial> {
     return new Promise((resolve, reject) => {
       connection.query<OkPacket>(
-        `INSERT INTO ${tutorialsTbl} (title, description, published) VALUES(?,?,?)`,
+        `INSERT INTO tutorials (title, description, published) VALUES(?,?,?)`,
         [tutorial.title, tutorial.description, tutorial.published ? tutorial.published : false],
         (err, res) => {
           if (err) reject(err);
@@ -32,7 +31,7 @@ class TutorialRepository implements TutorialRepository {
   }
 
   retrieveAll(searchParams: {title?: string, published?: boolean}): Promise<ITutorial[]> {
-    let query: string = `SELECT * FROM ${tutorialsTbl}`;
+    let query: string = `SELECT * FROM tutorials`;
     let condition: string = "";
 
     if (searchParams?.published)
@@ -55,7 +54,7 @@ class TutorialRepository implements TutorialRepository {
   retrieveById(tutorialId: number): Promise<ITutorial> {
     return new Promise((resolve, reject) => {
       connection.query<ITutorial[]>(
-        `SELECT * FROM ${tutorialsTbl} WHERE id = ?`,
+        `SELECT * FROM tutorials WHERE id = ?`,
         [tutorialId],
         (err, res) => {
           if (err) reject(err);
@@ -68,7 +67,7 @@ class TutorialRepository implements TutorialRepository {
   update(tutorial: ITutorial): Promise<number> {
     return new Promise((resolve, reject) => {
       connection.query<OkPacket>(
-        `UPDATE ${tutorialsTbl} SET title = ?, description = ?, published = ? WHERE id = ?`,
+        `UPDATE tutorials SET title = ?, description = ?, published = ? WHERE id = ?`,
         [tutorial.title, tutorial.description, tutorial.published, tutorial.id],
         (err, res) => {
           if (err) reject(err);
@@ -81,7 +80,7 @@ class TutorialRepository implements TutorialRepository {
   delete(tutorialId: number): Promise<number> {
     return new Promise((resolve, reject) => {
       connection.query<OkPacket>(
-        `DELETE FROM ${tutorialsTbl} WHERE id = ?`,
+        `DELETE FROM tutorials WHERE id = ?`,
         [tutorialId],
         (err, res) => {
           if (err) reject(err);
@@ -93,7 +92,7 @@ class TutorialRepository implements TutorialRepository {
 
   deleteAll(): Promise<number> {
     return new Promise((resolve, reject) => {
-      connection.query<OkPacket>(`DELETE FROM ${tutorialsTbl}`, (err, res) => {
+      connection.query<OkPacket>(`DELETE FROM tutorials`, (err, res) => {
         if (err) reject(err);
         else resolve(res.affectedRows);
       });

@@ -6,7 +6,7 @@ import * as path from "path";
 
 var http = require("http");
 
-const envFilePath = path.join(__dirname,'..','..','..','.env');
+const envFilePath = path.join(__dirname,'../../../.env');
 dotenv.config({path:envFilePath});
 
 export default class Server {

@@ -7,7 +7,7 @@ const envFilePath = path.join(__dirname,'..','..','.env');
 dotenv.config({path:envFilePath});
 const app= express();
 const server: Server = new Server(app);
-const SERVER_PORT: number = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT, 10) : 8080;
+const SERVER_PORT: number = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT, 10) : 8082;
 
 
 app
