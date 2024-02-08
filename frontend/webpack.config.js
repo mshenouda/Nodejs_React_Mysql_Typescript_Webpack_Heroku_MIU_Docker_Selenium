@@ -12,7 +12,6 @@ module.exports = (env, argv) => {
 // module.exports = ({ mode } = { mode: "development" }) => {
 
     const mode = argv.mode || 'development';
-    //console.log(process.env);
     return {
         entry: path.resolve(__dirname, './src/index.tsx'),
         resolve: {
@@ -55,12 +54,22 @@ module.exports = (env, argv) => {
                 includeAliases: ['http','https','url','Buffer','process']
             }),
             new webpack.DefinePlugin({
-                "process.env": dotenv.parsed,
-                //'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
+                'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
+                'process.env.MYSQL_HOST': JSON.stringify(process.env.MYSQL_HOST),
+                'process.env.HOST': JSON.stringify(process.env.HOST),
+                'process.env.MYSQL_ROOT_PASSWORD': JSON.stringify(process.env.MYSQL_ROOT_PASSWORD),
+                'process.env.MYSQL_USER': JSON.stringify(process.env.MYSQL_USER),
+                'process.env.MYSQL_ROOT': JSON.stringify(process.env.MYSQL_ROOT),
+                'process.env.MYSQL_PORT': JSON.stringify(process.env.MYSQL_PORT),
+                'process.env.MYSQL_PASSWORD': JSON.stringify(process.env.MYSQL_PASSWORD),
+                'process.env.SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
+                'process.env.MYSQL_DATABASE': JSON.stringify(process.env.MYSQL_DATABASE),
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+                
             }),
         ],
         devServer: {
-            port: 3000,
+            port: process.env.REACT_PORT,
             historyApiFallback: true,
             open: true,
         }

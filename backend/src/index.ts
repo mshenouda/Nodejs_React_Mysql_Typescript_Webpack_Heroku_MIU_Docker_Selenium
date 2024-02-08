@@ -18,7 +18,7 @@ export default class Server {
 
   private config(app): void {
     const corsOptions = {
-      origin: `${process.env.HOST}:${process.env.REACT_PORT}`
+      origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
     app.use(cors(corsOptions));
