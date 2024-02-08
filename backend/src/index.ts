@@ -4,10 +4,10 @@ import Routes from './routes';
 import * as path from "path";
 
 const http = require("http");
-//if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config({path:path.join(__dirname,'../../../.env')});
-//}
+}
 
 
 export default class Server {

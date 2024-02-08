@@ -3,13 +3,13 @@ import { readFileSync } from 'fs';
 import * as path from "path";
 
 
-//if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config({path:path.join(__dirname,'./../../../../.env')});
-//}
+}
 
 const connection = mysql.createConnection({
-  user: process.env.MYSQL_ROOT,
+  user: process.env.MYSQL_USER,
   port: parseInt(process.env.MYSQL_PORT, 10),
   password: process.env.MYSQL_PASSWORD,
   host: process.env.MYSQL_HOST,

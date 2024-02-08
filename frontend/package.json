@@ -28,7 +28,8 @@
   },
   "scripts": {
     "clean": "rm -rf ./build",
-    "serve": "webpack serve --config ./webpack.config.js --mode development --open"
+    "serve": "webpack serve --config ./webpack.config.js --mode development --open",
+    "prod": "webpack --config ./webpack.config.js --mode production --watch"
   },
   "eslintConfig": {
     "extends": [

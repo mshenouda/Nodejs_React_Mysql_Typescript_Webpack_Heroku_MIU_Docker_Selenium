@@ -29,11 +29,12 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
+    "clean": "cd ./backend && rm -y ./build/",
     "serve": "cd ./frontend && npm run serve",
     "start": "npm run start:dev",
     "dev": "nodemon ./backend/build/server.js",
-    "start:dev": "cd ./backend && tsc --outdir ./build ./server.ts && npm run dev",
-    "start:prod": "cd ./backend && tsc --outdir ./build ./server.ts && node ./build/server.js"
+    "start:dev": "set NODE_ENV=development& cd ./backend && tsc --outdir ./build ./server.ts && npm run dev",
+    "start:prod": "NODE_ENV=production& cd ./backend && tsc --outdir ./build ./server.ts && node ./build/server.js" 
   },
   "eslintConfig": {
     "extends": [
