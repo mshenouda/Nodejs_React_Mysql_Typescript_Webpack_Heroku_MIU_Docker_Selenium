@@ -1,13 +1,14 @@
 import * as express from "express";
 import * as cors from "cors";
 import Routes from './routes';
-import * as dotenv from "dotenv";
 import * as path from "path";
 
-var http = require("http");
+const http = require("http");
+//if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config({path:path.join(__dirname,'../../../.env')});
+//}
 
-const envFilePath = path.join(__dirname,'../../../.env');
-dotenv.config({path:envFilePath});
 
 export default class Server {
   constructor(app) {
@@ -17,7 +18,7 @@ export default class Server {
 
   private config(app): void {
     const corsOptions = {
-      origin: `http://localhost:${process.env.REACT_PORT}`
+      origin: `${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
     app.use(cors(corsOptions));

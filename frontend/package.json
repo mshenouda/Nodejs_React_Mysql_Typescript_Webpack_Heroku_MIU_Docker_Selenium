@@ -16,10 +16,8 @@
     "@types/jest": "^27.5.2",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
-    "js-cookie": "^3.0.5",
     "mysql2": "^3.6.5",
     "node-polyfill-webpack-plugin": "^3.0.0",
-    "nodemon": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-jss": "^10.10.0",
@@ -29,11 +27,7 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "serve": "cd ./frontend && npm run serve",
-    "start": "cross-env NODE_ENV=production npm run start:dev",
-    "dev": "nodemon ./backend/build/server.js",
-    "start:dev": "cd ./backend && tsc --outdir ./build ./server.ts && npm run dev",
-    "start:prod": "cd ./backend && tsc --outdir ./build ./server.ts && node ./build/server.js"
+    "serve": "webpack --config ./webpack.config.js  --watch"
   },
   "eslintConfig": {
     "extends": [

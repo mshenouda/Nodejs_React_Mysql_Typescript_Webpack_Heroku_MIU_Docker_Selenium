@@ -1,10 +1,12 @@
 import * as mysql from 'mysql2';
 import { readFileSync } from 'fs';
-import * as dotenv from "dotenv";
 import * as path from "path";
 
-const envFilePath = path.join(__dirname,'./../../../../.env');
-dotenv.config({path:envFilePath});
+
+//if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config({path:path.join(__dirname,'./../../../../.env')});
+//}
 
 const connection = mysql.createConnection({
   user: process.env.MYSQL_ROOT,
