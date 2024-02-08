@@ -30,7 +30,7 @@
   },
   "scripts": {
     "serve": "cd ./frontend && npm run serve",
-    "start": "cross-env NODE_ENV=production npm run start:dev",
+    "start": "npm run start:dev",
     "dev": "nodemon ./backend/build/server.js",
     "start:dev": "cd ./backend && tsc --outdir ./build ./server.ts && npm run dev",
     "start:prod": "cd ./backend && tsc --outdir ./build ./server.ts && node ./build/server.js"

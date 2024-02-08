@@ -11,7 +11,7 @@ const dotenv = require('dotenv').config( {
 module.exports = (env, argv) => {
 // module.exports = ({ mode } = { mode: "development" }) => {
 
-    //const mode = argv.mode || 'development';
+    const mode = argv.mode || 'development';
     //console.log(process.env);
     return {
         entry: path.resolve(__dirname, './src/index.tsx'),
@@ -19,8 +19,8 @@ module.exports = (env, argv) => {
             extensions: ['.tsx', '.ts', '.js'],
         },
         output: {
+            publicPath: '/',
             path: path.resolve(__dirname, './build'),
-            publicPath: './build',
             filename: '[name].bundle.js',
         },
         module: {
@@ -55,15 +55,14 @@ module.exports = (env, argv) => {
                 includeAliases: ['http','https','url','Buffer','process']
             }),
             new webpack.DefinePlugin({
-                // "process.env": dotenv.parsed
-                'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
+                "process.env": dotenv.parsed,
+                //'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
             }),
         ],
         devServer: {
-            port: '3000',
+            port: 3000,
             historyApiFallback: true,
             open: true,
-            overlay: true
         }
     }   
 }
