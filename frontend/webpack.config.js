@@ -56,12 +56,11 @@ module.exports = (env, argv) => {
             }),
             new webpack.DefinePlugin({
                 // "process.env": dotenv.parsed
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
                 'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
             }),
         ],
         devServer: {
-            port: 3000,
+            port: '3000',
             historyApiFallback: true,
             open: true,
             overlay: true
