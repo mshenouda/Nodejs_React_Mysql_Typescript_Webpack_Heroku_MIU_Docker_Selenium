@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as bodyParser from 'body-parser';
 import * as cors from "cors";
 import Routes from './routes';
 import * as path from "path";
@@ -22,7 +23,9 @@ export default class Server {
     };
 
     app.use(cors(corsOptions));
+    app.use(bodyParser.json({ type: 'application/*+json' }))
+    app.use(bodyParser.text({ type: 'text/html' }))
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({ extended: false }));
   }
 }
