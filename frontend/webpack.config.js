@@ -63,9 +63,7 @@ module.exports = (env, argv) => {
                 'process.env.MYSQL_PORT': JSON.stringify(process.env.MYSQL_PORT),
                 'process.env.MYSQL_PASSWORD': JSON.stringify(process.env.MYSQL_PASSWORD),
                 'process.env.SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
-                'process.env.MYSQL_DATABASE': JSON.stringify(process.env.MYSQL_DATABASE),
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-                
+                'process.env.MYSQL_DATABASE': JSON.stringify(process.env.MYSQL_DATABASE),               
             }),
         ],
         devServer: {
