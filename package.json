@@ -51,7 +51,7 @@
     "dev": "cd ./backend && nodemon ./build/server.js",
     "start:dev": "cd ./backend && tsc --outdir ./build ./server.ts && npm run dev",
     "start:prod": "NODE_ENV=production&&cd ./backend && tsc --outdir ./build ./server.ts && node ./build/server.js",
-    "heroku-prebuild": "npm install --force && npm run start:prod" 
+    "heroku-prebuild": "npm install --save --force && npm run start:prod" 
   },
   "eslintConfig": {
     "extends": [
