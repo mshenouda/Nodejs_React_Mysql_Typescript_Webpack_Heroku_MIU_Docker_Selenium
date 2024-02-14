@@ -1,8 +1,8 @@
-import * as express from "express";
-import * as bodyParser from 'body-parser';
-import * as cors from "cors";
+import express, {Application} from "express";
+import bodyParser from 'body-parser';
+import cors from "cors";
 import Routes from './routes';
-import * as path from "path";
+import path from "path";
 
 const http = require("http");
 if (process.env.NODE_ENV !== 'production') {
@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 export default class Server {
-  constructor(app) {
+  constructor(app: Application) {
     this.config(app);
     new Routes(app);
   }

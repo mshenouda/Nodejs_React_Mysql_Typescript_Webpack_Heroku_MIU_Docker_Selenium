@@ -1,6 +1,6 @@
 //React
 import React from 'react';
-import { createStyles, makeStyles } from '@mui/styles';
+//import { createStyles, makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,9 +10,9 @@ import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import TitlebarImageList from './TitleBarImage';
 
 //Styling
-const useStyles = makeStyles((theme: Theme) => createStyles({
+// const useStyles = makeStyles((theme: Theme) => createStyles({
    
-}));
+// }));
 
 const styles = {
     root: {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { createStyles, makeStyles } from '@mui/styles';
+import React, {FC} from 'react';
+// import { createStyles, makeStyles } from '@mui/styles';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -92,7 +92,7 @@ const itemData = [
     },
 ];
 
-const TitleBarImage: React.FC<{}> = () => {
+const TitleBarImage: FC = () => {
     return (
         //missing style for div
         <div >

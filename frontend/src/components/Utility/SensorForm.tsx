@@ -1,6 +1,5 @@
 //React libraries
-import React from 'react';
-import { useState, useEffect, FormEvent, ChangeEvent, useContext } from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent, useContext, FC } from 'react';
 import CssTextField from './../Common/CssTextField';
 import CssOutlinedButton from './../Common/CssOutlinedButton';
 
@@ -21,7 +20,7 @@ const styles = {
     },
 };
 
-const SensorForm: React.FC<{}> = () => {
+const SensorForm: FC = () => {
     const [errorBox, setErrorBox] = useState<boolean>(false);
     const [errorSensor, setErrorSensor] = useState<boolean>(false);
     const [box, setBox] = useState<string>("");

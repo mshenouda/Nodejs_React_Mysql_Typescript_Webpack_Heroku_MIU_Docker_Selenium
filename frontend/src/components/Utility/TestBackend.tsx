@@ -7,7 +7,7 @@ interface types {
     Button2: boolean
 }
 
-const TestBackend: React.FC<{}> = () => {
+const TestBackend: FC = () => {
     const [program, setProgram] = useState<types>({ Button1: false, Button2: false });
     const [text, setText] = useState<string>("");
   
