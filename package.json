@@ -10,9 +10,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-prebuild": "npm i --save && cd ./frontend && npm i --only=dev && npm i --save",
-    "start": "cd ./backend && rimraf ./build && tsc && npm run build:backend",
+    "build": "cd ./backend && rimraf ./build && tsc && npm run build:backend",
     "build:backend": "NODE_ENV=production&&cd ./backend && node ./build/server.js",
-    "heroku-postbuild": "cd ./frontend && rimraf ./dist && npm run heroku-postbuild",
+    "start": "cd ./frontend && rimraf ./dist && npm run start",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && node ./build/server.js"
   },
