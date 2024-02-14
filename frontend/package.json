@@ -40,7 +40,7 @@
     "build": "webpack --config ./webpack/webpack.config.prod.js --mode production",
     "heroku-prebuild": "npm install",
     "start:build": "react-scripts build",
-    "start": "serve -s ./build"
+    "start": "serve -s ./dist"
   },
   "eslintConfig": {
     "extends": [
