@@ -10,7 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-prebuilds": "cd ./frontend && npm i --save && npm run build",
-    "heroku-prebuild": "npm i --save && cd ./backend && tsc && npm run start",
+    "heroku-prebuild": "npm i --save",
+    "build": "cd ./backend && rimraf ./build && tsc",
     "starts": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "startss": "cd ./frontend && react-scripts build",
     "start": "NODE_ENV=production&&cd ./backend && node ./build/server.js",
