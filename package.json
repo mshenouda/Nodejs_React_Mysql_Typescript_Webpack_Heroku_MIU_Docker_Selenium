@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-prebuild": "npm i --save && cd ./frontend && npm i --only=dev && npm i --save",
-    "build": "cd ./frontend && rimraf ./dist && npm run build && NODE_ENV=production&&cd ./backend && rimraf ./build && tsc && node ./build/server.js",
+    "build": "cd ./frontend && rimraf ./dist && npm run build && NODE_ENV=production&&cd ./../backend && rimraf ./build && tsc && node ./build/server.js",
     "build:prod": "",
     "start": " cd ./frontend && npm run start",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
