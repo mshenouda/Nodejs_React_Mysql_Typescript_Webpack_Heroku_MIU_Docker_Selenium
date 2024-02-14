@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "cd ./frontend && npm install && rimraf ./dist" ,
+    "heroku-prebuild": "cd ./frontend && npm install" ,
     "build": "cd ./backend && rimraf ./build && tsc && npm run build:frontend",
     "build:frontend": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "start": "NODE_ENV=production&&cd ./backend && node ./build/server.js",
