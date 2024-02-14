@@ -14,7 +14,7 @@
     "start:prod": "NODE_ENV=production&&cd ./backend && node ./build/server.js && npm run prod",
     "startss": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "start": "cd ./frontend && react-scripts build",
-    "heroku-postbuild": "cd ./frontend && serve -s ./dist",
+    "heroku-postbuilds": "cd ./frontend && serve -s ./dist",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && node ./build/server.js"
   },
