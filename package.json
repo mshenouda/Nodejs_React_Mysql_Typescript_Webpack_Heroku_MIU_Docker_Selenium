@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "cd ./frontend && npm install" ,
+    "heroku-prebuild": "cd ./frontend && npm install",
     "build": "cd ./backend && rimraf ./build && tsc && npm run build:frontend",
     "build:frontend": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "start": "NODE_ENV=production&&cd ./backend && node ./build/server.js",
@@ -42,6 +42,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.4",
     "express": "^4.18.2",
-    "mysql2": "^3.4.3"
+    "mysql2": "^3.4.3",
+    "serve": "^14.2.1"
   }
 }
