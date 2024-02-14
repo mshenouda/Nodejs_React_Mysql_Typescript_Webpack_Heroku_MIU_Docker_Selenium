@@ -13,8 +13,8 @@
     "builds": "cd ./backend && rimraf ./build && tsc && npm run start:prod",
     "start:prod": "NODE_ENV=production&&cd ./backend && node ./build/server.js && npm run prod",
     "startss": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
-    "start": "cd ./frontend && npm run build",
-    "heroku-postbuild": "cd ./frontend && npm run start",
+    "start": "cd ./frontend && npm run start",
+    "heroku-postbuild": "cd ./frontend && npm run heroku-postbuild",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && node ./build/server.js"
   },
