@@ -38,7 +38,7 @@
     "clean": "rimraf ./build",
     "webpack-dev": "webpack serve --config ./webpack.config.dev.js --mode development",
     "start:build": "react-scripts build",
-    "heroku-postbuild": "webpack --config ./webpack/webpack.config.prod.js --mode production",
+    "heroku-postbuild": "webpack --config ./webpack/webpack.config.prod.js --mode production && npm run start",
     "start": "serve -s ./dist"
   },
   "eslintConfig": {
