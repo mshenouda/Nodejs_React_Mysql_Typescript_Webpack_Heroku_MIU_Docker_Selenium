@@ -1,10 +1,6 @@
 //React libraries
 import React, { useContext, useState, useEffect, FormEvent, ChangeEvent } from 'react';
-// import { createStyles, makeStyles } from '@mui/styles';
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
-
-//Context provider
-// import { UtilitiesContext } from '../../contexts/utilitiesContext.js';
 
 //Material ui
 import InputLabel from '@mui/material/InputLabel';

@@ -49,7 +49,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch(`http://${process.env.HOST}:${process.env.SERVER_PORT}/api/tutorials/`+id, requestOptions)
+        fetch(`http://${process.env.HOST}:${process.env.PORT}/api/tutorials/`+id, requestOptions)
         .then(res => res.json())
         .then(()=>onClose()) 
         .catch(err => console.log(err));

@@ -3,7 +3,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";
-// import ScrollableTabs from "./ScrollableTab";
 import Selector from "./Selector";
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow.js';

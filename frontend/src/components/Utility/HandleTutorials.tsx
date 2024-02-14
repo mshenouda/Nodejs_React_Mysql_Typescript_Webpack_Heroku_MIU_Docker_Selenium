@@ -102,7 +102,7 @@ const HandleTutorials: React.FC<{}> = () => {
 
   const showAll = (): void => {
     {
-      fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials`, {
+      fetch(`http://localhost:${process.env.PORT}/api/tutorials`, {
         method: 'GET'
       })
       .then(res => res.json())
@@ -112,7 +112,7 @@ const HandleTutorials: React.FC<{}> = () => {
   }
   
   function handleDelete(id: number) {
-    fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/` + id, {
+    fetch(`http://localhost:${process.env.PORT}/api/tutorials/` + id, {
       method: 'DELETE',
     })
     .then(res => res.json())
