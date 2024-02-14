@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuilds": "cd ./frontend && npm i --save",
+    "heroku-prebuilds": "cd ./frontend && npm i --save && npm run build",
     "build": "cd ./backend && tsc && npm run start",
     "starts": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "startss": "cd ./frontend && react-scripts build",
