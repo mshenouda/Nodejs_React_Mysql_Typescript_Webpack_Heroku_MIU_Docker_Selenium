@@ -49,7 +49,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch(`http://localhost:${process.env.SERVER_PORT}/api/tutorials/`+id, requestOptions)
+        fetch(`http://${process.env.HOST}:${process.env.SERVER_PORT}/api/tutorials/`+id, requestOptions)
         .then(res => res.json())
         .then(()=>onClose()) 
         .catch(err => console.log(err));
@@ -91,7 +91,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     );
 }
 
-export default function EditDialog({id}) {
+export default function EditDialog(id: any) {
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

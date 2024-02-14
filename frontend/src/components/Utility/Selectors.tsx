@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";
-import ScrollableTabs from "./ScrollableTab";
+// import ScrollableTabs from "./ScrollableTab";
 import Selector from "./Selector";
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow.js';
@@ -151,7 +151,7 @@ const Selectors: React.FC<{}> = () => {
                             <Button startIcon={<PlayArrowIcon />} sx={styles.button} disabled={!sensorFormOnOff} size='large' variant='contained' color='primary' onClick={handleClick}>Submit</Button>
                         </Grid>
                     </Grid>
-                    <ScrollableTabs />
+                    {/* <ScrollableTabs /> */}
                 </Grid>
             </Grid>
         </div>

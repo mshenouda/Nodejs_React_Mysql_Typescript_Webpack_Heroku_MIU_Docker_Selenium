@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { createStyles, makeStyles } from '@mui/styles';
+//import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 
 const columns = [
@@ -110,12 +110,12 @@ const Logger: React.FC<{}> = () => {
         .catch(err => console.log(err));
     };
     
-    useEffect(() => {
-        if (refreshInterval.value && refreshInterval.value > 0) {
-            const interval = setInterval(getData, refreshInterval.value);
-            return () => clearInterval(interval);
-        }
-    }, [refreshInterval]);
+    // useEffect(() =>{ return {
+    //     if ((refreshInterval.value) && (refreshInterval.value > 0)){
+    //         const interval = setInterval(getData, refreshInterval.value);
+    //         return () => clearInterval(interval);
+    //     }}
+    // }, [refreshInterval]);
 
     return (
         <Paper sx={styles.root}>
