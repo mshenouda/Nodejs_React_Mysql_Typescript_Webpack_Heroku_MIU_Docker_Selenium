@@ -10,11 +10,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-prebuilds": "cd ./frontend && npm i --save && npm run build",
-    "build": "cd ./backend && tsc && npm run start",
+    "heroku-prebuild": "cd ./backend && npm i --save && tsc && npm run start",
     "starts": "cd ./frontend && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "startss": "cd ./frontend && react-scripts build",
     "start": "NODE_ENV=production&&cd ./backend && node ./build/server.js",
-    "heroku-postbuild": "cd ./frontend && serve -s dist",
+    "heroku-postbuilds": "cd ./frontend && serve -s dist",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && node ./build/server.js"
   },
