@@ -7,7 +7,7 @@ module.exports = {
   entry: ['./src/index.tsx'],
   output: {
     publicPath: '/',
-    //path: 'build',
+    path: './build',
     clean: true,
     filename: '[name].bundle.js'
     // filename: '[name].[chunkhash].js',
