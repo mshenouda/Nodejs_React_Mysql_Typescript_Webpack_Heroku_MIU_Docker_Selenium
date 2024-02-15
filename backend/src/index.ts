@@ -22,10 +22,10 @@ export default class Server {
       origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
-    var public = path.join(__dirname, '../../../frontend/dist/');
+    var publicPath = path.join(__dirname, '../../../frontend/dist/public');
     if (process.env.NODE_ENV === "production") {
       app.get("*", (req, res) => {
-        res.sendFile(path.resolve(path.join(public, 'index.html')));
+        res.sendFile(path.resolve(path.join(publicPath, 'index.html')));
       });
     }
 
