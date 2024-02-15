@@ -22,7 +22,7 @@ export default class Server {
       origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
-    const publicPath = path.join(__dirname, 'build');
+    const publicPath = path.join(__dirname, '../build');
     const staticPath = path.join(__dirname, "../../../frontend/build");
     if (process.env.NODE_ENV === "production") {
       //app.use(express.static(, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
