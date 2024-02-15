@@ -14,7 +14,7 @@
     "starts": "cd ./backend && node ./build/server.js",
     "startss": "cd ./backend && node ./build/server.js && cd ../ && ls -l",
     "startsss": "cd ./frontend && serve -s ./build && cd ./../backend && ls -l",
-    "start": "cd ./backend && node ./build/server.js || cd ./../frontend && ls -l",
+    "start": "concurrently \"cd ./backend && node ./build/server.js\" \"cd ./../frontend && ls -l\"",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && tsc && node ./build/server.js"
   },
