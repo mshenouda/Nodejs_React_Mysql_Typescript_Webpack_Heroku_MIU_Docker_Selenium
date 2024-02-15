@@ -12,7 +12,7 @@
     "heroku-prebuild": "npm i --save && cd ./frontend && npm i --only=dev && npm i --save",
     "build": "cd ./frontend && rimraf ./build && npm run build && NODE_ENV=production&&cd ./../backend && rimraf ./build && tsc",
     "starts": "cd ./backend && node ./build/server.js",
-    "start": "cd ./backend && node ./build/server.js && cd ./frontend && ls -l",
+    "start": "cd ./backend && node ./build/server.js && cd ../ && ls -l",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && tsc && node ./build/server.js"
   },
