@@ -23,11 +23,11 @@ export default class Server {
     };
 
     var publicPath = path.join(__dirname, '../../../frontend/build');
-    if (process.env.NODE_ENV === "production") {
-      app.get("*", (req, res) => {
-        res.sendFile(path.resolve(path.join(publicPath, 'index.html')));
-      });
-    }
+    // if (process.env.NODE_ENV === "production") {
+    //   app.get("*", (req, res) => {
+    //     res.sendFile(path.resolve(path.join(publicPath, 'index.html')));
+    //   });
+    // }
 
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ type: 'application/*+json' }))
