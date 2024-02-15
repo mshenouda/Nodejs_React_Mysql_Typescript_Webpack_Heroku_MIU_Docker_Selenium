@@ -22,12 +22,13 @@ export default class Server {
       origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
-    var publicPath = path.join(__dirname, '../../../frontend/build');
-    // if (process.env.NODE_ENV === "production") {
-    //   app.get("*", (req, res) => {
-    //     res.sendFile(path.resolve(path.join(publicPath, 'index.html')));
-    //   });
-    // }
+    //var publicPath = path.join(__dirname, '../../../frontend/build');
+    if (process.env.NODE_ENV === "production") {
+      app.use(express.static("build"));
+      app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname,  "../../frontend/build", "index.html"));
+      });
+    }
 
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ type: 'application/*+json' }))
