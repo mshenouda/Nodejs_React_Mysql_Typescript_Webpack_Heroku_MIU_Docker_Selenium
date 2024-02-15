@@ -29,7 +29,7 @@ module.exports = [
     'process.env.MYSQL_ROOT': JSON.stringify(process.env.MYSQL_ROOT),
     'process.env.MYSQL_PORT': JSON.stringify(process.env.MYSQL_PORT),
     'process.env.MYSQL_PASSWORD': JSON.stringify(process.env.MYSQL_PASSWORD),
-    'process.env.SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
+    'process.env.PORT': JSON.stringify(process.env.PORT),
     'process.env.MYSQL_DATABASE': JSON.stringify(process.env.MYSQL_DATABASE),    
   })
 ].filter(Boolean);
