@@ -22,12 +22,14 @@ export default class Server {
       origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
-    const publicPath = path.join(__dirname, '../build');
+    //const publicPath = path.resolve(__dirname);
     const staticPath = path.join(__dirname, "../../../frontend/build");
+    const publicPath = path.resolve(__dirname,  staticPath, "index.html");
+
     if (process.env.NODE_ENV === "production") {
-      //app.use(express.static(, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
+      app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
       // app.get("/*", (req, res) => {
-      //   res.sendFile(path.resolve(__dirname,  "../../../frontend/build", "index.html"));
+      //   res.sendFile(path.resolve(__dirname,  staticPath, "index.html"));
       // });
     }
 
