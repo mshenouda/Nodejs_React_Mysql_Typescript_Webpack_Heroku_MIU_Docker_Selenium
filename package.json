@@ -2,7 +2,7 @@
   "name": "node-js-typescript-mysql-rest-api",
   "version": "1.0.0",
   "description": "Rest API using Node.js, TypeScript, Express, Mysql",
-  "main": "server.ts",
+  "main": "./backend/server.ts",
   "engines": {
     "node": "20.11.0",
     "npm": "10.2.4"
