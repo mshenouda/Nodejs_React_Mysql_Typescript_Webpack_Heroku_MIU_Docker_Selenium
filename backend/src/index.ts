@@ -22,7 +22,7 @@ export default class Server {
       origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
-    // const publicPath = path.join(__dirname, '../../../frontend/build/static');
+    const publicPath = path.join(__dirname, '../../../frontend/build/static');
     // if (process.env.NODE_ENV === "production") {
     //   app.use(express.static(path.join(__dirname, publicPath), { maxAge: 30 * 60 * 60 * 24 * 1000 }));
     //   app.get("/*", (req, res) => {
@@ -30,6 +30,7 @@ export default class Server {
     //   });
     // }
 
+    console.log(publicPath);
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ type: 'application/*+json' }))
     app.use(bodyParser.text({ type: 'text/html' }))
