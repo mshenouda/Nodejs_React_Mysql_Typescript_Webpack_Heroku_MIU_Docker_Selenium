@@ -11,10 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-prebuild": "npm i --save && cd ./frontend && npm i --only=dev && npm i --save",
     "build": "cd ./frontend && rimraf ./build && npm run build && NODE_ENV=production&&cd ./../backend && rimraf ./build && tsc",
-    "start": "cd ./backend && node ./build/server.js",
-    "startss": "cd ./backend && node ./build/server.js && cd ../ && ls -l",
-    "startsss": "cd ./frontend && serve -s ./build && cd ./../backend && ls -l",
-    "startssss": "concurrently \"cd ./backend && node ./build/server.js\" \"cd ./frontend && npm run start\"",
+    "starts": "cd ./backend && node ./build/server.js",
+    "start": "concurrently \"cd ./backend && node ./build/server.js\" \"cd ./frontend && npm run start\"",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && tsc && node ./build/server.js"
   },
