@@ -13,7 +13,7 @@
     "build": "cd ./frontend && rimraf ./build && npm run build && NODE_ENV=production&&cd ./../backend && rimraf ./build && tsc",
     "starts": "cd ./backend && node ./build/server.js",
     "startss": "cd ./backend && node ./build/server.js && cd ../ && ls -l",
-    "start": "cd ./frontend && cd ../ && ls -l",
+    "start": "cd ./frontend && serve -s ./build && cd ./../backend && ls -l",
     "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
     "dev": "set NODE_ENV=development&&cd ./backend && tsc && node ./build/server.js"
   },
