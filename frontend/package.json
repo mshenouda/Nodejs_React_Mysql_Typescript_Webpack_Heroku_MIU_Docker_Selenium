@@ -39,7 +39,7 @@
     "webpack-dev": "webpack serve --config ./webpack.config.dev.js --mode development",
     "build": "react-scripts build",
     "builds": "webpack --config ./webpack/webpack.config.prod.js --mode production",
-    "start": "serve -s ./dist"
+    "start": "serve -s ./build"
   },
   "eslintConfig": {
     "extends": [
