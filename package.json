@@ -21,6 +21,7 @@
     "express",
     "mysql",
     "mysql2",
+    "webpack",
     "restapi",
     "rest",
     "api",
