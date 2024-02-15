@@ -19,7 +19,7 @@ export default class Server {
 
   private config(app): void {
     const corsOptions = {
-      origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
+      origin: `https://${process.env.HOST}:${process.env.REACT_PORT}`
     };
 
     var publicPath = path.join(__dirname, '../../../frontend/dist/public');
