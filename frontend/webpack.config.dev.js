@@ -54,8 +54,8 @@ module.exports = (env, argv) => {
             }),
             new webpack.DefinePlugin({
                 'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
-                'process.env.PORT': JSON.stringify(process.env.PORT),
-                'process.env.REACT_APP_HOST': JSON.stringify(process.env.REACT_APP_HOST),
+                'process.env.REACT_APP_SERVER_PORT': JSON.stringify(process.env.REACT_APP_SERVER_PORT),
+                'process.env.REACT_APP_PUBLIC_URL': JSON.stringify(process.env.REACT_APP_PUBLIC_URL),
                 'process.env.MYSQL_HOST': JSON.stringify(process.env.MYSQL_HOST),
                 'process.env.MYSQL_ROOT_PASSWORD': JSON.stringify(process.env.MYSQL_ROOT_PASSWORD),
                 'process.env.MYSQL_USER': JSON.stringify(process.env.MYSQL_USER),

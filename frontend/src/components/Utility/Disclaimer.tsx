@@ -1,11 +1,10 @@
 //React
-import React from 'react';
+import React, {FC} from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import TitlebarImageList from './TitleBarImage';
 
 const styles = {
@@ -18,10 +17,7 @@ const styles = {
     },
 };
 
-interface Props {
-};
-
-const Disclaimer: React.FC<Props> = ({ }) => {
+const Disclaimer: FC = () => {
     return (
         <div>
             <Typography variant="h3">Disclaimer:</Typography>
