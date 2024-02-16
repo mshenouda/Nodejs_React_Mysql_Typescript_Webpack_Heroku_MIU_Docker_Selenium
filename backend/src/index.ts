@@ -19,7 +19,7 @@ export default class Server {
 
   private config(app): void {
     const corsOptions = {
-      origin: `https://integratedsuite-bd9c2e7e4b3b.herokuapp.com:3000`
+      origin: `https://integratedsuite-bd9c2e7e4b3b.herokuapp.com`
     };
 
     const staticPath = path.join(__dirname, "../../../frontend/build");
