@@ -22,11 +22,11 @@ export default class Server {
     const staticPath = path.join(__dirname, "../../../frontend/build");
     const publicPath = path.resolve(__dirname,  staticPath, "index.html");
     let corsOptions = {
-      origin: `http://${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_PORT}`
+      origin: `http://${process.env.HOST}:${process.env.REACT_PORT}`
     };
     if (process.env.NODE_ENV === "production") {
       corsOptions = {
-        origin: `https://${process.env.REACT_APP_PUBLIC_URL}`
+        origin: `${process.env.HOST}`
       };
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
       app.get("/", (req, res) => {

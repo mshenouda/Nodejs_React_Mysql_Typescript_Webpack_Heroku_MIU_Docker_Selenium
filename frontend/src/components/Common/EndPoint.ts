@@ -1,7 +1,7 @@
 let endPoint: string="";
 if (process.env.REACT_APP_NODE_ENV === 'production')
-  endPoint = `https://${process.env.REACT_APP_PUBLIC_URL}`;
+  endPoint = `${process.env.REACT_APP_HOST}`;
 else
-  endPoint =`http://${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}`; 
+  endPoint =`http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_SERVER_PORT}`; 
 
 export default endPoint;
