@@ -9,8 +9,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const app: Application= express();
 const server: Server = new Server(app);
-//const HOST: string = process.env.REACT_APP_PUBLIC_URL;
-const HOST: string = process.env.HOST;
+const HOST: string = process.env.REACT_APP_HOST;
+// const HOST: string = process.env.HOST;
 let PORT: number;
 if (process.env.NODE_ENV === 'production')
   PORT = parseInt(process.env.PORT, 10);

@@ -4,5 +4,4 @@ if (process.env.REACT_APP_NODE_ENV === 'production')
 else
   endPoint =`http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_SERVER_PORT}`; 
 
-console.log(process.env);
 export default endPoint;
