@@ -34,7 +34,7 @@ export default class Server {
       });
     }
 
-    console.log(staticPath, publicPath);
+    console.log(staticPath, publicPath, corsOptions, process.env);
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ type: 'application/*+json' }))
     app.use(bodyParser.text({ type: 'text/html' }))
