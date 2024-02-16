@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === 'production')
 else
   PORT = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
 
-
 app
   .listen(PORT, HOST, ()=> {
     console.log(`Server is running on HOST:${HOST} PORT:${PORT} MODE:${process.env.NODE_ENV}.`);
