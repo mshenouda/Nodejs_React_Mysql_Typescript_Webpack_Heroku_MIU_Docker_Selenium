@@ -44,7 +44,7 @@ const Register: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users/register`, {
+    fetch(`${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/register`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",

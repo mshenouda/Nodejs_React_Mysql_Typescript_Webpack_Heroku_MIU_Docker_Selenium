@@ -45,7 +45,7 @@ const Login: FC<{}> = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     console.log(process.env);
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users`, {
+    fetch(`${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
