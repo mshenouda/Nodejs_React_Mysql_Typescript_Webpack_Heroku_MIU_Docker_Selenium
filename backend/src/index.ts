@@ -21,13 +21,13 @@ export default class Server {
     const corsOptions = {
       origin: `https://integratedsuite-bd9c2e7e4b3b.herokuapp.com`
     };
-
     const staticPath = path.join(__dirname, "../../../frontend/build");
     const publicPath = path.resolve(__dirname,  staticPath, "index.html");
     if (process.env.NODE_ENV === "production") {
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
       app.get("/", (req, res) => {
         res.sendFile(publicPath);
+        console.log(process.env);
       });
     }
 
