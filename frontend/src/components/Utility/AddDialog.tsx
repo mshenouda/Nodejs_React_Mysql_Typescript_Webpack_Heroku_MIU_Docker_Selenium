@@ -14,7 +14,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { TextField, Button, Container, Stack, Checkbox, Switch } from '@mui/material';
-import {useNavigate, redirect} from 'react-router-dom'; 
+import {useNavigate} from 'react-router-dom'; 
+import endPoint from '../Common/EndPoint';
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -47,45 +48,47 @@ function SimpleDialog(props: SimpleDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch(`http://${process.env.HOST}:${process.env.PORT}/api/tutorials`, requestOptions)
+        fetch(`${endPoint}/api/tutorials`, requestOptions)
         .then(res => res.json())
         .then(()=>onClose()) 
         .catch(err => console.log(err));
     };
 
     return (
-        <Dialog open={open}>
-            <ListItemButton onClick={onClose} >
-                <ListItemIcon sx={styles.xIcon}><CloseIcon /></ListItemIcon>
-            </ListItemButton>  
-            <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Add Form</DialogTitle>
-            <form onSubmit={handleSubmit}>
-                <TextField sx={{ padding: 2 }}
-                    type="text"
-                    color='primary'
-                    placeholder="Title"
-                    required
-                    onChange={handleTitle}
-                    value={title}
-                    fullWidth />
-                <TextField sx={{ padding: 2 }}
-                    type="text"
-                    variant='outlined'
-                    color='primary'
-                    placeholder="Description"
-                    onChange={handleDescription}
-                    value={description}
-                    fullWidth
-                    required />
-                <label style={{ fontWeight: 400, padding: 2 }}>Published: </label>
-                <Switch sx={{ padding: 2 }}
-                    checked={published}
-                    onChange={handlePublished}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                /><br />
-                <Button color="primary" sx={{ fontWeight: 400, height: 50 }} fullWidth type="submit">Submit</Button>
-            </form>
-        </Dialog>
+        <>
+            <Dialog open={open}>
+                <ListItemButton onClick={onClose} >
+                    <ListItemIcon sx={styles.xIcon}><CloseIcon /></ListItemIcon>
+                </ListItemButton>  
+                <DialogTitle sx={{ fontWeight: 700, padding: 2 }}>Add Form</DialogTitle>
+                <form onSubmit={handleSubmit}>
+                    <TextField sx={{ padding: 2 }}
+                        type="text"
+                        color='primary'
+                        placeholder="Title"
+                        required
+                        onChange={handleTitle}
+                        value={title}
+                        fullWidth />
+                    <TextField sx={{ padding: 2 }}
+                        type="text"
+                        variant='outlined'
+                        color='primary'
+                        placeholder="Description"
+                        onChange={handleDescription}
+                        value={description}
+                        fullWidth
+                        required />
+                    <label style={{ fontWeight: 400, padding: 2 }}>Published: </label>
+                    <Switch sx={{ padding: 2 }}
+                        checked={published}
+                        onChange={handlePublished}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                    /><br />
+                    <Button color="primary" sx={{ fontWeight: 400, height: 50 }} fullWidth type="submit">Submit</Button>
+                </form>
+            </Dialog>
+        </>
     );
 }
 
@@ -95,7 +98,7 @@ export default function AddDialog() {
     const handleClose = () => setOpen(false);
 
     return (
-        <div>
+        <>
             <Button variant="outlined" onClick={handleClickOpen}>
                 <AddCircleIcon /> Add item
             </Button>
@@ -103,7 +106,7 @@ export default function AddDialog() {
                 open={open}
                 onClose={handleClose}
             />
-        </div>
+        </>
     );
 }
 

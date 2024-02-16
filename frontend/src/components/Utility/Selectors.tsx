@@ -1,5 +1,5 @@
 //React
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";
@@ -12,27 +12,7 @@ import bluebox from './../../static/images/bluebox.png';
 import yellowbox from './../../static/images/yellowbox.png';
 import sensor1 from './../../static/images/sensor1.png';
 import sensor2 from './../../static/images/sensor2.png';
-
-//Custom libraries
-// import { URL } from './constants.js';
-// //Third party libraries
-// import aws from 'aws-sdk';
-
-// Configure aws with your accessKeyId and your secretAccessKey during DEV
-// aws.config.update({
-//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//     region: process.env.AWS_REGION,
-// });
-// const albumBucketName = process.env.AWS_STORAGE_BUCKET_NAME;
-
-// // Show the photos that exist in an album.
-// const s3 = new aws.S3({
-//     apiVersion: '2006-03-01',
-//     params: {
-//         Bucket: albumBucketName,
-//     }
-// });
+import ScrollableTabs from "./ScrollableTabs";
 
 const styles = {
     button: {
@@ -45,7 +25,7 @@ const styles = {
     } 
 };    
 
-const Selectors: React.FC<{}> = () => { 
+const Selectors: FC<{}> = () => { 
 
     type MyRecord = {
         name: string,
@@ -89,38 +69,6 @@ const Selectors: React.FC<{}> = () => {
         console.log(`sensorFormOnOff: ${sensorFormOnOff}`);
     }
 
-    //Handlers
-    // function viewAlbum(albumName) {
-    //     const albumPhotosKey = encodeURIComponent(albumName) + '/';
-    //     s3.listObjects({ Prefix: albumPhotosKey }, function (err, data) {
-    //         if (err) {
-    //             return alert('There was an error viewing your album: ' + err.message);
-    //         }
-    //         // 'this' references the AWS.Request instance that represents the response
-    //         const href = this.request.httpRequest.endpoint.href;
-    //         const bucketUrl = href + albumBucketName + '/';
-    //         const photoUrls = data.Contents.map(photo => ({ 'src': bucketUrl + photo['Key'], 'name': photo['Key'] }));
-    //         if (albumName === 'Company')
-    //             setCompanies(photoUrls);
-    //         else if (albumName === 'Box')
-    //             setBoxes(photoUrls);
-    //         else if (albumName === 'Sensor')
-    //             setSensors(photoUrls);
-    //     });
-    // }
-    // useEffect(() => { viewAlbum('Company') }, []);
-    // useEffect(() => { viewAlbum('Box') }, []);
-    // useEffect(() => { viewAlbum('Sensor') }, []); 
-    // }
-
-    // // const handleClick = e => {
-    //     e.preventDefault();
-    //     setselectorDisabled(() => { return false });
-    //     setutilityDisabled(() => { return true });
-    //     const a = selector['Sensor'];
-    //     const v = parseInt(a.charAt(a.length - 1));
-    //     setSlots({ 'slot0': (v - 1).toString(), 'slot1': v.toString() });
-
     return (
         <div>
             <Grid container direction="row" spacing={1}>
@@ -139,7 +87,7 @@ const Selectors: React.FC<{}> = () => {
                             <Button startIcon={<PlayArrowIcon />} sx={styles.button} disabled={!sensorFormOnOff} size='large' variant='contained' color='primary' onClick={handleClick}>Submit</Button>
                         </Grid>
                     </Grid>
-                    {/* <ScrollableTabs /> */}
+                    <ScrollableTabs />
                 </Grid>
             </Grid>
         </div>

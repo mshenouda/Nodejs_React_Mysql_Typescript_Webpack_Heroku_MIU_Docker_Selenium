@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, FC } from 'react';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -15,7 +15,8 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { TextField, Button, Container, Checkbox, Switch } from '@mui/material';
-import {useNavigate, redirect} from 'react-router-dom'; 
+import {useNavigate} from 'react-router-dom'; 
+import endPoint from '../Common/EndPoint';
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -40,6 +41,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -49,8 +51,9 @@ function SimpleDialog(props: SimpleDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        fetch(`http://${process.env.HOST}:${process.env.PORT}/api/tutorials/`+id, requestOptions)
-        .then(res => res.json())
+        console.log(`im here', ${endPoint}, ${id}`);
+        fetch(`${endPoint}/api/tutorials/`+id, requestOptions)
+        .then(res => console.log(res))
         .then(()=>onClose()) 
         .catch(err => console.log(err));
     };
@@ -91,10 +94,15 @@ function SimpleDialog(props: SimpleDialogProps) {
     );
 }
 
-export default function EditDialog(id: any) {
+interface Props {
+    readonly id: number,
+}
+
+const EditDialog:FC<Props> = ({id}) => {
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    console.log(`this ${id}`);
 
     return (
         <div>
@@ -108,6 +116,7 @@ export default function EditDialog(id: any) {
             />
         </div>
     );
-}
+};
 
+export default EditDialog;
 

@@ -56,7 +56,7 @@ const styles = {
 };
 
 
-const Dashboard: FC<{}> = () => {
+const Dashboard: FC = () => {
     return (
         <Grid container sx={styles.sensorForm} direction='column' alignItems='flex-start' spacing={2}>
             <Grid item xs={12} container direction='row' spacing={2}>

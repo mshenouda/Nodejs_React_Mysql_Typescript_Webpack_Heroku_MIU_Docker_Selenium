@@ -15,6 +15,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
+import endPoint from '../Common/EndPoint';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -90,7 +91,7 @@ interface IData {
 
 }
 
-const HandleTutorials: React.FC<{}> = () => {
+const HandleTutorials: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [datas, setData] = useState<IData[]>([]);
@@ -102,7 +103,7 @@ const HandleTutorials: React.FC<{}> = () => {
 
   const showAll = (): void => {
     {
-      fetch(`http://localhost:${process.env.PORT}/api/tutorials`, {
+      fetch(`${endPoint}/api/tutorials`, {
         method: 'GET'
       })
       .then(res => res.json())
@@ -112,7 +113,7 @@ const HandleTutorials: React.FC<{}> = () => {
   }
   
   function handleDelete(id: number) {
-    fetch(`http://localhost:${process.env.PORT}/api/tutorials/` + id, {
+    fetch(`${endPoint}/api/tutorials/` + id, {
       method: 'DELETE',
     })
     .then(res => res.json())
@@ -145,7 +146,7 @@ const HandleTutorials: React.FC<{}> = () => {
   return (
     <>
       <ListItem key={"AddIcon"} disablePadding>
-        <AddDialog />
+          <AddDialog />
       </ListItem>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">

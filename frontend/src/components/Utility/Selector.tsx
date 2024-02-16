@@ -1,5 +1,5 @@
 //React libraries
-import React, { useState} from 'react';
+import React, { useState, FC} from 'react';
 
 //Material ui
 import InputLabel from '@mui/material/InputLabel';
@@ -21,7 +21,6 @@ const MenuProps = {
 
 const styles = {
     formControl: {
-        // margin: theme.spacing(2),
         minWidth: 100,
         maxWidth: 300,
         margin: '10px',
@@ -51,8 +50,7 @@ type Props = {
     records: any
 };
 
-const Selector: React.FC<Props> = ({ label, records }) => {
-    //debugger;
+const Selector: FC<Props> = ({ label, records }) => {
     const [selected, setSelected] = useState<string>("");
     const handleChange = (e: SelectChangeEvent): void => setSelected(e.target.value);
     const upperCase = (s: string) => s.toUpperCase();

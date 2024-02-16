@@ -12,8 +12,13 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const app = (0, express_1.default)();
 const server = new index_1.default(app);
-const PORT = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
-const HOST = process.env.REACT_APP_PUBLIC_URL;
+const HOST = process.env.REACT_APP_HOST;
+// const HOST: string = process.env.HOST;
+let PORT;
+if (process.env.NODE_ENV === 'production')
+    PORT = parseInt(process.env.PORT, 10);
+else
+    PORT = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
 app
     .listen(PORT, HOST, () => {
     console.log(`Server is running on HOST:${HOST} PORT:${PORT} MODE:${process.env.NODE_ENV}.`);

@@ -1,5 +1,5 @@
 //React
-import React, { useState, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import endPoint from '../Common/EndPoint';
 
 const columns = [
     { id: 'id', label: 'id', minWidth: 20, align: "left" },
@@ -100,18 +101,18 @@ const Logger: FC<{}> = () => {
 
     //Fetch API
     const getData = () => {
-        fetch(`http://localhost:${process.env.SERVER_PORT}/api/loggers`)
+        fetch(`${endPoint}/api/loggers`)
         .then(res => res.json())
         .then(data => setLogs(data))
         .catch(err => console.log(err));
     };
     
-    // useEffect(() =>{ return {
-    //     if ((refreshInterval.value) && (refreshInterval.value > 0)){
-    //         const interval = setInterval(getData, refreshInterval.value);
-    //         return () => clearInterval(interval);
-    //     }}
-    // }, [refreshInterval]);
+    useEffect(() => {
+        if (refreshInterval.value && refreshInterval.value > 0){
+            const interval = setInterval(getData, refreshInterval.value);
+            return () => clearInterval(interval);
+        }
+    }, [refreshInterval]);
 
     return (
         <Paper sx={styles.root}>
