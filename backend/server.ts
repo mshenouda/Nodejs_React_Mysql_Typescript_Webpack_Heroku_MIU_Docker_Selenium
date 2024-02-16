@@ -15,7 +15,8 @@ const HOST: string = process.env.HOST;
 
 app
   .listen(PORT, HOST, ()=> {
-    console.log(`Server is running on port ${PORT}.`);
+    console.log(process.env);
+    console.log(`Server is running on ${HOST}, port ${PORT}.`);
   })
   .on("error", (err: any) => {
     if (err.code === "EADDRINUSE") {

@@ -27,11 +27,9 @@ export default class Server {
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
       app.get("/", (req, res) => {
         res.sendFile(publicPath);
-        console.log(process.env);
       });
     }
 
-    console.log(publicPath, staticPath);
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ type: 'application/*+json' }))
     app.use(bodyParser.text({ type: 'text/html' }))
