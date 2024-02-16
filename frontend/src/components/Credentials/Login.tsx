@@ -1,17 +1,15 @@
 
-import React, {useState, useContext, FC, ChangeEvent, FormEvent} from 'react';
+import React, {useState, FC, ChangeEvent, FormEvent} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
 import CssTextField from './../Common/CssTextField';
 import CssOutlinedButton from './../Common/CssOutlinedButton';
 
 import {
-  Avatar, Button, CssBaseline, TextField, FormControlLabel,
-  Checkbox, Grid, Box, Typography, Container}
+  Avatar, CssBaseline, Grid, Box, Typography, Container}
   from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
-import ForgetPassword from './Forget';
 
 //Styling
 const styles = {
@@ -47,9 +45,7 @@ const Login: FC<{}> = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     console.log(process.env);
     e.preventDefault();
-    //fetch(`http://${process.env.HOST}:${process.env.PORT}/api/users`, {
-    fetch(`${process.env.REACT_APP_HOST}/api/users`, {
-    // fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/api/users`, {
+    fetch(`${process.env.REACT_APP_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",

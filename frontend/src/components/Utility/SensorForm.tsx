@@ -1,24 +1,8 @@
 //React libraries
-import React, { useState, useEffect, FormEvent, ChangeEvent, useContext, FC } from 'react';
+import React, { useState, FormEvent, ChangeEvent, useContext, FC } from 'react';
 import CssTextField from './../Common/CssTextField';
 import CssOutlinedButton from './../Common/CssOutlinedButton';
-
-import { Stack } from '@mui/material';
 import { SensorFormContext } from "./../../contexts/SensorFormContext";
-
-
-//STYLING
-const styles = {
-    sensorForm: {
-        borderBlockColor: 'black',
-        border: 10,
-        borderColor: 'black',
-    },
-    valid: {
-        borderColor: 'green',
-        borderWidth: 2,
-    },
-};
 
 const SensorForm: FC = () => {
     const [errorBox, setErrorBox] = useState<boolean>(false);

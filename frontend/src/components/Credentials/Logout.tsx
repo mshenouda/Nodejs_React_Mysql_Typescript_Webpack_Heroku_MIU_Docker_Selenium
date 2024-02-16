@@ -1,9 +1,8 @@
 //React libraries
-import React, {useState, useContext, FormEvent, ChangeEvent, FC} from 'react';
+import React, {FC} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
 import {
-  Avatar, Button, CssBaseline, TextField, FormControlLabel, 
-  Checkbox, Grid, Box, Typography, Container}
+  CssBaseline, Box, Typography, Container}
   from '@mui/material';
 
 import Copyright from './Copyright';
@@ -29,8 +28,6 @@ const styles = {
 };
 
 const Logout: FC<{}> = () => {
-  
-  const navigate = useNavigate();
   return (
     <Container sx={styles.paper} component="main" maxWidth="xs">
       <CssBaseline />

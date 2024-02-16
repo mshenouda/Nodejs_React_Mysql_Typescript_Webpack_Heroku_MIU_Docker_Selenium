@@ -1,17 +1,15 @@
 //React libraries
-import React, {useState, useContext,  FormEvent, ChangeEvent, FC} from 'react';
+import React, {useState, FormEvent, ChangeEvent, FC} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
 import CssTextField from './../Common/CssTextField';
 import CssOutlinedButton from './../Common/CssOutlinedButton';
 
 import {
-  Avatar, CssBaseline, FormControlLabel,
-  Checkbox, Grid, Box, Typography,
-  Container, Snackbar} from '@mui/material';
+  Avatar, CssBaseline, Grid, Box, Typography,
+  Container} from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
-import ForgetPassword from './Forget';
 
 const styles = {
   paper: {
@@ -46,8 +44,7 @@ const Register: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    //fetch(`http://${process.env.HOST}:${process.env.PORT}/api/users/register`, {
-    fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/api/users/register`, {
+    fetch(`${process.env.REACT_APP_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users/register`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
@@ -57,7 +54,7 @@ const Register: FC<{}> = () => {
       body: JSON.stringify({"password":password, "email": email}),  
     })
     .then(res => {
-       if(res.status == 201 || res.status == 200) {
+       if(res.status === 201 || res.status === 200) {
         setMessage("Successfully created user");
         setTimeout(() => {
           navigate('/');  

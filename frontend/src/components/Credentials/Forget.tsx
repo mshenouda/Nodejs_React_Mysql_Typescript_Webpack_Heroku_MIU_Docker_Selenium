@@ -1,11 +1,10 @@
 //React libraries
-import React, {useState, useContext, FC} from 'react';
+import React from 'react';
 import { NavLink } from "react-router-dom";
 import CssTextField from './../Common/CssTextField';
 import CssOutlinedButton from './../Common/CssOutlinedButton';
 
 import { Avatar, CssBaseline,
-        FormControlLabel, Checkbox,
         Grid, Box, Typography, Container
       } from '@mui/material';
 

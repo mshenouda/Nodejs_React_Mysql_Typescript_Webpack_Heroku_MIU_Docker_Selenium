@@ -1,5 +1,4 @@
 import React, { ReactNode, createContext, useState, Dispatch, SetStateAction } from 'react';
-import { JsxElement } from 'typescript';
 
 interface stateType {
     sensorFormOnOff: boolean

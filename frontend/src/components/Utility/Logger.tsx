@@ -7,7 +7,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Theme } from '@mui/material/styles';
 
 const columns = [
     { id: 'id', label: 'id', minWidth: 20, align: "left" },
@@ -74,10 +73,8 @@ const styles = {
 interface INumber {
     value: number;
 }
-const Logger: React.FC<{}> = () => {
+const Logger: FC<{}> = () => {
 
-    const [page, setPage] = useState<number>(0);
-    const [logsPerPage, setlogsPerPage] = useState<INumber>({ value: 10 });
     const [logs, setLogs] = useState<ILogger[]>([]);
     const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
     

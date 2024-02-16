@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './App.css';
 
 import {
@@ -11,12 +11,10 @@ import {
 
 import RootLayout from './layouts/RootLayout';
 import PersistentDrawerLeft from './components/Utility/Drawer';
-import TestBackend from './components/Utility/TestBackend';
 import Register from './components/Credentials/Register';
 import Login from './components/Credentials/Login';
 import Logout from './components/Credentials/Logout';
 import ForgetPassword from './components/Credentials/Forget';
-import TestBackEnd from './components/Utility/TestBackend';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect, createElement } from 'react';
-import { Theme } from '@mui/material/styles';
+import React, {FC, useState, useContext} from 'react';
 //Material ui
-import { Paper, Grid, Box } from '@mui/material';
+import { Paper, Grid} from '@mui/material';
 import SensorForm from './SensorForm';
 import Logger from './Logger';
 import Selectors from './Selectors';
@@ -57,7 +56,7 @@ const styles = {
 };
 
 
-const Dashboard: React.FC<{}> = () => {
+const Dashboard: FC<{}> = () => {
     return (
         <Grid container sx={styles.sensorForm} direction='column' alignItems='flex-start' spacing={2}>
             <Grid item xs={12} container direction='row' spacing={2}>

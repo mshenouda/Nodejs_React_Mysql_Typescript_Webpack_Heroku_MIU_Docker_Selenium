@@ -1,6 +1,5 @@
 //React libraries
-import React, { useContext, useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
+import React, { useState} from 'react';
 
 //Material ui
 import InputLabel from '@mui/material/InputLabel';

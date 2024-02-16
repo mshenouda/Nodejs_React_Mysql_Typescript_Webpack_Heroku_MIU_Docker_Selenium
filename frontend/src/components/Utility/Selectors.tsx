@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";
@@ -45,10 +45,6 @@ const styles = {
     } 
 };    
 
-type Props = {
-    disabled: boolean,
-}
-
 const Selectors: React.FC<{}> = () => { 
 
     type MyRecord = {
@@ -88,14 +84,7 @@ const Selectors: React.FC<{}> = () => {
         }
     ];
 
-
-    //Hooks
-    const [boxes, setBoxes] = useState<MyRecord[]>([]);
-    const [companies, setCompanies] = useState<MyRecord[]>([]);
-    const [sensors, setSensors] = useState<MyRecord[]>([]);
-    const [slots, handleSlots] = useState<MyRecord[]>([]);
     const { sensorFormOnOff } = useContext(SensorFormContext);
-
     const handleClick = () => {
         console.log(`sensorFormOnOff: ${sensorFormOnOff}`);
     }

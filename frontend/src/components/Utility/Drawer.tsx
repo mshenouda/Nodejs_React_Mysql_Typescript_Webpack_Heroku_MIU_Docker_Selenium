@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -23,7 +23,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import { SensorProvider } from '../../contexts/SensorFormContext';
 import Disclaimer from './Disclaimer';
 import Dashboard from './Grid';
-import TestBackend from './TestBackend';
 
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -95,7 +94,6 @@ export default function PersistentDrawerLeft() {
     const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [openInbox, setOpenInbox] = React.useState(false);
     const [program, setProgram] = useState<Program>({ dashboard: true, disclaimer: false });
 
     const handleDrawerOpen = () => setOpen(true);

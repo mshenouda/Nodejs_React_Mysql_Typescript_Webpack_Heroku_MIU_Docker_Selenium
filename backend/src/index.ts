@@ -19,7 +19,7 @@ export default class Server {
 
   private config(app): void {
     const corsOptions = {
-      origin: `https://integratedsuite-bd9c2e7e4b3b.herokuapp.com`
+      origin: `${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_PORT}`
     };
     const staticPath = path.join(__dirname, "../../../frontend/build");
     const publicPath = path.resolve(__dirname,  staticPath, "index.html");
