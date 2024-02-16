@@ -19,7 +19,7 @@ export default class Server {
 
   private config(app): void {
     const corsOptions = {
-      origin: `${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_PORT}`
+      origin: `http://${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_PORT}`
     };
     const staticPath = path.join(__dirname, "../../../frontend/build");
     const publicPath = path.resolve(__dirname,  staticPath, "index.html");
@@ -29,8 +29,10 @@ export default class Server {
         res.sendFile(publicPath);
       });
     }
-
-    app.use(cors(corsOptions));
+    
+    if (process.env.NODE_ENV !== "production") {
+      app.use(cors(corsOptions));
+    }
     app.use(bodyParser.json({ type: 'application/*+json' }))
     app.use(bodyParser.text({ type: 'text/html' }))
     app.use(express.json());
