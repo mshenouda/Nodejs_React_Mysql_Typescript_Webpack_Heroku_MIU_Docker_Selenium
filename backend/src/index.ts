@@ -26,7 +26,7 @@ export default class Server {
     const publicPath = path.resolve(__dirname,  staticPath, "index.html");
     if (process.env.NODE_ENV === "production") {
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
-      app.get("/*", (req, res) => {
+      app.get("/", (req, res) => {
         res.sendFile(publicPath);
       });
     }
