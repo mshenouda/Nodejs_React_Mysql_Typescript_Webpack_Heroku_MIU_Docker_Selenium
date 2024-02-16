@@ -11,11 +11,11 @@ const app: Application= express();
 const server: Server = new Server(app);
 //const HOST: string = process.env.REACT_APP_PUBLIC_URL;
 const HOST: string = process.env.HOST;
-
+let PORT: number;
 if (process.env.NODE_ENV === 'production')
-  const PORT: number = process.env.PORT;
+  PORT = process.env.PORT;
 else
-  const PORT: number = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
+  PORT = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
 
 
 app
