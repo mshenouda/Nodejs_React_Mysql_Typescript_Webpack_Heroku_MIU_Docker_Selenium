@@ -44,13 +44,7 @@ const Register: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    let ENDPOINT: string="";
-    if(process.env.NODE_ENV === 'production')
-      ENDPOINT=`https://${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}`;
-    else
-      ENDPOINT=`http://${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}`;
-    
-    fetch(`${ENDPOINT}/api/users/register`, {
+    fetch(`${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/register`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",

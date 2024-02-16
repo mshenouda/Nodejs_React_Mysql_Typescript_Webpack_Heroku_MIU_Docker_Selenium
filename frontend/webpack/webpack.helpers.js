@@ -12,6 +12,7 @@ function inDev() {
  * Create webpack aliases
  */
 function createWebpackAliases (aliases) {
+  console.log(process.env)
   const result = {};
   for (const name in aliases) {
     result[name] = path.join(cwd, aliases[name]);

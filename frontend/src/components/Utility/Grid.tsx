@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState, useContext} from 'react';
 //Material ui
 import { Paper, Grid} from '@mui/material';
 import SensorForm from './SensorForm';
