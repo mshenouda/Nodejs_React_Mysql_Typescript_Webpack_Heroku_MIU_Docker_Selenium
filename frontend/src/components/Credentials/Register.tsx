@@ -46,7 +46,8 @@ const Register: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    fetch(`http://${process.env.HOST}:${process.env.PORT}/api/users/register`, {
+    //fetch(`http://${process.env.HOST}:${process.env.PORT}/api/users/register`, {
+    fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/api/users/register`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
