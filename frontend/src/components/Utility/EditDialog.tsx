@@ -1,4 +1,4 @@
-import React, { useState, FC, ChangeEvent, EventHandler, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,7 +14,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
-import { TextField, Button, Container, Stack, Checkbox, Switch } from '@mui/material';
+import { TextField, Button, Container, Checkbox, Switch } from '@mui/material';
 import {useNavigate, redirect} from 'react-router-dom'; 
 
 export interface SimpleDialogProps {

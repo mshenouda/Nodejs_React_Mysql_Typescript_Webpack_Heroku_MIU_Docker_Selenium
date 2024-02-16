@@ -1,8 +1,9 @@
 //React libraries
 import React, {useState, FormEvent, ChangeEvent, FC} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
-import CssTextField from './../Common/CssTextField';
-import CssOutlinedButton from './../Common/CssOutlinedButton';
+import CssTextField from '../Common/CssTextField';
+import CssOutlinedButton from '../Common/CssOutlinedButton';
+import endPoint from '../Common/EndPoint';
 
 import {
   Avatar, CssBaseline, Grid, Box, Typography,
@@ -34,17 +35,18 @@ const styles = {
 };
 
 const Register: FC<{}> = () => {
-
+  
+  const navigate = useNavigate();
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const navigate = useNavigate();
   const [message, setMessage] = useState<string>("");
 
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users/register`, {
+  
+    fetch(`${endPoint}/api/users/register`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
@@ -102,6 +104,4 @@ const Register: FC<{}> = () => {
 
 export default Register;
 
-//<Snackbar anchorOrigin={{ vertical, horizontal }} open={true} onClose={handleClose} message="Successfully, registered" key={vertical + horizontal} />
-//<Snackbar anchorOrigin={{vertical, horizontal}} open={true} onClose={handleClose} message="Successfully, registered" key={vertical + horizontal} />
 

@@ -1,8 +1,9 @@
 
 import React, {useState, FC, ChangeEvent, FormEvent} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
-import CssTextField from './../Common/CssTextField';
-import CssOutlinedButton from './../Common/CssOutlinedButton';
+import CssTextField from '../Common/CssTextField';
+import CssOutlinedButton from '../Common/CssOutlinedButton';
+import endPoint from '../Common/EndPoint';
 
 import {
   Avatar, CssBaseline, Grid, Box, Typography, Container}
@@ -43,9 +44,8 @@ const Login: FC<{}> = () => {
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    console.log(process.env);
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_APP_SERVER_PORT}/api/users`, {
+    fetch(`${endPoint}/api/users`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",

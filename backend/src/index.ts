@@ -18,12 +18,16 @@ export default class Server {
   }
 
   private config(app): void {
-    const corsOptions = {
-      origin: `${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_PORT}`
-    };
+
     const staticPath = path.join(__dirname, "../../../frontend/build");
     const publicPath = path.resolve(__dirname,  staticPath, "index.html");
+    let corsOptions = {
+      origin: `http://${process.env.REACT_APP_PUBLIC_URL}:${process.env.REACT_PORT}`
+    };
     if (process.env.NODE_ENV === "production") {
+      corsOptions = {
+        origin: `https://${process.env.REACT_APP_PUBLIC_URL}`
+      };
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
       app.get("/", (req, res) => {
         res.sendFile(publicPath);

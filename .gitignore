@@ -8,10 +8,8 @@ node_modules
 # testing
 /coverage
 
-
-build/
-dist/
-
+build
+dist
 
 # misc
 .env

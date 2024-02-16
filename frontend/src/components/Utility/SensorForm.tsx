@@ -1,8 +1,8 @@
 //React libraries
 import React, { useState, FormEvent, ChangeEvent, useContext, FC } from 'react';
-import CssTextField from './../Common/CssTextField';
-import CssOutlinedButton from './../Common/CssOutlinedButton';
-import { SensorFormContext } from "./../../contexts/SensorFormContext";
+import CssTextField from '../Common/CssTextField';
+import CssOutlinedButton from '../Common/CssOutlinedButton';
+import { SensorFormContext } from "../../contexts/SensorFormContext";
 
 const SensorForm: FC = () => {
     const [errorBox, setErrorBox] = useState<boolean>(false);

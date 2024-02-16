@@ -11,11 +11,11 @@ if (process.env.NODE_ENV !== 'production') {
 const app: Application= express();
 const server: Server = new Server(app);
 const PORT: number = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
-const HOST: string = process.env.HOST;
+const HOST: string = process.env.REACT_APP_PUBLIC_URL;
 
 app
   .listen(PORT, HOST, ()=> {
-    console.log(`Server is running on host ${HOST} port ${PORT}.`);
+    console.log(`Server is running on HOST:${HOST} PORT:${PORT} MODE:${process.env.NODE_ENV}.`);
   })
   .on("error", (err: any) => {
     if (err.code === "EADDRINUSE") {

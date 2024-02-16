@@ -9,12 +9,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "npm i --save && cd ./frontend && npm i --only=dev && npm i --save",
-    "build": "cd ./frontend && rimraf ./build && npm run build && NODE_ENV=production&&cd ./../backend && rimraf ./build && tsc",
-    "starts": "concurrently \"cd ./backend && node ./build/server.js\"",
+    "heroku-prebuild": "npm i --save && cd ./frontend && npm i --save",
+    "build": "NODE_ENV=production&&cd ./frontend && rimraf ./build && npm run build && cd ../backend && rimraf ./build && tsc",
+    "node:build": "set NODE_ENV=production&&cd ./backend && node ./build/server.js",
     "start": "concurrently \"cd ./backend && node ./build/server.js\" \"cd ./frontend && npm run start\"",
-    "webpack-dev": "cd ./frontend && webpack serve --config ./webpack.config.dev.js --mode development",
-    "dev": "set NODE_ENV=development&&cd ./backend && tsc && node ./build/server.js"
+    "dev": "set NODE_ENV=development&&cd ./backend && tsc && nodemon ./build/server.js"
   },
   "keywords": [
     "nodejs",
@@ -34,6 +33,7 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/node": "^20.3.3",
+    "nodemon": "^3.0.3",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.3"

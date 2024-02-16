@@ -1,5 +1,5 @@
 //React libraries
-import React from 'react';
+import React, {FC} from 'react';
 import { NavLink } from "react-router-dom";
 import CssTextField from './../Common/CssTextField';
 import CssOutlinedButton from './../Common/CssOutlinedButton';
@@ -33,7 +33,7 @@ const styles = {
   },
 };
 
-const ForgetPassword: React.FC<{}> = () => {
+const ForgetPassword: FC<{}> = () => {
   
   return (
     <Container sx={styles.paper} component="main" maxWidth="xs">

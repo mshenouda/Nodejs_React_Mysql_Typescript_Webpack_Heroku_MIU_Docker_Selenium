@@ -37,9 +37,9 @@
   "scripts": {
     "start:dev": "react-scripts start",
     "clean": "rimraf ./build",
-    "webpack-dev": "webpack serve --config ./webpack.config.dev.js --mode development",
+    "dev": "npm run clean && webpack serve --config ./webpack.config.dev.js --mode development",
     "build": "react-scripts build",
-    "builds": "webpack --config ./webpack/webpack.config.prod.js --mode production",
+    "start:prod": "npm run clean && webpack --config ./webpack/webpack.config.prod.js --mode production",
     "start": "serve -s ./build"
   },
   "eslintConfig": {

@@ -1,5 +1,5 @@
 //React
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { SensorFormContext } from "../../contexts/SensorFormContext";
 //Material ui
 import Grid from "@mui/material/Grid";

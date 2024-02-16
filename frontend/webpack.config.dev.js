@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
         },
         output: {
             publicPath: '/',
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(__dirname, 'build'),
             filename: '[name].bundle.js',
         },
         module: {
@@ -28,6 +28,21 @@ module.exports = (env, argv) => {
                     use: {
                         loader: 'file-loader',
                     }
+                },
+                {
+                    test: /\.ts$/,
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'ts-loader',
+                            options: {
+                                "projectReferences": true,
+                                compilerOptions: {
+                                    noEmit: false,
+                                },
+                            },
+                        }
+                    ]
                 },
                 {
                     test:/\.(ts|js)x$/,
@@ -47,19 +62,19 @@ module.exports = (env, argv) => {
         ]},
         plugins: [ 
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname,'./public/index.html')
+                template: path.resolve(__dirname,'./public/index.html'),
+                filename: './index.html',
+                favicon: './public/favicon.ico'
             }),
             new NodePolyfillPlugin({
                 includeAliases: ['http','https','url','Buffer','process']
             }),
             new webpack.DefinePlugin({
                 'process.env.REACT_PORT': JSON.stringify(process.env.REACT_PORT),
-                'process.env.PORT': JSON.stringify(process.env.PORT),
-                'process.env.REACT_APP_HOST': JSON.stringify(process.env.REACT_APP_HOST),
+                'process.env.REACT_APP_SERVER_PORT': JSON.stringify(process.env.REACT_APP_SERVER_PORT),
+                'process.env.REACT_APP_PUBLIC_URL': JSON.stringify(process.env.REACT_APP_PUBLIC_URL),
                 'process.env.MYSQL_HOST': JSON.stringify(process.env.MYSQL_HOST),
-                'process.env.MYSQL_ROOT_PASSWORD': JSON.stringify(process.env.MYSQL_ROOT_PASSWORD),
                 'process.env.MYSQL_USER': JSON.stringify(process.env.MYSQL_USER),
-                'process.env.MYSQL_ROOT': JSON.stringify(process.env.MYSQL_ROOT),
                 'process.env.MYSQL_PORT': JSON.stringify(process.env.MYSQL_PORT),
                 'process.env.MYSQL_PASSWORD': JSON.stringify(process.env.MYSQL_PASSWORD),
                 'process.env.MYSQL_DATABASE': JSON.stringify(process.env.MYSQL_DATABASE),               
