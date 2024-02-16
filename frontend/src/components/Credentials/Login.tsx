@@ -48,8 +48,8 @@ const Login: FC<{}> = () => {
     console.log(process.env);
     e.preventDefault();
     //fetch(`http://${process.env.HOST}:${process.env.PORT}/api/users`, {
-    //fetch(`${REACT_APP_HOST}:${REACT_APP_PORT}/api/users`, {
-    fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/api/users`, {
+    fetch(`${process.env.REACT_APP_HOST}/api/users`, {
+    // fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/api/users`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
