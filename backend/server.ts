@@ -13,7 +13,7 @@ const server: Server = new Server(app);
 const HOST: string = process.env.HOST;
 let PORT: number;
 if (process.env.NODE_ENV === 'production')
-  PORT = process.env.PORT;
+  PORT = parseInt(process.env.PORT, 10);
 else
   PORT = process.env.REACT_APP_SERVER_PORT ? parseInt(process.env.REACT_APP_SERVER_PORT, 10) : 8082;
 
