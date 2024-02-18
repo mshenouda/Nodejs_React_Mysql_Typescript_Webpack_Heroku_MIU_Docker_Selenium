@@ -106,7 +106,13 @@ const HandleTutorials: FC = () => {
       fetch(`${endPoint}/api/tutorials`, {
         method: 'GET'
       })
-      .then(res => res.json())
+      .then(res => {
+        if(res.status === 201 || res.status === 200) {
+            setTimeout(() => {
+            navigate('/main');  
+         }, 1000);
+        }
+      }) 
       .then(newData => {setData((prev) => [...prev, ...newData]);})
       .catch(err => console.log(err));
     }

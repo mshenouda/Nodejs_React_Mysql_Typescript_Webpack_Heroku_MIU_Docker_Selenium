@@ -102,7 +102,6 @@ const Logger: FC<{}> = () => {
     //Fetch API
     const getData = () => {
         fetch(`${endPoint}/api/loggers`)
-        .then(res => res.json())
         .then(data => setLogs(data))
         .catch(err => console.log(err));
     };
