@@ -1,12 +1,10 @@
 import React, { useState,  ChangeEvent, FormEvent } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Typography from '@mui/material/Typography';
 import { TextField, Button, Switch } from '@mui/material';
 import {useNavigate} from 'react-router-dom'; 
 import endPoint from '../Common/EndPoint';
@@ -33,7 +31,6 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        //e.preventDefault();
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -46,12 +43,11 @@ function SimpleDialog(props: SimpleDialogProps) {
         fetch(`${endPoint}/api/tutorials`, requestOptions)
         .then(res => {
             console.log(res);
-            // if(res.status === 201 || res.status === 200) {
+            if(res.status === 201 || res.status === 200) {
                 setTimeout(() => {
-                navigate('/main');  
-             }, 1000);
-            //}
-        }) 
+                    navigate('/main');  
+                }, 1000);
+        }}) 
         .then(()=>onClose()) 
         .catch(err => console.log(err));
     };

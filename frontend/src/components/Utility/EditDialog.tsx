@@ -5,7 +5,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import Typography from '@mui/material/Typography';
 import { TextField, Button, Switch } from '@mui/material';
 import endPoint from '../Common/EndPoint';
 import {useNavigate} from 'react-router-dom';
@@ -33,7 +32,6 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        //e.preventDefault();
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -47,12 +45,11 @@ function SimpleDialog(props: SimpleDialogProps) {
         .then(res => res.json())
         .then(res => {
             console.log(res);
-            // if(res.status === 201 || res.status === 200) {
+            if(res.status === 201 || res.status === 200) {
                 setTimeout(() => {
                 navigate('/main');  
             }, 1000);
-            //}
-        }) 
+        }}) 
         .then(()=>onClose()) 
         .catch(err => console.log(err));
     };
