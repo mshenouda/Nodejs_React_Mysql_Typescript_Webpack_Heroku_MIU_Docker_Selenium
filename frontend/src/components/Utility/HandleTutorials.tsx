@@ -106,12 +106,10 @@ const HandleTutorials: FC = () => {
       fetch(`${endPoint}/api/tutorials`, {
         method: 'GET',
         headers: {
-          "Access-Control-Allow-Origin":"*",
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=UTF-8'
         },
       })
-      .then(res => res.json())
       .then(res => console.log(res))
       // .then(newData => {setData((prev) => [...prev, ...newData]);})
       .catch(err => console.log(err));
