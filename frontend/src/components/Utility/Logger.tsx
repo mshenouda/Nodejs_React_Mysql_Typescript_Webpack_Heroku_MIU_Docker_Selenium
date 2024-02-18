@@ -107,12 +107,12 @@ const Logger: FC<{}> = () => {
         .catch(err => console.log(err));
     };
     
-    useEffect(() => {
-        if (refreshInterval.value && refreshInterval.value > 0){
-            const interval = setInterval(getData, refreshInterval.value);
-            return () => clearInterval(interval);
-        }
-    }, [refreshInterval]);
+    // useEffect(() => {
+    //     if (refreshInterval.value && refreshInterval.value > 0){
+    //         const interval = setInterval(getData, refreshInterval.value);
+    //         return () => clearInterval(interval);
+    //     }
+    // }, [refreshInterval]);
 
     return (
         <Paper sx={styles.root}>
