@@ -29,7 +29,7 @@ export default class Server {
         origin: `${process.env.REACT_APP_HOST}`
       };
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
-      app.get("/", (req, res) => {
+      app.get("/*", (req, res) => {
         res.sendFile(publicPath);
       });
     }
