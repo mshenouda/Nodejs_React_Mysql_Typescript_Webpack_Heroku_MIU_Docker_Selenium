@@ -107,7 +107,7 @@ const HandleTutorials: FC = () => {
         method: 'GET'
       })
       .then(res => console.log(res))
-      .then(newData => {setData((prev) => [...prev, ...newData]);})
+      // .then(newData => {setData((prev) => [...prev, ...newData]);})
       .catch(err => console.log(err));
     }
   }
