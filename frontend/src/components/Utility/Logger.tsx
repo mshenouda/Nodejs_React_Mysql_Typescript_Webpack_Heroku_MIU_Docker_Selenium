@@ -102,17 +102,17 @@ const Logger: FC<{}> = () => {
     //Fetch API
     const getData = () => {
         fetch(`${endPoint}/api/loggers`)
-        .then(res => console.log(res))
-        // .then(data => setLogs(data))
+        .then(res => res.json())
+        .then(data => setLogs(data))
         .catch(err => console.log(err));
     };
     
-    // useEffect(() => {
-    //     if (refreshInterval.value && refreshInterval.value > 0){
-    //         const interval = setInterval(getData, refreshInterval.value);
-    //         return () => clearInterval(interval);
-    //     }
-    // }, [refreshInterval]);
+    useEffect(() => {
+        if (refreshInterval.value && refreshInterval.value > 0){
+            const interval = setInterval(getData, refreshInterval.value);
+            return () => clearInterval(interval);
+        }
+    }, [refreshInterval]);
 
     return (
         <Paper sx={styles.root}>

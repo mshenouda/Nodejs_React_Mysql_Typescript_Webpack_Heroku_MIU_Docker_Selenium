@@ -32,15 +32,14 @@ export default class Server {
     }
 
     //console.log(staticPath, publicPath, corsOptions, process.env);
-    
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ type: 'application/*+json' }));
     app.use(bodyParser.text({ type: 'text/html' }));
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: false }));
+    app.use(express.urlencoded({ extended: true }));
     app.get("/", (req, res) => {
       console.log(req, res);
       res.sendFile(publicPath);
     });
+
   }
 }

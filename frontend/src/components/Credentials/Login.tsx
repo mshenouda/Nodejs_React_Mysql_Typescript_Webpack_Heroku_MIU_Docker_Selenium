@@ -55,7 +55,6 @@ const Login: FC<{}> = () => {
       body: JSON.stringify({"password":password, "email": email}),  
     })
     .then(res => {
-       console.log(res);
        if(res.status === 201 || res.status === 200) {
         setMessage("Successfully login");
         setTimeout(() => {
