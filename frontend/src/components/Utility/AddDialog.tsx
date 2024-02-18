@@ -45,11 +45,12 @@ function SimpleDialog(props: SimpleDialogProps) {
         };
         fetch(`${endPoint}/api/tutorials`, requestOptions)
         .then(res => {
-            if(res.status === 201 || res.status === 200) {
+            console.log(res);
+            // if(res.status === 201 || res.status === 200) {
                 setTimeout(() => {
                 navigate('/main');  
              }, 1000);
-            }
+            //}
         }) 
         .then(()=>onClose()) 
         .catch(err => console.log(err));
