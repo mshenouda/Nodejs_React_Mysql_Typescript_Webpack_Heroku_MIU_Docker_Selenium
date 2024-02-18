@@ -45,7 +45,7 @@ const Login: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    fetch(`${endPoint}/api/users`, {
+    fetch(`${endPoint}api/users`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
