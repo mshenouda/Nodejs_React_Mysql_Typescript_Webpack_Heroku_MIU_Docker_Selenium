@@ -1,20 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent, FC } from 'react';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import Typography from '@mui/material/Typography';
-import { blue } from '@mui/material/colors';
-import { TextField, Button, Container, Checkbox, Switch } from '@mui/material';
+import { TextField, Button, Switch } from '@mui/material';
 import endPoint from '../Common/EndPoint';
 import {useNavigate} from 'react-router-dom';
 

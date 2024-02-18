@@ -1,11 +1,10 @@
 import React, { useState, useEffect, FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
-  Box, Table, TableHead, TableBody,
+  Box, Table, TableBody,
   TableCell, TableContainer,
   TableFooter, TablePagination, TableRow,
-  Paper, Stack,  ListItemIcon, ListItemButton,
-  ListItemText, ListItem
+  Paper, Stack,  ListItemIcon, ListItemButton, ListItem
 } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
@@ -95,12 +94,8 @@ const HandleTutorials: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [datas, setData] = useState<IData[]>([]);
-  const [openDialog, setOpenDialog] = React.useState<boolean>(false);
-
-  // useEffect (
-  //   ()=> showAll(),
-  //   []);
-  console.log(`im here`);
+  
+  useEffect (()=> showAll(), []);
   const showAll = (): void => {
     {
       fetch(`${endPoint}/api/tutorials`, {
@@ -110,8 +105,8 @@ const HandleTutorials: FC = () => {
           'Content-Type': 'application/json; charset=UTF-8'
         },
       })
-      .then(res => console.log(res))
-      // .then(newData => {setData((prev) => [...prev, ...newData]);})
+      .then(res => res.json())
+      .then(data => {setData((prev) => [...prev, ...data]);})
       .catch(err => console.log(err));
     }
   }
@@ -125,7 +120,7 @@ const HandleTutorials: FC = () => {
     .catch(err => console.log(err));
     
     setTimeout(() => {
-      setData(prev => prev.filter((el) =>el.id != id));
+      setData(prev => prev.filter((el) =>el.id !== id));
     },  500);
   }
 
