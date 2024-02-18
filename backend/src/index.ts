@@ -37,7 +37,7 @@ export default class Server {
     app.use(bodyParser.text({ type: 'text/html' }));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.get("/", (req, res) => {
+    app.get("/*", (req, res) => {
       console.log(req, res);
       res.sendFile(publicPath);
     });
