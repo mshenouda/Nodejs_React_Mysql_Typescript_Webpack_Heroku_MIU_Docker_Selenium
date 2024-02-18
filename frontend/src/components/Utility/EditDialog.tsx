@@ -15,8 +15,8 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { TextField, Button, Container, Checkbox, Switch } from '@mui/material';
-import {useNavigate} from 'react-router-dom'; 
 import endPoint from '../Common/EndPoint';
+import {useNavigate} from 'react-router-dom';
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -41,7 +41,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        //e.preventDefault();
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -51,9 +51,15 @@ function SimpleDialog(props: SimpleDialogProps) {
             },
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
-        console.log(`im here', ${endPoint}, ${id}`);
         fetch(`${endPoint}/api/tutorials/`+id, requestOptions)
-        .then(res => console.log(res))
+        .then(res => res.json())
+        .then(res => {
+            if(res.status === 201 || res.status === 200) {
+                setTimeout(() => {
+                navigate('/main');  
+             }, 1000);
+            }
+        }) 
         .then(()=>onClose()) 
         .catch(err => console.log(err));
     };

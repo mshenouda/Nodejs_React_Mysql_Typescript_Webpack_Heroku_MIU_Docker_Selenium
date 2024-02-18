@@ -13,7 +13,6 @@ if (process.env.NODE_ENV !== 'production') {
 const app = (0, express_1.default)();
 const server = new index_1.default(app);
 const HOST = process.env.REACT_APP_HOST;
-// const HOST: string = process.env.HOST;
 let PORT;
 if (process.env.NODE_ENV === 'production')
     PORT = parseInt(process.env.PORT, 10);
