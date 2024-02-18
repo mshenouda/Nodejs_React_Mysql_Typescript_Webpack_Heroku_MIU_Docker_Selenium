@@ -98,8 +98,6 @@ const EditDialog:FC<Props> = ({id}) => {
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    console.log(`this ${id}`);
-
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
