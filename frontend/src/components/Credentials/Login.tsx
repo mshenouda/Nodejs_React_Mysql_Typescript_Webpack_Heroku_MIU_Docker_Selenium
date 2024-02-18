@@ -45,7 +45,6 @@ const Login: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    // fetch(`${endPoint}api/users`, {
     console.log(endPoint);
     fetch(`${endPoint}/api/users`, {
       method: "POST",
@@ -57,6 +56,7 @@ const Login: FC<{}> = () => {
       body: JSON.stringify({"password":password, "email": email}),  
     })
     .then(res => {
+       console.log(res);
        if(res.status === 201 || res.status === 200) {
         setMessage("Successfully login");
         setTimeout(() => {
@@ -66,7 +66,6 @@ const Login: FC<{}> = () => {
     }) 
     .catch(err => console.log(err));
   } 
-
 
   return (
     <Container sx={styles.paper} component="main" maxWidth="xs">
