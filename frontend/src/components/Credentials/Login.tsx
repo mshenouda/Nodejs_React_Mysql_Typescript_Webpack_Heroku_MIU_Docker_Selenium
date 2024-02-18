@@ -47,8 +47,7 @@ const Login: FC<{}> = () => {
     e.preventDefault();
     // fetch(`${endPoint}api/users`, {
     console.log(endPoint);
-    fetch(`${endPoint}api/users`, {
-    //fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/`, {
+    fetch(`${endPoint}/api/users`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",

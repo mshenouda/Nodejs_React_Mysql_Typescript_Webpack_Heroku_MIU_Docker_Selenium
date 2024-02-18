@@ -46,7 +46,7 @@ const Register: FC<{}> = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log(endPoint)
-    fetch(`${endPoint}api/users/register`, {
+    fetch(`${endPoint}/api/users/register`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":"*",
