@@ -44,8 +44,9 @@ const Login: FC<{}> = () => {
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+    //e.preventDefault();
     // fetch(`${endPoint}api/users`, {
+    console.log(endPoint);
     fetch(`https://integratedsuite-bd9c2e7e4b3b.herokuapp.com/api/users`, {
       method: "POST",
       headers: {
