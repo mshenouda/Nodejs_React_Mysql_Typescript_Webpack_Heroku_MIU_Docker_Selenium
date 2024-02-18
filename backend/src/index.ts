@@ -13,8 +13,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default class Server {
   constructor(app: Application) {
-    this.config(app);
     new Routes(app);
+    this.config(app);
   }
 
   private config(app): void {
