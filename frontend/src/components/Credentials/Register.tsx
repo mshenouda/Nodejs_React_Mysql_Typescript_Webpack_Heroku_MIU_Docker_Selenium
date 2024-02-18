@@ -45,7 +45,7 @@ const Register: FC<{}> = () => {
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-  
+    console.log(endPoint)
     fetch(`${endPoint}/api/users/register`, {
       method: "POST",
       headers: {
