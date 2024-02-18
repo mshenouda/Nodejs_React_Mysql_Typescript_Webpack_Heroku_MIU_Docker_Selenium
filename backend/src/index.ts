@@ -26,7 +26,7 @@ export default class Server {
     };
     if (process.env.NODE_ENV === "production") {
       corsOptions = {
-        origin: `${process.env.REACT_APP_HOST}`
+        origin: `${process.env.HOST}`
       };
       app.use(express.static(staticPath, { maxAge: 30 * 60 * 60 * 24 * 1000 }));
       app.get("*", (req, res) => {
