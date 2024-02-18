@@ -97,10 +97,10 @@ const HandleTutorials: FC = () => {
   const [datas, setData] = useState<IData[]>([]);
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
 
-  useEffect (
-    ()=> showAll(),
-    []);
-
+  // useEffect (
+  //   ()=> showAll(),
+  //   []);
+  console.log(`im here`);
   const showAll = (): void => {
     {
       fetch(`${endPoint}/api/tutorials`, {
