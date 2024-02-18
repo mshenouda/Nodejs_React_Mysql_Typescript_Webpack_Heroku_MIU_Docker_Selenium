@@ -49,7 +49,13 @@ function SimpleDialog(props: SimpleDialogProps) {
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
         fetch(`${endPoint}/api/tutorials`, requestOptions)
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 201 || res.status === 200) {
+                setTimeout(() => {
+                navigate('/main');  
+             }, 1000);
+            }
+        }) 
         .then(()=>onClose()) 
         .catch(err => console.log(err));
     };
