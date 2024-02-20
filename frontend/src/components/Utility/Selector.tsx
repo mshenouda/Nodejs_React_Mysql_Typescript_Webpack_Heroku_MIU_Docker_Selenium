@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 
 //CONSTANTS
 const ITEM_HEIGHT = 200;
-const ITEM_PADDING_TOP = 20;
+const ITEM_PADDING_TOP = 10;
 const MenuProps = {
     PaperProps: {
         style: {
@@ -23,20 +23,25 @@ const styles = {
     formControl: {
         minWidth: 100,
         maxWidth: 300,
-        margin: '10px',
+        margin: '0px',
         borderColor: 'primary',
-        padding: '10px',
+        padding: '10px 10px 10px 10px',
     },
     inputLabel: {
-        height: 25,
-        fontSize: 25,
-        color: 'inherit',
-        margin: '-0px 0px 0px 10px',
+        height: 30,
+        fontSize: 20,
+        color: 'primary',
+        padding: '0px 0px 0px 0px',
+        margin: '0px 0px 0px 0px',
     },
     selected: {
         padding: '0px 0px 0px 0px',
         backgroundColor: 'primary',
         fontSize: 20,
+    },
+    img: {
+        width: '20px',
+        height: '20px'
     }
 };
 
@@ -48,22 +53,22 @@ type MyRecord = {
 type Props = {
     label: string,
     records: any
+    disabled: boolean
 };
 
-const Selector: FC<Props> = ({ label, records }) => {
+const Selector: FC<Props> = ({ label, records, disabled }) => {
     const [selected, setSelected] = useState<string>("");
     const handleChange = (e: SelectChangeEvent): void => setSelected(e.target.value);
     const upperCase = (s: string) => s.toUpperCase();
 
     return (
-        <FormControl /*disabled={!selectorDisabled}*/ fullWidth sx={styles.formControl} variant="outlined">
+        <FormControl disabled={disabled} fullWidth sx={styles.formControl} variant="outlined">
             <InputLabel sx={styles.inputLabel} id="label">{label}</InputLabel>
             <Select sx={styles.selected} value={selected} variant='outlined' MenuProps={MenuProps} onChange={handleChange}>
                 {records.map((record: any) => (record['name'] && <MenuItem key={label + record['name']} value={upperCase(record["name"])}>
-                    <img src={record["src"]} alt={record["name"]} width="30px" height="30px" />
+                    <img src={record["src"]} alt={record["name"]} style={styles.img} />
                     &nbsp;&nbsp;&nbsp; {upperCase(record["name"])} </MenuItem>))}
             </Select>
-
         </FormControl >
     );
 }
