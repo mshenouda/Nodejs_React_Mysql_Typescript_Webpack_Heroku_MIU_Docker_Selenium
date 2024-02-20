@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -25,11 +25,10 @@ import Disclaimer from './Disclaimer';
 import Dashboard from './Grid';
 
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import {useNavigate} from 'react-router-dom'; 
+import { UserNameContext } from "../../contexts/UserNameContext";
 
 const drawerWidth = 240;
-
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
 }>(({ theme, open }) => ({
@@ -95,6 +94,7 @@ export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [program, setProgram] = useState<Program>({ dashboard: true, disclaimer: false });
+    const {userName} = useContext(UserNameContext);
 
     const handleDrawerOpen = () => setOpen(true);
     const handleDrawerClose = () => setOpen(false);
@@ -120,7 +120,10 @@ export default function PersistentDrawerLeft() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Menu
+                    </Typography>
+                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}}>
+                        Hello, {userName} !
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -158,7 +161,7 @@ export default function PersistentDrawerLeft() {
                     </ListItem>
                 </List>
                 <Divider />
-                <List>
+                {/* <List>
                     {['Implemented', 'Not implemented'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
@@ -169,10 +172,12 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
                     ))}
-                </List>
+                </List> */}
                 <Divider />
-                <ListItemButton onClick={() => navigate('/logout')}>
-                    <ListItemIcon><LogoutIcon /></ListItemIcon>
+                <ListItemButton  style={{ position: "absolute", bottom: "0" }} key={"Signout"} onClick={() => navigate('/logout')}>
+                    <ListItemIcon>
+                        <LogoutIcon />
+                    </ListItemIcon>
                     <ListItemText primary={'Sign out'} />
                 </ListItemButton>
             </Drawer>

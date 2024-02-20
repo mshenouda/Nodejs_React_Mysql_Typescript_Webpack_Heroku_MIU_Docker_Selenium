@@ -4,7 +4,7 @@ import IUser from "../models/user.model";
 
 interface UserRepository {
   save(user: IUser): Promise<IUser>;
-  retrieveByEmail(searchParams: {email: string}): Promise<IUser[]>;
+  retrieveByUserName(searchParams: {userName: string}): Promise<IUser[]>;
   retrieveAll(): Promise<IUser[]>;
   retrieveById(userId: number): Promise<IUser | undefined>;
   delete(userId: number): Promise<number>;
@@ -15,8 +15,8 @@ class UserRepository implements UserRepository {
   save(user: IUser): Promise<IUser> {
     return new Promise((resolve, reject) => {
       connection.query<OkPacket>(
-        `INSERT INTO users (email, password) VALUES(?,?)`,
-        [user.email, user.password ? user.password : false],
+        `INSERT INTO users (userName, password) VALUES(?,?)`,
+        [user.userName, user.password ? user.password : false],
         (err, res) => {
           if (err) reject(err);
           else
@@ -28,12 +28,12 @@ class UserRepository implements UserRepository {
     });
   }
 
-  retrieveByEmail(searchParams: {email: string, password: string}): Promise<IUser[]> {
+  retrieveByUserName(searchParams: {userName: string, password: string}): Promise<IUser[]> {
     let query: string = `SELECT * FROM users`;
     let condition: string = "";
 
-    if (searchParams?.email)
-      condition += `LOWER(email) LIKE '%${searchParams.email}%' AND `
+    if (searchParams?.userName)
+      condition += `LOWER(userName) LIKE '%${searchParams.userName}%' AND `
 
     if (searchParams?.password)
       condition += `password LIKE '%${searchParams.password}%'`

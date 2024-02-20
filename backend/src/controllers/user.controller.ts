@@ -4,7 +4,7 @@ import userRepository from "../repositories/user.repository";
 
 export default class UserController {
   async create(req: Request, res: Response) {
-    if (!req.body.email) {
+    if (!req.body.userName) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -24,18 +24,18 @@ export default class UserController {
   }
 
   async login(req: Request, res: Response) {
-    if (!req.body.email) {
+    if (!req.body.userName) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
       return;
     }
 
-    const email: string = req.body.email;
+    const userName: string = req.body.userName;
     const password: string = req.body.password;
    
     try {
-      const savedUser = await userRepository.retrieveByEmail({email: email, password: password});
+      const savedUser = await userRepository.retrieveByUserName({userName: userName, password: password});
       res.status(201).send(savedUser);
     } catch (err) {
       res.status(500).send({

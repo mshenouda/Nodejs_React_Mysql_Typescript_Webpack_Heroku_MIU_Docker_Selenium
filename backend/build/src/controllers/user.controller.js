@@ -16,7 +16,7 @@ const user_repository_1 = __importDefault(require("../repositories/user.reposito
 class UserController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!req.body.email) {
+            if (!req.body.userName) {
                 res.status(400).send({
                     message: "Content can not be empty!"
                 });
@@ -36,16 +36,16 @@ class UserController {
     }
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!req.body.email) {
+            if (!req.body.userName) {
                 res.status(400).send({
                     message: "Content can not be empty!"
                 });
                 return;
             }
-            const email = req.body.email;
+            const userName = req.body.userName;
             const password = req.body.password;
             try {
-                const savedUser = yield user_repository_1.default.retrieveByEmail({ email: email, password: password });
+                const savedUser = yield user_repository_1.default.retrieveByUserName({ userName: userName, password: password });
                 res.status(201).send(savedUser);
             }
             catch (err) {

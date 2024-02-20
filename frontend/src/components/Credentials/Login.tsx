@@ -1,16 +1,16 @@
 
-import React, {useState, FC, ChangeEvent, FormEvent} from 'react';
+import React, {useState, useContext, FC, ChangeEvent, FormEvent} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'; 
 import CssTextField from '../Common/CssTextField';
 import CssOutlinedButton from '../Common/CssOutlinedButton';
 import endPoint from '../Common/EndPoint';
-
 import {
-  Avatar, CssBaseline, Grid, Box, Typography, Container}
-  from '@mui/material';
-
+    Avatar, CssBaseline, Grid, Box, Typography, Container
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
+import { UserNameContext } from "../../contexts/UserNameContext";
+
 
 //Styling
 const styles = {
@@ -37,14 +37,16 @@ const styles = {
 
 
 const Login: FC<{}> = () => {
-  const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
+  const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const {userName, setUserName} = useContext(UserNameContext);
+
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const handleUserName = (e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    console.log('USERNAME', userName);
     fetch(`${endPoint}/api/users`, {
       method: "POST",
       headers: {
@@ -52,9 +54,10 @@ const Login: FC<{}> = () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8'
       },
-      body: JSON.stringify({"password":password, "email": email}),  
+      body: JSON.stringify({"password":password, "userName": 'mina'}),  
     })
     .then(res => {
+       console.log(res);
        if(res.status === 201 || res.status === 200) {
         setMessage("Successfully login");
         setTimeout(() => {
@@ -76,7 +79,7 @@ const Login: FC<{}> = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <CssTextField name="email" variant="outlined" required fullWidth label="email" onChange={handleEmail} value={email} autoFocus/>
+              <CssTextField name="userName" variant="outlined" required fullWidth label="UserName" onChange={handleUserName} value={userName} autoFocus/>
             </Grid>
             <Grid item xs={12}>
               <CssTextField name="password" variant="outlined" required fullWidth label="Password" type="password" onChange={handlePassword} value={password}/>
