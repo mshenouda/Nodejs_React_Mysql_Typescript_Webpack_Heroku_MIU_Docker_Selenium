@@ -44,7 +44,9 @@ class UserRepository implements UserRepository {
     return new Promise((resolve, reject) => {
       connection.query<IUser[]>(query, (err, res) => {
         if (err) reject(err);
-        else resolve(res);
+        else{
+          resolve(res);
+        }
       });
     });
   }

@@ -27,8 +27,9 @@ class UserRepository {
             index_1.connection.query(query, (err, res) => {
                 if (err)
                     reject(err);
-                else
+                else {
                     resolve(res);
+                }
             });
         });
     }
