@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect, useContext, FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
   Box, Table, TableBody,
@@ -15,6 +15,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import endPoint from '../Common/EndPoint';
+import { SensorFormContext } from "../../contexts/SensorFormContext";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -94,9 +95,10 @@ const HandleTutorials: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [datas, setData] = useState<IData[]>([]);
-  
-  useEffect (()=> showAll(), []);
-  const showAll = (): void => {
+  const { refresh, setRefresh } = useContext(SensorFormContext);
+
+  useEffect (()=> showAll(), [refresh]);
+  const showAll = () => {
     {
       fetch(`${endPoint}/api/tutorials`, {
         method: 'GET',
@@ -106,7 +108,23 @@ const HandleTutorials: FC = () => {
         },
       })
       .then(res => res.json())
-      .then(data => {setData((prev) => [...prev, ...data]);})
+      .then(datas => { 
+        setRefresh(false);
+        setData((prevs) => {
+          if (prevs.length == 0)
+            prevs = [...prevs, ...datas];
+          else {
+            const id = prevs[prevs.length-1].id;
+            for(const data of datas) {  
+              if (data.id > id) {
+                prevs = [...prevs, data];
+              } 
+            }
+          }
+          console.log(prevs);
+          return prevs;
+        })
+      })
       .catch(err => console.log(err));
     }
   }

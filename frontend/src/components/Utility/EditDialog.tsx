@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, FC } from 'react';
+import React, { useState, useContext, ChangeEvent, FormEvent, FC } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -8,6 +8,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import { TextField, Button, Switch } from '@mui/material';
 import endPoint from '../Common/EndPoint';
 import {useNavigate} from 'react-router-dom';
+import { SensorFormContext } from "../../contexts/SensorFormContext";
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -26,12 +27,14 @@ function SimpleDialog(props: SimpleDialogProps) {
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
+    const { setRefresh } = useContext(SensorFormContext);
 
     const navigate = useNavigate();
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -44,7 +47,7 @@ function SimpleDialog(props: SimpleDialogProps) {
         fetch(`${endPoint}/api/tutorials/`+id, requestOptions)
         .then(res => res.json())
         .then(res => {
-            console.log(res);
+            setRefresh(true);
             if(res.status === 201 || res.status === 200) {
                 setTimeout(() => {
                 navigate('/main');  

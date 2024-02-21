@@ -33,12 +33,10 @@ const SensorForm: FC = () => {
         e.preventDefault();
         // loggerPost('Info', getFileDetails(), `Serials: ${record.container} ${record.sensor}`);
         if (errorBox || errorSensor) {
-            console.log(errorBox, errorSensor);
             setErrorBox(true);
             setErrorSensor(true);
         }
         else {
-            console.log('No errors');
             setSensorFormOnOff(true);
         }
         setErrorBox(false);

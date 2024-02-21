@@ -39,6 +39,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@types/react": "^18.2.57",
     "body-parser": "^1.20.2",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",

@@ -25,7 +25,6 @@ interface ILogger {
     message: string,
 }
 
-
 const styles = {
     root: {
         maxHeight: 440,
