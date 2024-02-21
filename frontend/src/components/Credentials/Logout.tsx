@@ -18,8 +18,8 @@ const styles = {
     width: 500,
     bgcolor: 'background.paper',
     border: '2px #000',
-    boxShadow: 24,
-    p: 4,
+    boxShadow: 12,
+    p: 2,
   },
   grid: {
     textAlign: 'left',
@@ -34,7 +34,7 @@ const Logout: FC<{}> = () => {
       <div>
         <Typography component="h1" variant="h5">Logout</Typography>
         <Typography component="p" variant="h6">Thank you for spending some time with us</Typography>
-        <Box sx={styles.grid} mt={8}>
+        <Box sx={styles.grid} mt={2}>
           <NavLink to="/">Login again</NavLink>
         </Box>  
       </div>

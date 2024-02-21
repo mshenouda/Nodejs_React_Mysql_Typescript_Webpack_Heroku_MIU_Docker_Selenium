@@ -18,3 +18,6 @@ CREATE TABLE IF NOT EXISTS loggers (
     level NVARCHAR(12) NOT NULL, 
     func NVARCHAR(20) NOT NULL,  
     message NVARCHAR(100) NOT NULL);
+
+use reactapp;
+ALTER TABLE Users ADD CONSTRAINT UC_User UNIQUE (userName);

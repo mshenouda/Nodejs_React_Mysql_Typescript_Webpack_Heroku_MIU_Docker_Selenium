@@ -23,7 +23,7 @@ const styles = {
     width: 500,
     bgcolor: 'background.paper',
     border: '2px #000',
-    boxShadow: 24,
+    boxShadow: 12,
     p: 4,
   },
   avatar: {

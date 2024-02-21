@@ -35,7 +35,7 @@ const styles = {
         fontSize: 20,
         fontWeight: "bold",
         color: "white",
-        backgroundColor: "#333333",
+        backgroundColor: '#031329',
         padding: '10px',
     },
     body: {

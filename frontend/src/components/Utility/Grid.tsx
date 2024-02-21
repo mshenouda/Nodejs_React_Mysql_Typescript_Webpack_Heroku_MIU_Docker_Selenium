@@ -18,7 +18,7 @@ const styles = {
     sensorForm: {
         display: 'flex',
         flexGrow: 1,
-        backgroundColor: '#333333',
+        backgroundColor: '#031329',
     },
     utility: {
         height: '900px',

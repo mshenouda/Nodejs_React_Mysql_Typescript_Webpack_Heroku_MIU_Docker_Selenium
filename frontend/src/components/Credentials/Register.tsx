@@ -21,7 +21,7 @@ const styles = {
     width: 500,
     bgcolor: 'background.paper',
     border: '2px #000',
-    boxShadow: 24,
+    boxShadow: 12,
     p: 4,
   },
   avatar: {
@@ -30,22 +30,36 @@ const styles = {
     textAlign: 'left',
     fontSize: 15,
   },
+  error: {
+    textAlign: 'left',
+    fontSize: 25,
+    color: 'red'
+  },
+  success: {
+    textAlign: 'left',
+    fontSize: 25,
+    color: 'green'
+  },
   submit: {
   },
 };
 
-const Register: FC<{}> = () => {
+type message = {
+  value: string,
+  error: boolean
+};
+
+const Register: FC = () => {
   
   const navigate = useNavigate();
   const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<message>({value: "", error:false});
+  const [userName, setUserName] = useState<string>("");
 
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const handleUserName = (e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value);
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log(endPoint)
     fetch(`${endPoint}/api/users/register`, {
       method: "POST",
       headers: {
@@ -53,15 +67,22 @@ const Register: FC<{}> = () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8'
       },
-      body: JSON.stringify({"password":password, "email": email}),  
+      body: JSON.stringify({"password":password, "userName": userName}),  
     })
     .then(res => {
-       if(res.status === 201 || res.status === 200) {
-        setMessage("Successfully created user");
+      if(res.status === 500) {
+        setMessage({value: "User already registered", error:true});
+        setTimeout(() => {
+          setMessage({value: "", error:false});
+        }, 1000);     
+      } 
+      else if (res.status === 200 || res.status === 201 ) {
+        setMessage({value:"Successfully created user", error:false});  
         setTimeout(() => {
           navigate('/');  
         }, 1000);
-      }}) 
+      }
+    })
     .catch(err => console.log(err));
   } 
 
@@ -77,7 +98,7 @@ const Register: FC<{}> = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <CssTextField name="email" variant="outlined" required fullWidth label="Email Address" onChange={handleEmail} value={email} autoFocus/>
+              <CssTextField name="userName" variant="outlined" required fullWidth label="Email Address" onChange={handleUserName} value={userName} autoFocus/>
             </Grid>
             <Grid item xs={12}>
               <CssTextField name="password" variant="outlined" required fullWidth label="Password" type="password" onChange={handlePassword} value={password}/>
@@ -91,7 +112,7 @@ const Register: FC<{}> = () => {
             <Grid item xs={4}> 
               <NavLink to='/forget'>Forget Password</NavLink>
             </Grid>
-            <h1>{message}</h1>
+            <Typography sx={{color:(message.error)?styles.error:styles.success}}>{message.value}</Typography>
           </Grid>
         </form>
       </div>
