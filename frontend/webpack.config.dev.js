@@ -17,9 +17,10 @@ module.exports = (env, argv) => {
             extensions: ['.tsx', '.ts', '.js'],
         },
         output: {
-            publicPath: '/',
-            path: path.resolve(__dirname, 'build'),
+            //publicPath: '/',
+            path: `${__dirname}/public`,
             filename: '[name].bundle.js',
+            clean: true,
         },
         module: {
             rules: [
@@ -81,9 +82,12 @@ module.exports = (env, argv) => {
             }),
         ],
         devServer: {
+            static: {
+                directory: path.join(__dirname, "public"),
+            },
             port: process.env.REACT_PORT,
             historyApiFallback: true,
-            open: true,
-        }
+        },
+        devtool: 'inline-source-map',
     }   
 }

@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm install --force
+RUN npm install
 
 COPY . .
 
 VOLUME [ "/app/node_modules" ]
 
-EXPOSE 8080
+EXPOSE 8082
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]

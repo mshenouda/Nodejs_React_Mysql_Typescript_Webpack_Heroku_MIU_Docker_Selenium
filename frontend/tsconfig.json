@@ -4,6 +4,7 @@
     "incremental": false,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "outDir": "./build/",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,5 +19,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*"]
+  "include": ["**/*.ts", "**/*.tsx", "src/.tsx"]
 }
