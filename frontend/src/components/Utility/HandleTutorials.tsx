@@ -95,7 +95,7 @@ const HandleTutorials: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [datas, setData] = useState<IData[]>([]);
-  const { refresh, setRefresh } = useContext(SensorFormContext);
+  const { refresh, setRefresh, editedData } = useContext(SensorFormContext);
 
   useEffect (()=> showAll(), [refresh]);
   const showAll = () => {
@@ -114,14 +114,16 @@ const HandleTutorials: FC = () => {
           if (prevs.length == 0)
             prevs = [...prevs, ...datas];
           else {
-            const id = prevs[prevs.length-1].id;
-            for(const data of datas) {  
-              if (data.id > id) {
-                prevs = [...prevs, data];
-              } 
+            if(datas.length > prevs.length) {
+              const data = {...datas[datas.length-1]};
+              prevs = [...prevs, data];
             }
+            // else {
+            //   const id = editedData.id;
+            //   prevs[id] = {...editedData};  
+            //   console.log(editedData);
+            // }
           }
-          console.log(prevs);
           return prevs;
         })
       })
