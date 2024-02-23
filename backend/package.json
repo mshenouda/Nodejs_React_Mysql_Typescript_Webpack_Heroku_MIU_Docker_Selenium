@@ -13,7 +13,7 @@
     "build": "NODE_ENV=production&&cd ./frontend && rimraf ./build && npm run build && cd ../backend && rimraf ./build && tsc",
     "node:build": "set NODE_ENV=production&&cd ./backend && node ./build/server.js",
     "start": "concurrently \"cd ./backend && node ./build/server.js\" \"cd ./frontend && npm run start\"",
-    "dev": "set NODE_ENV=development&&cd ./backend && tsc && nodemon ./build/server.js",
+    "dev": "set NODE_ENV=development&& nodemon ./build/server.js",
     "start:dev": "cd ./frontend && npm run dev"
   },
   "keywords": [
