@@ -10,8 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import endPoint from '../Common/EndPoint';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams , GridCellParams} from '@mui/x-data-grid';
-import log from 'loglevel';
-import remote from 'loglevel-plugin-remote';
+// import log from 'loglevel';
+// import remote from 'loglevel-plugin-remote';
 import moment from 'moment';
 import clsx from 'clsx';
 
