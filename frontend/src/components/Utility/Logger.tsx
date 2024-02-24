@@ -8,142 +8,131 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import endPoint from '../Common/EndPoint';
-
-const columns = [
-    { id: 'id', label: 'id', minWidth: 20, align: "left" },
-    { id: 'timestamp', label: 'timestamp', minWidth: 50, align: 'left' },
-    { id: 'level', label: 'level', minWidth: 50, align: 'left'},
-    { id: 'func', label: 'func', minWidth: 200, align: 'left' },
-    { id: 'message', label: 'message', minWidth: 300, align: 'left' },
-];
+import Box from '@mui/material/Box';
+import { DataGrid, GridColDef, GridValueGetterParams , GridCellParams} from '@mui/x-data-grid';
+import log from 'loglevel';
+import remote from 'loglevel-plugin-remote';
+import moment from 'moment';
+import clsx from 'clsx';
 
 interface ILogger {
-    id: number,
-    timestamp: string,
-    level: string,
-    func: string,
-    message: string,
+  id: number,
+  timestamp: string,
+  level: string,
+  func: string,
+  message: string,
 }
 
 const styles = {
-    root: {
-        maxHeight: 440,
-        overflow: 'auto',
-    },
-    header: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
-        backgroundColor: '#031329',
-        padding: '10px',
-    },
-    body: {
-        fontSize: 20,
-        fontWeight: "600",
-        color: "black"
-    },
-    severity: {
-        "& [data-value='Info']": {
-            color: 'white',
-            textTransform: "uppercase",
-            fontWeight: "bold",
-        },
-        "& [data-value='Warning']": {
-            color: 'yellow',
-            textTransform: "uppercase",
-            fontWeight: "bold",
-        },
-        "& [data-value='Error']": {
-            color: 'red',
-            textTransform: "uppercase",
-            fontWeight: "bold",
-        },
-        "& [data-value='Debug']": {
-            color: 'blue',
-            textTransform: "uppercase",
-            fontWeight: "bold",
-        },
-        children: {
-            backgroundColor: 'black',
-        }
-    }
-};
+  height: 300,
+  width: '100%',
+  '& .level.info': {
+    backgroundColor: 'rgba(16, 16, 112, 0.55)',
+    color: 'black',
+    fontWeight: '600',
+    textTransform: 'uppercase' 
+  },
+  '& .level.warn': {
+    backgroundColor: 'rgba(206, 217, 87, 0.49)',
+    color: 'black',
+    fontWeight: '600',
+    textTransform: 'uppercase' 
+  },
+  '& .level.error': {
+    backgroundColor: 'rgba(194, 35, 14, 0.49)',
+    color: 'black',
+    fontWeight: '600',
+    textTransform: 'uppercase' 
+  },
+  '& .level.debug': {
+    backgroundColor: 'rgba(14, 161, 32, 0.49)',
+    color: 'black',
+    fontWeight: '600',
+    textTransform: 'uppercase'
+  }
+}
 
-//Hooks
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'timestamp',
+    headerName: 'Timestamp',
+    width: 250,
+    valueFormatter: (params) =>moment(params.value).format("lll"), 
+  },
+  {
+    field: 'level',
+    headerName: 'Level',
+    width: 150,
+    editable: false,
+    cellClassName: (params: GridCellParams<any>) => {
+      return clsx('level', {
+        info: params.value === 'Info',
+        error: params.value === 'Error',
+        warn: params.value === 'Warn',
+        debug: params.value === 'Debug',
+      })}
+  },
+  {
+    field: 'func',
+    headerName: 'Func',
+    type: 'string',
+    width: 110,
+    editable: false,
+  },
+  {
+    field: 'message',
+    headerName: 'Message',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+  },
+];
+
 interface INumber {
     value: number;
 }
-const Logger: FC<{}> = () => {
+const Logger: FC = () => {
 
-    const [logs, setLogs] = useState<ILogger[]>([]);
+    const [rows, setRows] = useState<ILogger[]>([]);
     const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
-    
-    function formatTimeStamp(ts: string): string {
-        const formatted = new Date(ts).toLocaleString(
-            "en-US", {
-                month: "short",
-                day: "2-digit",
-                year: "numeric",
-                hour: "2-digit", 
-                minute: "2-digit", 
-                second: "2-digit",
-                dayPeriod: "long",
-        });
-        return formatted;
-    }
 
-    // const handleChangePage = (event, newPage) => setPage(newPage);
-    // const handleChangelogsPerPage = (event) => {
-    //     setlogsPerPage(+event.target.value);
-    //     setPage(0);
-    // };
-
-    //Fetch API
     const getData = () => {
         fetch(`${endPoint}/api/loggers`)
         .then(res => res.json())
-        .then(data => setLogs(data))
+        .then(data => setRows(data))
         .catch(err => console.log(err));
     };
     
-    useEffect(() => {
-        if (refreshInterval.value && refreshInterval.value > 0){
-            const interval = setInterval(getData, refreshInterval.value);
-            return () => clearInterval(interval);
-        }
-    }, [refreshInterval]);
+    // useEffect(() => {
+    //     if (refreshInterval.value && refreshInterval.value > 0){
+    //         const interval = setInterval(getData, refreshInterval.value);
+    //         return () => clearInterval(interval);
+    //     }
+    // }, [refreshInterval]);
+
+    useEffect(()=>getData(), []);
 
     return (
-        <Paper sx={styles.root}>
-            <TableContainer sx={styles.root}>
-                <Table stickyHeader size="small" aria-label="sticky table">
-                    <TableHead sx={styles.header}>
-                        <TableRow>
-                            {columns.map(column => (
-                                <TableCell variant="head"
-                                sx={styles.header} key={column.id} /*align={column.align}*/
-                                style={{ minWidth: column.minWidth }}>
-                                {column.label.toUpperCase()}</TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {logs.map(log => (
-                            <TableRow sx={styles.body} key={log.id}>
-                                <TableCell>{log.id}</TableCell>
-                                <TableCell>{formatTimeStamp(log.timestamp)}</TableCell>
-                                <TableCell variant="body" sx={styles.severity}>{log.level}</TableCell>
-                                <TableCell>{log.func}</TableCell>
-                                <TableCell>{log.message}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Paper>
-    );
+      <Box sx={{ height: 400, width: '100%' }}>
+        <DataGrid
+          sx={styles}
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
+  );
+
 };
 
 export default Logger;
-
-

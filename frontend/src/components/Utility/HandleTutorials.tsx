@@ -121,7 +121,6 @@ const HandleTutorials: FC = () => {
             else {
               for(let i=0; i<currDatas.length; ++i) {
                 if(currDatas[i].id === editedData.id) {
-                  console.log(currDatas, editedData);
                   currDatas[i] = {...editedData};
                   break;
                 }
