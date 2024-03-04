@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS reactapp;
 
-USE testapp;
+USE reactapp;
 CREATE TABLE IF NOT EXISTS tutorials (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, 
     title NVARCHAR(25) NOT NULL, 
@@ -19,5 +19,4 @@ CREATE TABLE IF NOT EXISTS loggers (
     func NVARCHAR(20) NOT NULL,  
     message NVARCHAR(100) NOT NULL);
 
-use reactapp;
 ALTER TABLE Users ADD CONSTRAINT UC_User UNIQUE (userName);
