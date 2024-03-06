@@ -94,8 +94,8 @@ interface IData {
 const HandleTutorials: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [datas, setData] = useState<IData[]>([]);
-  const { refresh, setRefresh } = useContext(SensorFormContext);
+  const [newDatas, setData] = useState<IData[]>([]);
+  const { refresh, setRefresh, editedData } = useContext(SensorFormContext);
 
   useEffect (()=> showAll(), [refresh]);
   const showAll = () => {
@@ -108,21 +108,26 @@ const HandleTutorials: FC = () => {
         },
       })
       .then(res => res.json())
-      .then(datas => { 
+      .then((newDatas: IData[]) => { 
         setRefresh(false);
-        setData((prevs) => {
-          if (prevs.length == 0)
-            prevs = [...prevs, ...datas];
+        setData((currDatas: IData[]) => {
+          if (currDatas.length == 0)
+            currDatas = [...currDatas, ...newDatas];
           else {
-            const id = prevs[prevs.length-1].id;
-            for(const data of datas) {  
-              if (data.id > id) {
-                prevs = [...prevs, data];
-              } 
+            if(newDatas.length > currDatas.length) {
+              const data: IData = {...newDatas[newDatas.length-1]};
+              currDatas = [...currDatas, data];
+            }
+            else {
+              for(let i=0; i<currDatas.length; ++i) {
+                if(currDatas[i].id === editedData.id) {
+                  currDatas[i] = {...editedData};
+                  break;
+                }
+              }
             }
           }
-          console.log(prevs);
-          return prevs;
+          return currDatas;
         })
       })
       .catch(err => console.log(err));
@@ -144,7 +149,7 @@ const HandleTutorials: FC = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - newDatas.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -178,8 +183,8 @@ const HandleTutorials: FC = () => {
           </thead>
           <TableBody>
             {(rowsPerPage > 0
-              ? datas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : datas
+              ? newDatas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : newDatas
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
@@ -192,7 +197,7 @@ const HandleTutorials: FC = () => {
                   {row.description}
                 </TableCell>
                 <TableCell style={{ width: 160 }} align="left">
-                  {row.published}
+                  {row.published ? "published": "not published"}
                 </TableCell>
                 <TableCell>
                   <Stack spacing={1} sx={{ padding: 1 }} direction="row">
@@ -217,7 +222,7 @@ const HandleTutorials: FC = () => {
               <TablePagination
                 rowsPerPageOptions={[5, 10, { label: 'All', value: -1 }]}
                 colSpan={3}
-                count={datas.length}
+                count={newDatas.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{

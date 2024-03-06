@@ -27,7 +27,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
-    const { setRefresh } = useContext(SensorFormContext);
+    const { setRefresh, setEditedData } = useContext(SensorFormContext);
 
     const navigate = useNavigate();
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
@@ -35,6 +35,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     const handlePublished = (e: ChangeEvent<HTMLInputElement>) => setPublished(e.target.checked);
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setEditedData({id: id, title: title, description: description, published: published});
         const requestOptions = {
             method: 'PUT',
             headers: {

@@ -8,7 +8,7 @@ node_modules
 # testing
 /coverage
 
-backend/build
+build
 dist
 
 # misc
