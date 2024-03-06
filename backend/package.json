@@ -14,7 +14,8 @@
     "node:build": "set NODE_ENV=production&&cd ./backend && node ./build/server.js",
     "start": "concurrently \"cd ./backend && node ./build/server.js\" \"cd ./frontend && npm run start\"",
     "dev": "set NODE_ENV=development&& nodemon ./build/server.js",
-    "start:dev": "cd ./frontend && npm run dev"
+    "start:dev": "cd ./frontend && npm run dev",
+    "docker": "rimraf ./build && tsc && nodemon ./build/server.js"
   },
   "keywords": [
     "nodejs",
@@ -48,7 +49,6 @@
     "express": "^4.18.2",
     "mini-css-extract-plugin": "^2.8.0",
     "mysql2": "^3.4.3",
-    "rimraf": "^5.0.5",
     "serve": "^14.2.1",
     "typescript": "^5.3.3",
     "webpack": "^5.90.1",

@@ -1,7 +1,7 @@
 import express, {Application} from "express";
 import bodyParser from 'body-parser';
 import cors from "cors";
-import Routes from './routes';
+import Routes from '../src/routes';
 import path from "path";
 
 const http = require("http");

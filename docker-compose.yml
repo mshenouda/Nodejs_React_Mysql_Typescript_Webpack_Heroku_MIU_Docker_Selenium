@@ -1,7 +1,38 @@
 version: "3.8"
 services: 
+  db:
+    image: mysql:8.0
+    container_name: mysqlcontainer
+    restart: unless-stopped
+    healthcheck:
+      test: mysqladmin ping -h db --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 1m30s
+      timeout: 30s
+      retries: 10
+      start_period: 30s
+    volumes:
+      - ./sql/mysql.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - ~/DEVELOPMENT_CODE/Sql:/var/lib/mysql
+    ports:
+      - 3307:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: reactapp
+      MYSQL_USER: mina
+      MYSQL_PASSWORD: Crestlove_13
+      MYSQL_ROOT_PASSWORD: myRoot
+      MYSQL_ALLOW_EMPTY_PASSWORD: ok
+      SERVICE_TAGS: dev
+      SERVICE_NAME: db
+      NODE_ENV: development
+      MYSQL_ROOT_HOST: '%'
+    networks:
+      internalnet:
+        ipv4_address: 172.20.128.2
+
   api:
-    container_name: nodeappcontainer
+    container_name: nodejscontainer
     image: nodeapp:v1
     build: 
       context: ./backend
@@ -11,43 +42,54 @@ services:
     expose:
       - 8082
     networks:
-      - internalnet
+      internalnet:
+        ipv4_address: 172.20.128.3
+     
     volumes: 
-      - ./backend:/api
-      - '/api/node_modules'
+      - ./backend:/app
+      - '/app/node_modules'
     depends_on: 
-      - mysqldb
+      db:
+        condition: service_healthy
     environment:
-      - HOST=localhost
-      - REACT_APP_HOST=localhost
-      - REACT_APP_SERVER_PORT=8082
-      - REACT_PORT=3000
-      - NODE_ENV=development
-
-  mysqldb:
-    image: mysql:8.0
-    container_name: mysqlcontainer
-    restart: unless-stopped
-    volumes:
-      - ./sql/mysql.sql:/docker-entrypoint-initdb.d/0_init.sql
-      - ~/DEVELOPMENT_CODE/Sql:/var/lib/mysql
-    ports:
-      - 3307:3306
+      HOST: 0.0.0.0
+      MYSQL_HOST: db
+      MYSQL_PASSWORD: Crestlove_13
+      MYSQL_DATABASE: reactapp
+      MYSQL_PORT: 3306
+      MYSQL_ROOT: root
+      MYSQL_ROOT_PASSWORD: myRoot
+      MYSQL_USER: mina
+      REACT_APP_HOST: 0.0.0.0
+      REACT_APP_SERVER_PORT: 8082
+      REACT_PORT: 3000
+      NODE_ENV: development
+  
+  react:
+    container_name: reactcontainer
+    image: react:v1
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
     expose:
-      - 3306
-    environment:
-      - MYSQL_HOST=localhost
-      - MYSQL_DATABASE=reactapp
-      - MYSQL_USER=mina
-      - MYSQL_PORT=3306
-      - MYSQL_PASSWORD=Crestlove_13
-      - MYSQL_ROOT_PASSWORD=myRoot
-      - SERVICE_TAGS=dev
-      - SERVICE_NAME=mysqldb
-      - NODE_ENV=development
+      - 3000
     networks:
-      - internalnet
+      internalnet:
+        ipv4_address: 172.20.128.4
+    volumes: 
+      - ./frontend:/app
+      - '/app/node_modules'
+    environment:
+      REACT_APP_HOST: 0.0.0.0
+      REACT_APP_SERVER_PORT: 8082
+      REACT_PORT: 3000
+      NODE_ENV: development
 
 networks:
   internalnet:
-    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          ip_range: 172.28.5.0/24
