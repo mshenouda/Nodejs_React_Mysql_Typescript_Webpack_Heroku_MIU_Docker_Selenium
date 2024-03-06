@@ -4,12 +4,6 @@ services:
     image: mysql:8.0
     container_name: mysqlcontainer
     restart: unless-stopped
-    # healthcheck:
-    #   test: mysqladmin ping -h db --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD
-    #   interval: 1m30s
-    #   timeout: 30s
-    #   retries: 10
-    #   start_period: 30s
     volumes:
       - ./sql/mysql.sql:/docker-entrypoint-initdb.d/0_init.sql
       - ~/DEVELOPMENT_CODE/Sql:/var/lib/mysql
@@ -48,7 +42,6 @@ services:
       - '/app/node_modules'
     depends_on: 
       - db
-      #   condition: service_healthy
     environment:
       HOST: 0.0.0.0
       MYSQL_HOST: db
@@ -57,6 +50,7 @@ services:
       MYSQL_PORT: ${MYSQL_PORT}
       MYSQL_ROOT: ${MYSQL_ROOT}
       MYSQL_USER: ${MYSQL_USER}
+      REACT_APP_HOST: ${REACT_APP_HOST} 
       REACT_APP_SERVER_PORT: ${REACT_APP_SERVER_PORT}
       REACT_PORT: ${REACT_PORT}
       NODE_ENV: development
