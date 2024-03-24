@@ -11,6 +11,7 @@ node_modules
 backend/build
 dist
 
+build
 # misc
 .env
 .DS_Store
