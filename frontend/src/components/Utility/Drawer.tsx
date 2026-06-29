@@ -25,8 +25,12 @@ import Disclaimer from './Disclaimer';
 import Dashboard from './Grid';
 
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useNavigate} from 'react-router-dom'; 
+import Switch from '@mui/material/Switch';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import {useNavigate} from 'react-router-dom';
 import { UserNameContext } from "../../contexts/UserNameContext";
+import { ColorModeContext } from "../../contexts/ColorModeContext";
 
 const drawerWidth = 240;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -95,6 +99,7 @@ export default function PersistentDrawerLeft() {
     const [open, setOpen] = React.useState(false);
     const [program, setProgram] = useState<Program>({ dashboard: true, disclaimer: false });
     const {userName} = useContext(UserNameContext);
+    const { mode, toggleColorMode } = useContext(ColorModeContext);
 
     const handleDrawerOpen = () => setOpen(true);
     const handleDrawerClose = () => setOpen(false);
@@ -125,6 +130,16 @@ export default function PersistentDrawerLeft() {
                     <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}}>
                         Hello, {userName} !
                     </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Brightness7Icon fontSize="small" sx={{ opacity: mode === 'light' ? 1 : 0.4 }} />
+                        <Switch
+                            checked={mode === 'dark'}
+                            onChange={toggleColorMode}
+                            color="default"
+                            inputProps={{ 'aria-label': 'toggle dark mode' }}
+                        />
+                        <Brightness4Icon fontSize="small" sx={{ opacity: mode === 'dark' ? 1 : 0.4 }} />
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer

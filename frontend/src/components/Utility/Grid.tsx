@@ -1,58 +1,48 @@
 import React, {FC} from 'react';
 //Material ui
 import { Paper, Grid} from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import SensorForm from './SensorForm';
 import Logger from './Logger';
 import Selectors from './Selectors';
 
+// Shared so every panel has identical padding, radius and colour — keeps all
+// corners equidistant from the page edges and from each other. Colours come
+// from the theme so they adapt to light/dark mode.
+const panelBase = (theme: Theme) => ({
+    padding: '20px',
+    borderRadius: '8px',
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    textAlign: 'justify' as const,
+    whiteSpace: 'nowrap' as const,
+});
+
 const styles = {
-    root: {
-        flexGrow: 1
-        },
-    paper: {
-        padding: 20,
-        textAlign: "center",
-        color: "blue",
-        fontFamily: "Roboto"
-    },
-    sensorForm: {
+    // Outer page area. The 8px padding equals the per-item padding produced by
+    // Grid spacing={2}, so the gap to the edges matches the gap between panels.
+    sensorForm: (theme: Theme) => ({
         display: 'flex',
         flexGrow: 1,
-        backgroundColor: '#031329',
-    },
-    utility: {
+        backgroundColor: theme.palette.background.default,
+        padding: '8px',
+    }),
+    utility: (theme: Theme) => ({
+        ...panelBase(theme),
         height: '900px',
-        padding: '10px 15px',
-        textAlign: 'justify',
-        color: 'inherit',
-        whiteSpace: 'nowrap',
-        marginBottom: '15px',
-        backgroundColor: '#FDF8F5',
-    },
-    form: {
+        width: '100%',
+    }),
+    form: (theme: Theme) => ({
+        ...panelBase(theme),
         height: '900px',
-        width: '95%',
-        padding: '10px 15px',
-        textAlign: 'justify',
-        color: '#FDF8F5',
-        whiteSpace: 'nowrap',
-        marginBottom: '15px',
-        backgroundColor: '#FDF8F5',
-    },
-    logger: {
+        width: '100%',
+    }),
+    logger: (theme: Theme) => ({
+        ...panelBase(theme),
         height: '500px',
-        width: '99%',
-        padding: '10px 10px 10px 10px',
-        textAlign: 'justify',
+        width: '100%',
         flexGrow: 1,
-        color: '#FDF8F5',
-        whiteSpace: 'nowrap',
-        marginBottom: '15px',
-        backgroundColor: '#FDF8F5',
-    },
-    divider: {
-        margin: '15px',
-    },
+    }),
 };
 
 

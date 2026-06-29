@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, FC } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
-  Box, Table, TableBody,
+  Box, Table, TableBody, TableHead,
   TableCell, TableContainer,
   TableFooter, TablePagination, TableRow,
   Paper, Stack,  ListItemIcon, ListItemButton, ListItem
@@ -173,15 +173,15 @@ const HandleTutorials: FC = () => {
       </ListItem>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <thead>
-            <tr>
-              <th align="left">ID</th>
-              <th align="left">Title</th>
-              <th align="left">Description</th>
-              <th align="left">Published</th>
-              <th align="left">Actions</th>
-            </tr>
-          </thead>
+          <TableHead>
+            <TableRow sx={(theme) => ({ backgroundColor: theme.palette.primary.main })}>
+              <TableCell sx={(theme) => ({ color: theme.palette.primary.contrastText, fontWeight: 700 })} align="left">ID</TableCell>
+              <TableCell sx={(theme) => ({ color: theme.palette.primary.contrastText, fontWeight: 700 })} align="left">Title</TableCell>
+              <TableCell sx={(theme) => ({ color: theme.palette.primary.contrastText, fontWeight: 700 })} align="left">Description</TableCell>
+              <TableCell sx={(theme) => ({ color: theme.palette.primary.contrastText, fontWeight: 700 })} align="left">Published</TableCell>
+              <TableCell sx={(theme) => ({ color: theme.palette.primary.contrastText, fontWeight: 700 })} align="left">Actions</TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
             {(rowsPerPage > 0
               ? newDatas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

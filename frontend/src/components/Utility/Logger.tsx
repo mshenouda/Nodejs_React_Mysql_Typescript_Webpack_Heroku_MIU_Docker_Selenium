@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import endPoint from '../Common/EndPoint';
+import { Theme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams , GridCellParams} from '@mui/x-data-grid';
 // import log from 'loglevel';
@@ -23,9 +24,26 @@ interface ILogger {
   message: string,
 }
 
-const styles = {
+const styles = (theme: Theme) => ({
   height: 300,
   width: '100%',
+  border: `1px solid ${theme.palette.secondary.main}`,
+  borderRadius: '8px',
+  '& .MuiDataGrid-columnHeaders': {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    borderBottom: `1px solid ${theme.palette.secondary.main}`,
+  },
+  '& .MuiDataGrid-columnHeaderTitle': {
+    fontWeight: 700,
+  },
+  '& .MuiDataGrid-columnSeparator': {
+    color: theme.palette.primary.contrastText,
+  },
+  '& .MuiDataGrid-cell': {
+    borderBottom: `1px solid ${theme.palette.secondary.main}`,
+    color: theme.palette.text.primary,
+  },
   '& .level.info': {
     backgroundColor: 'rgba(16, 16, 112, 0.55)',
     color: 'black',
@@ -50,7 +68,7 @@ const styles = {
     fontWeight: '600',
     textTransform: 'uppercase'
   }
-}
+})
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -95,7 +113,7 @@ interface INumber {
 const Logger: FC = () => {
 
     const [rows, setRows] = useState<ILogger[]>([]);
-    const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 1000 });
+    const [refreshInterval, setRefreshInterval] = useState<INumber>({ value: 5000 });
 
     const getData = () => {
         fetch(`${endPoint}/api/loggers`)
@@ -104,14 +122,13 @@ const Logger: FC = () => {
         .catch(err => console.log(err));
     };
     
-    // useEffect(() => {
-    //     if (refreshInterval.value && refreshInterval.value > 0){
-    //         const interval = setInterval(getData, refreshInterval.value);
-    //         return () => clearInterval(interval);
-    //     }
-    // }, [refreshInterval]);
-
-    useEffect(()=>getData(), []);
+    useEffect(() => {
+        getData();
+        if (refreshInterval.value && refreshInterval.value > 0){
+            const interval = setInterval(getData, refreshInterval.value);
+            return () => clearInterval(interval);
+        }
+    }, [refreshInterval]);
 
     return (
       <Box sx={{ height: 400, width: '100%' }}>
