@@ -1,4 +1,4 @@
-import React, { useState, useContext, ChangeEvent, FormEvent, FC } from 'react';
+import React, { useState, useContext, useEffect, ChangeEvent, FormEvent, FC } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -29,6 +29,25 @@ function SimpleDialog(props: SimpleDialogProps) {
     const [published, setPublished] = useState<boolean>(false);
     const { setRefresh, setEditedData } = useContext(SensorFormContext);
 
+    useEffect(() => {
+        if (!open) return;
+        fetch(`${endPoint}/api/tutorials/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+        })
+        .then(res => res.json())
+        .then((data) => {
+            if (!data || data.message) return;
+            setTitle(data.title ?? '');
+            setDescription(data.description ?? '');
+            setPublished(Boolean(data.published));
+        })
+        .catch(err => console.log(err));
+    }, [open, id]);
+
     const navigate = useNavigate();
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
     const handleDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
@@ -46,15 +65,15 @@ function SimpleDialog(props: SimpleDialogProps) {
             body: JSON.stringify({ 'title': title, "description": description, "published": published })
         };
         fetch(`${endPoint}/api/tutorials/`+id, requestOptions)
-        .then(res => res.json())
         .then(res => {
-            setRefresh(true);
             if(res.status === 201 || res.status === 200) {
+                setRefresh(true);
                 setTimeout(() => {
-                navigate('/main');  
-            }, 1000);
-        }}) 
-        .then(()=>onClose()) 
+                    navigate('/main');
+                }, 1000);
+            }
+        })
+        .then(()=>onClose())
         .catch(err => console.log(err));
     };
 

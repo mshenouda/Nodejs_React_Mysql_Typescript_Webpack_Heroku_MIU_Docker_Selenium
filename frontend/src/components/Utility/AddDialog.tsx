@@ -1,4 +1,4 @@
-import React, { useState, useContext, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useContext, useEffect, ChangeEvent, FormEvent } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -27,6 +27,14 @@ function SimpleDialog(props: SimpleDialogProps) {
     const [description, setDescription] = useState<string>('');
     const [published, setPublished] = useState<boolean>(false);
     const { setRefresh } = useContext(SensorFormContext);
+
+    useEffect(() => {
+        if (open) {
+            setTitle('');
+            setDescription('');
+            setPublished(false);
+        }
+    }, [open]);
 
     const navigate = useNavigate();
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
@@ -66,7 +74,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                     <TextField sx={{ padding: 2 }}
                         type="text"
                         color='primary'
-                        placeholder="Title"
+                        placeholder="Type title here"
                         required
                         onChange={handleTitle}
                         value={title}
@@ -75,7 +83,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                         type="text"
                         variant='outlined'
                         color='primary'
-                        placeholder="Description"
+                        placeholder="Type description here"
                         onChange={handleDescription}
                         value={description}
                         fullWidth

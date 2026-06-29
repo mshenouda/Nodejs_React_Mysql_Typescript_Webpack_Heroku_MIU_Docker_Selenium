@@ -108,8 +108,9 @@ const HandleTutorials: FC = () => {
         },
       })
       .then(res => res.json())
-      .then((newDatas: IData[]) => { 
+      .then((newDatas: IData[]) => {
         setRefresh(false);
+        if (!Array.isArray(newDatas)) return;
         setData((currDatas: IData[]) => {
           if (currDatas.length == 0)
             currDatas = [...currDatas, ...newDatas];

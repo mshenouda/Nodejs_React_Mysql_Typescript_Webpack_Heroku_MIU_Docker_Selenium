@@ -24,6 +24,12 @@ services:
       NODE_ENV: development
     networks:
       - internalnet
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
   api:
     container_name: nodejscontainer
@@ -40,8 +46,9 @@ services:
     volumes: 
       - ./backend:/app
       - '/app/node_modules'
-    depends_on: 
-      - db
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       HOST: 0.0.0.0
       MYSQL_HOST: db
